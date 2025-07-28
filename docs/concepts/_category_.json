@@ -1,0 +1,9 @@
+{
+  "label": "Concepts",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Learn how networks, nodes, policies, and routes work",
+    "slug": "/concepts"
+  }
+} 

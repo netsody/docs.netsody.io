@@ -1,0 +1,9 @@
+{
+  "label": "Get Started",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Install drasyl and connect your first devices.",
+    "slug": "/get-started"
+  }
+} 
