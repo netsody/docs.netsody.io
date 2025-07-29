@@ -54,20 +54,20 @@ If macOS warns you that the file can't be verified, open **System Preferences > 
 * Follow the steps in the installation wizard.
 * After completion, the daemon starts automatically as a background service.
 
-<div style={{ maxWidth: '550px', margin: '1rem auto' }}>
+<div style={{ maxWidth: '550px', margin: '1rem auto', textAlign: 'center' }}>
   <img
     src="/img/macos-installer.png"
     alt="Screenshot showing the welcome screen of macOS installer"
     style={{
       maxWidth: '100%',
+      width: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
-      display: 'block',
       margin: '0 auto',
       backgroundColor: '#ddd',
     }}
   />
-  <div style={{ textAlign: 'center', marginTop: '0.5rem', color: '#666' }}>
+  <div style={{ textAlign: 'center', color: '#666' }}>
     Figure 1: macOS installer welcome screen
   </div>
 </div>
@@ -84,20 +84,20 @@ On first startup, the UI may take a few seconds to connect to the daemon while i
 
 Once connected, the drasyl UI displays the public key of your device.
 
-<div style={{ maxWidth: '600px', margin: '1rem auto' }}>
+<div style={{ maxWidth: '600px', margin: '1rem auto', textAlign: 'center' }}>
   <img
     src="/img/macos-menubar.png"
     alt="macOS menu bar showing the drasyl UI application"
     style={{
       maxWidth: '100%',
+      width: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
-      display: 'block',
       margin: '0 auto',
       backgroundColor: '#ddd',
     }}
   />
-  <div style={{ textAlign: 'center', marginTop: '0.5rem', color: '#666' }}>
+  <div style={{ textAlign: 'center', color: '#666' }}>
     Figure 2: macOS menu bar showing the drasyl UI application
   </div>
 </div>
@@ -151,20 +151,20 @@ On first startup, the UI may take a few seconds to connect to the daemon while i
 
 Once connected, the drasyl UI displays the public key of your device.
 
-<div style={{ maxWidth: '600px', margin: '1rem auto' }}>
+<div style={{ maxWidth: '600px', margin: '1rem auto', textAlign: 'center' }}>
   <img
     src="/img/macos-menubar.png"
     alt="macOS menu bar showing the drasyl UI application"
     style={{
       maxWidth: '100%',
+      width: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
-      display: 'block',
       margin: '0 auto',
       backgroundColor: '#ddd',
     }}
   />
-  <div style={{ textAlign: 'center', marginTop: '0.5rem', color: '#666' }}>
+  <div style={{ textAlign: 'center', color: '#666' }}>
     Figure 2: macOS menu bar showing the drasyl UI application
   </div>
 </div>

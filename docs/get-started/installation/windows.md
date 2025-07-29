@@ -27,19 +27,19 @@ You might get warned by Microsoft Defender SmartScreen that it couldn't verify i
 * Follow the installation wizard to complete the installation.
 * After installation, the drasyl daemon runs automatically as a Windows service.
 
-<figure>
+<figure style={{ textAlign: 'center' }}>
   <img
     src="/img/windows-installer.png"
     alt="Screenshot showing the welcome screen of installer"
     style={{
       maxWidth: '550px',
+      width: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
-      display: 'block',
       margin: '1rem auto'
     }}
   />
-  <figcaption style={{ textAlign: 'center', marginTop: '0.5rem', color: '#666' }}>
+  <figcaption style={{ textAlign: 'center', color: '#666' }}>
     Figure 1: Windows installer welcome screen
   </figcaption>
 </figure>
@@ -55,19 +55,19 @@ On first startup, the UI may take a few seconds to connect to the daemon, as the
 
 Once started, the drasyl UI will display the public key of your local device.
 
-<figure>
+<figure style={{ textAlign: 'center' }}>
   <img
     src="/img/windows-systray.png"
     alt="drasyl system tray application showing device public key"
     style={{
       maxWidth: '600px',
+      width: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
-      display: 'block',
       margin: '1rem auto'
     }}
   />
-  <figcaption style={{ textAlign: 'center', marginTop: '0.5rem', color: '#666' }}>
+  <figcaption style={{ textAlign: 'center', color: '#666' }}>
     Figure 2: drasyl system tray application showing device public key
   </figcaption>
 </figure>

@@ -105,19 +105,19 @@ On first startup, the UI may take a few seconds to connect to the daemon while i
 
 Once connected, the public key of your device is displayed.
 
-<figure>
+<figure style={{ textAlign: 'center' }}>
   <img
     src="/img/linux-systray.png"
     alt="Linux system tray showing the drasyl UI application"
     style={{
       maxWidth: '600px',
+      width: '100%',
       borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
-      display: 'block',
       margin: '1rem auto'
     }}
   />
-  <figcaption style={{ textAlign: 'center', marginTop: '0.5rem', color: '#666' }}>
+  <figcaption style={{ textAlign: 'center', color: '#666' }}>
     Figure 1: Linux system tray showing the drasyl UI application
   </figcaption>
 </figure>
