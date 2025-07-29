@@ -1,6 +1,8 @@
 ---
 title: Linux
 description: Step-by-step guide for installing drasyl on Linux.
+pagination_prev: null
+pagination_next: get-started/first-network
 ---
 
 # Installing drasyl on Linux

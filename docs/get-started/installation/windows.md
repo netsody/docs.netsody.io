@@ -1,6 +1,8 @@
 ---
 title: Windows
 description: Step-by-step guide for installing drasyl on Windows.
+pagination_prev: null
+pagination_next: get-started/first-network
 ---
 
 # Installing drasyl on Windows
