@@ -29,12 +29,12 @@ import TabItem from '@theme/TabItem';
 <Tabs>
   <TabItem value="amd64" label="x86_64" default>
 
-[drasyl_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_amd64.deb)
+📦 [drasyl_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_amd64.deb)
 
   </TabItem>
   <TabItem value="arm64" label="ARM64">
 
-[drasyl_0.1.0_arm64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_arm64.deb)
+📦 [drasyl_0.1.0_arm64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_arm64.deb)
 
   </TabItem>
 </Tabs>
@@ -77,7 +77,7 @@ chmod 600 ~/.drasyl/auth.token
 <Tabs>
   <TabItem value="amd64" label="x86_64" default>
 
-[drasyl-ui_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
+📦 [drasyl-ui_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
 
   </TabItem>
 </Tabs>

@@ -13,7 +13,7 @@ We provide a Windows installer that sets up both the daemon and UI automatically
 
 ### Step 1: Download the Installer
 
-* Click the following link to download the installer: [drasyl_0.1.0_windows.exe](https://download.drasyl.org/binaries/0.1.0/windows-amd64/drasyl_0.1.0_windows.exe)
+* Click the following link to download the installer: 📦 [drasyl_0.1.0_windows.exe](https://download.drasyl.org/binaries/0.1.0/windows-amd64/drasyl_0.1.0_windows.exe)
 * The download should start automatically.
 
 :::info Windows Security Warning
