@@ -36,9 +36,9 @@ You might get warned by Microsoft Defender SmartScreen that it couldn't verify i
     style={{
       maxWidth: '550px',
       width: '100%',
-      borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
-      margin: '1rem auto'
+      margin: '1rem auto',
+      backgroundColor: 'rgba(0, 0, 0, 0.05)'
     }}
   />
   <figcaption style={{ textAlign: 'center', color: '#666' }}>
@@ -64,7 +64,6 @@ Once started, the drasyl UI will display the public key of your local device.
     style={{
       maxWidth: '600px',
       width: '100%',
-      borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
       margin: '1rem auto'
     }}

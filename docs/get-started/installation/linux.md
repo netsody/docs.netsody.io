@@ -114,7 +114,6 @@ Once connected, the public key of your device is displayed.
     style={{
       maxWidth: '600px',
       width: '100%',
-      borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
       margin: '1rem auto'
     }}

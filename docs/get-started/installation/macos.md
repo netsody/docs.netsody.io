@@ -63,7 +63,6 @@ If macOS warns you that the file can't be verified, open **System Preferences > 
     style={{
       maxWidth: '100%',
       width: '100%',
-      borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
       margin: '0 auto',
       backgroundColor: '#ddd',
@@ -93,7 +92,6 @@ Once connected, the drasyl UI displays the public key of your device.
     style={{
       maxWidth: '100%',
       width: '100%',
-      borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
       margin: '0 auto',
       backgroundColor: '#ddd',
@@ -160,7 +158,6 @@ Once connected, the drasyl UI displays the public key of your device.
     style={{
       maxWidth: '100%',
       width: '100%',
-      borderRadius: '8px',
       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.35)',
       margin: '0 auto',
       backgroundColor: '#ddd',
