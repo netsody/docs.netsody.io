@@ -32,13 +32,13 @@ import TabItem from '@theme/TabItem';
   <TabItem value="apple-silicon" label="Apple Silicon" default>
 
 Click the following link to download the Apple Silicon installer:  
-[drasyl_0.1.0_macos_arm64.pkg](https://controller.drasyl.org/releases/0.1.0/macos-arm64/drasyl_0.1.0_macos_arm64.pkg)
+[drasyl_0.1.0_macos_arm64.pkg](https://download.drasyl.org/binaries/0.1.0/macos-arm64/drasyl_0.1.0_macos_arm64.pkg)
 
   </TabItem>
   <TabItem value="intel" label="Intel">
 
 Click the following link to download the Intel installer:  
-[drasyl_0.1.0_macos_x86_64.pkg](https://controller.drasyl.org/releases/0.1.0/macos-amd64/drasyl_0.1.0_macos_x86_64.pkg)
+[drasyl_0.1.0_macos_x86_64.pkg](https://download.drasyl.org/binaries/0.1.0/macos-amd64/drasyl_0.1.0_macos_x86_64.pkg)
 
   </TabItem>
 </Tabs>
