@@ -68,7 +68,7 @@ Copy the authentication token to the current user's directory:
    
 ```
 mkdir -p ~/.drasyl
-sudo cat /etc/drasyl/auth.token > ~/.drasyl/auth.token
+su -c "cat /etc/drasyl/auth.token" > ~/.drasyl/auth.token
 chmod 600 ~/.drasyl/auth.token
 ```
 
