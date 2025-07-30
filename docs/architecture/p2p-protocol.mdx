@@ -24,7 +24,7 @@ Motivated by the goal of minimizing secure connection establishment times, we de
 Our protocol minimizes the number of sequential handshakes and merges multiple steps into a single, compact interaction. In typical cases, a secure direct tunnel can be established in **1–2 RTTs**. In parallel, a **relayed tunnel** is immediately available, enabling **0-RTT secure communication**.
 Our SDN solution benefits directly from these improvements, enabling faster network setup and reconnection after disruptions or physical network changes.
 
-We presented the details of these design principles in a [research paper](https://ieeexplore.ieee.org/abstract/document/10279326), where we demonstrated how the cryptographic handshake of TLS—the de facto standard for secure communication—can be piggybacked onto the hole punching process to minimize connection establishment time and enhance the overall security of NAT traversal.
+We presented the details of these design principles in a [research paper](https://ieeexplore.ieee.org/abstract/document/10279326), where we demonstrated how the cryptographic handshake of TLS can be piggybacked onto the hole punching process to minimize connection establishment time and enhance the overall security of NAT traversal.
 
 ## How a connection is established
 
