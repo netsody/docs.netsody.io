@@ -36,7 +36,7 @@ import TabItem from '@theme/TabItem';
   </TabItem>
   <TabItem value="arm64" label="ARM64">
 
-📦 [drasyl_0.1.0_arm64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_arm64.deb)
+📦 [drasyl_0.1.0_arm64.deb](https://download.drasyl.org/binaries/0.1.0/linux-arm64/drasyl_0.1.0_arm64.deb)
 
   </TabItem>
 </Tabs>
