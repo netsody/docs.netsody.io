@@ -24,8 +24,9 @@ drasyl is open-source, easy to use, secure, and runs on many platforms. It can o
 
 ## What’s in this documentation?
 
-- 🛠️ [**Get Started**](get-started): Install drasyl and set up your first network.
-- 📘 [**Concepts**](concepts): Learn how networks, nodes, policies, and routes work in drasyl.
+- 🚀 [**Get Started**](get-started): Install drasyl and set up your first network.
+- 📖 [**Concepts**](concepts): Learn how networks, nodes, policies, and routes work in drasyl.
+- ⚙️ [**How drasyl Works**](architecture): Understand the technical architecture and inner workings of drasyl.
 
 ## Community & Support
 

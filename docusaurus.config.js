@@ -66,11 +66,19 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Learn',
+            title: 'drasyl',
             items: [
               {
-                label: 'Get Started',
-                to: 'get-started',
+                label: 'Website',
+                href: 'https://drasyl.org',
+              },
+              {
+                label: 'Blog',
+                href: 'https://drasyl.org/blog',
+              },
+              {
+                label: 'Network Editor',
+                href: 'https://editor.drasyl.org',
               },
             ],
           },
@@ -90,10 +98,6 @@ const config = {
           {
             title: 'Community',
             items: [
-              {
-                label: 'Blog',
-                href: 'https://drasyl.org/blog',
-              },
               {
                 label: 'Discord',
                 href: 'https://discord.gg/2tcZPy7BCu',

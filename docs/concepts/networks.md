@@ -16,6 +16,8 @@ It defines:
 * How traffic should be routed to external networks.
 
 All of this is captured in a single [TOML](https://toml.io/en/) configuration file.
+This configuration is easy to create and requires no networking expertise: it simply describes the desired state of the network, and drasyl takes care of the rest.
+You can write the file manually using any text editor or use our [web-based network editor](https://editor.drasyl.org) to simplify the process.
 
 Each network is fully self-contained and isolated from others. Devices may join multiple networks at the same time.
 

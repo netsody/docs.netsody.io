@@ -1,0 +1,9 @@
+{
+  "label": "How drasyl Works",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Understand the technical architecture and inner workings of drasyl",
+    "slug": "/architecture"
+  }
+} 

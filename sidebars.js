@@ -62,6 +62,20 @@ const sidebars = {
         'concepts/routes',
       ],
     },
+    {
+      type: 'category',
+      label: 'How drasyl Works',
+      link: {
+        type: 'generated-index',
+        description: 'Understand the technical architecture and inner workings of drasyl.',
+        slug: '/architecture',
+      },
+      items: [
+        'architecture/p2p-protocol',
+        'architecture/network-management',
+        'architecture/device-daemon',
+      ],
+    },
   ],
 };
 

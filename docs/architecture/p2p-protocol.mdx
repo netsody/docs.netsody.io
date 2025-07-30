@@ -1,0 +1,51 @@
+---
+title: Peer-to-Peer Protocol
+description: The communication layer for secure device-to-device networking – anywhere
+---
+
+# The Peer-to-Peer Protocol
+
+At the core of drasyl lies a **custom-designed, lightweight peer-to-peer protocol** built to establish direct and secure connections between devices with minimal latency. Unlike conventional [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal) frameworks, it was developed from scratch to tightly integrate NAT traversal, cryptographic handshakes, and fallback mechanisms into a unified process.
+
+The protocol combines multiple NAT traversal techniques, including hole punching and relay fallback, with a compact, latency-optimized cryptographic handshake. All communication is secured using [AEGIS](https://datatracker.ietf.org/doc/draft-irtf-cfrg-aegis-aead/), a high-performance authenticated encryption algorithm that ensures strong confidentiality and integrity, even on devices without hardware acceleration.
+
+Each peer is uniquely identified by a public key, which enables location-independent communication across NATs, firewalls, and heterogeneous networks. Since peer identities and key material are known in advance, the cryptographic handshake can be accelerated.
+
+This communication layer forms the foundation of drasyl’s dynamic overlay networks. It enables any two devices to connect using the best available physical path, securely, efficiently, and without manual configuration. The protocol is implemented independently from our SDN solution and is available as open-source software (FOSS), licensed under the [MIT License](https://github.com/drasyl/drasyl-rs/blob/master/LICENSE) on GitHub: https://github.com/drasyl-rs/drasyl-p2p
+
+## Why a custom NAT traversal protocol?
+
+To understand why we chose to develop a custom protocol, it is helpful to compare it with standardized NAT traversal approaches such as [Interactive Connectivity Establishment (ICE)](https://en.wikipedia.org/wiki/Interactive_Connectivity_Establishment), as used in [WebRTC](https://en.wikipedia.org/wiki/WebRTC), provide a robust foundation for establishing direct connections between peers. ICE coordinates the use of the [STUN](https://en.wikipedia.org/wiki/STUN) and [TURN](https://en.wikipedia.org/wiki/Traversal_Using_Relays_around_NAT) protocols to discover connection candidates and traverse NATs, while relying on a separate signaling channel for coordination (which itself requires an [additional protocol](https://en.wikipedia.org/wiki/Session_Initiation_Protocol)).
+
+Each of these protocols serves a specific purpose and works reliably within its scope. However, achieving a high success rate for direct connections typically requires their combined use, along with additional protocols such as [DTLS](https://en.wikipedia.org/wiki/Datagram_Transport_Layer_Security) or [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) for securing the connection. This layered setup leads to multiple handshakes and round trips, resulting in increased connection establishment delays.
+
+Motivated by the goal of minimizing secure connection establishment times, we developed a custom NAT traversal protocol that integrates the necessary mechanisms into a single, streamlined process. Similar to the approach taken by the creators of [QUIC](https://en.wikipedia.org/wiki/QUIC), we aimed to reduce round trips, unify handshakes, and enable secure communication as early as possible.
+
+Our protocol minimizes the number of sequential handshakes and merges multiple steps into a single, compact interaction. In typical cases, a secure direct tunnel can be established in **1–2 RTTs**. In parallel, a **relayed tunnel** is immediately available, enabling **0-RTT secure communication**.
+Our SDN solution benefits directly from these improvements, enabling faster network setup and reconnection after disruptions or physical network changes.
+
+We presented the details of these design principles in a [research paper](https://ieeexplore.ieee.org/abstract/document/10279326), where we demonstrated how the cryptographic handshake of TLS—the de facto standard for secure communication—can be piggybacked onto the hole punching process to minimize connection establishment time and enhance the overall security of NAT traversal.
+
+## How a connection is established
+
+<figure style={{ textAlign: 'center' }}>
+    <img
+        src="/img/drasyl-p2p.svg"
+        alt="Node peers and super peer interaction"
+        style={{
+            maxWidth: '700px',
+            width: '100%',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
+            margin: '1rem auto'
+        }}
+    />
+    <figcaption style={{ textAlign: 'center', color: '#666' }}>
+        Figure 1: Node peers and super peer interaction
+    </figcaption>
+</figure>
+
+Devices that want to establish a connection with each other are referred to as **node peers**. To enable peer discovery and connection establishment, all node peers continuously publish their own connection information (1) to a well-known reachable **super peer**. This information includes possible ways in which a peer believes it can be reached. While the figure shows only a single super peer, drasyl in practice operates a globally distributed network of super peers to ensure high scalability and availability of this service.
+
+When a node peer A wants to connect to node peer B, it sends a connection request (2) to the super peer that is most close from its perspective. In response, the super peer provides each node peer with the connection information of the other (3), including both published data and observations the super peer may have made about the peers’ connectivity.
+
+Based on this information, both node peers attempt to reach each other directly (4) to establish a path for *direct communication*. At the same time, and even if no direct path can be established, _relayed communication_ can proceed through the closest super peer.
