@@ -15,8 +15,11 @@ This guide explains how to install drasyl on Linux. drasyl consists of two compo
 You can install either the daemon alone (headless setup) or both components.
 
 :::info Supported Distributions
-We currently provide `.deb` packages for Debian-based systems (e.g., Ubuntu). drasyl may work on other distributions as well.
-Need support for your distribution? Contact us, we're happy to help!
+We currently provide `.deb` packages for:
+* **Ubuntu 22.04 (Jammy)** and newer.
+* **Debian 12 (Bookworm)** and newer.
+
+If you need to install drasyl on older platforms, you can either [build it yourself](https://github.com/drasyl/drasyl-rs/blob/master/drasyl-sdn/README.md) or contact us for assistance.
 :::
 
 ## Installing the drasyl Daemon
