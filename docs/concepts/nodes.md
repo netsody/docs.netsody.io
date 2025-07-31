@@ -4,7 +4,7 @@ Nodes define devices that are eligible to join a drasyl network.
 
 ## Concept
 
-A drasyl node represents a physical or virtual device within a single network. Devices that join multiple drasyl networks at the same time.
+A drasyl node represents a physical or virtual device within a single network. A device may join multiple drasyl networks simultaneously.
 
 Nodes are the fundamental building blocks of a drasyl network, similar to hosts in traditional IP networks, but operate within drasyl's secure overlay. Each node entry specifies which device may join the network, how it is addressed, and how it is grouped.
 
@@ -18,7 +18,7 @@ Each node entry includes the following fields:
 
 ### `pk`
 The cryptographic public key that uniquely identifies the device allowed to join the network.
-It can be retrieved through the drasyl UI or from terminal command `drasyl status`.
+You can retrieve it from the drasyl UI or via the `drasyl status` command.
 
 ### `hostname`
 A hostname that can be used instead of the IP address to address the node.  
@@ -27,7 +27,7 @@ Nodes can be reached using either the hostname or the fully qualified domain nam
 
 :::warning Duplicate hostnames across networks
 If a device is part of multiple drasyl networks with the same hostname, the name resolution order behavior is undefined.  
-In such cases, use the IP address instead.
+In such cases, use the IP address to avoid ambiguity.
 :::
 
 ### `ip`
