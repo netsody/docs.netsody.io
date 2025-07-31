@@ -33,7 +33,7 @@ drasyl is open-source, easy to use, secure, and runs on many platforms. It can o
 Need help or want to report a bug? Reach out to us via the following channels:
 
 - [GitHub](https://github.com/drasyl/drasyl)
-- [Discord](https://discord.gg/2tcZPy7BCu)
+- [Discord](https://drasyl.org/discord)
 - [Blog](https://drasyl.org/blog)
 
 ## License

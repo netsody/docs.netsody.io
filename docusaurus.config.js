@@ -100,7 +100,7 @@ const config = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://discord.gg/2tcZPy7BCu',
+                href: 'https://drasyl.org/discord',
               },
               {
                 label: 'Mastodon',
