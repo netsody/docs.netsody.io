@@ -28,7 +28,7 @@ Choose your system architecture:
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-<Tabs>
+<Tabs groupId="architecture">
   <TabItem value="amd64" label="x86_64" default>
 
 📦 [drasyl_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_amd64.deb)
@@ -43,7 +43,7 @@ import TabItem from '@theme/TabItem';
 
 ### Step 2: Install the Package
 
-<Tabs>
+<Tabs groupId="architecture">
   <TabItem value="amd64" label="x86_64" default>
 
 ```bash
@@ -76,7 +76,7 @@ chmod 600 ~/.drasyl/auth.token
 
 ### Step 1: Download the UI Package
 
-<Tabs>
+<Tabs groupId="architecture">
   <TabItem value="amd64" label="x86_64" default>
 
 📦 [drasyl-ui_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
@@ -86,7 +86,7 @@ chmod 600 ~/.drasyl/auth.token
 
 ### Step 2: Install the Package
 
-<Tabs>
+<Tabs groupId="architecture">
   <TabItem value="amd64" label="x86_64" default>
 
    ```bash
