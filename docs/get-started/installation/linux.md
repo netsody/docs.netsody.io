@@ -35,14 +35,14 @@ import TabItem from '@theme/TabItem';
   <TabItem value="amd64" label="x86_64" default>
 
 ```bash
-sudo curl -LO https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_amd64.deb
+curl -LO https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_amd64.deb
 ```
 
   </TabItem>
   <TabItem value="arm64" label="ARM64">
 
 ```bash
-sudo curl -LO https://download.drasyl.org/binaries/0.1.0/linux-arm64/drasyl_0.1.0_arm64.deb
+curl -LO https://download.drasyl.org/binaries/0.1.0/linux-arm64/drasyl_0.1.0_arm64.deb
 ```
 
   </TabItem>
