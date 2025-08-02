@@ -4,7 +4,7 @@ slug: /
 
 # Welcome to drasyl
 
-[drasyl](https://github.com/drasyl/drasyl-rs) ([dʁazy:l]) is a lightweight, software-defined overlay networking solution built on a [fast and secure peer-to-peer protocol](https://github.com/drasyl/drasyl-rs/tree/master/drasyl-p2p).
+[drasyl](https://github.com/drasyl/drasyl-rs) ([dʁazy:l]) is a lightweight, software-defined overlay networking solution built on a [fast and secure peer-to-peer protocol](architecture/p2p-protocol.mdx).
 
 It enables you to seamlessly interconnect all your devices in your organization, team, or home, regardless of the network barriers commonly present between physical networks.
 Unlike traditional VPNs, drasyl builds direct peer-to-peer connections between all devices, creating a mesh overlay that efficiently utilizes the underlying physical network.
