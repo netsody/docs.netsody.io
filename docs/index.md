@@ -19,8 +19,8 @@ drasyl is open-source, easy to use, secure, and runs on many platforms. It can o
 
 - **Access your personal devices from anywhere**: securely reach your home desktop, NAS, or other devices without the hassle of setting up a VPN, configuring port forwarding, or maintaining DynDNS.
 - **Access restricted organizational resources from home**: gain controlled access to internal services without opening firewall ports or exposing systems to the public Internet.
-- **Link distributed teams or sites**: work securely across locations as if everyone were connected to the same local network.
 - **Create ad-hoc secure networks between peers**: instantly connect devices for collaboration in temporary setups like workshops, hackathons, or emergency response teams without altering existing infrastructure.
+- **Link distributed teams or sites**: work securely across locations as if everyone were connected to the same local network.
 
 ## What’s in this documentation?
 
