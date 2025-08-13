@@ -59,7 +59,7 @@ The device should now join the network and create a corresponding network interf
 
 If you prefer to use Docker Compose, you can find an example below that you can adapt to your preferences:
 
-```yaml
+```yaml title="docker-compose.yml"
 version: '3.8'
 services:
   drasyl:
@@ -79,7 +79,7 @@ volumes:
       name: drasyl
 ```
 
-## Share drasyl Network with Other Docker Containers
+## Share drasyl Network to Other Docker Containers
 
 In this approach, the drasyl daemon runs inside a Docker container with its own dedicated network namespace. Other containers can join this namespace to access the drasyl network directly.
 
@@ -128,7 +128,7 @@ With this setup, other drasyl devices can reach the nginx service running in the
 
 ### Docker Compose
 
-```yaml
+```yaml title="docker-compose.yml"
 version: '3.8'
 services:
   drasyl:
