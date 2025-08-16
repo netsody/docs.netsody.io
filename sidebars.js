@@ -77,6 +77,11 @@ const sidebars = {
         'architecture/device-daemon',
       ],
     },
+    {
+      type: 'doc',
+      id: 'self-hosting',
+      label: 'Self-Hosting',
+    },
   ],
 };
 
