@@ -74,7 +74,7 @@ const sidebars = {
       items: [
         'architecture/p2p-protocol',
         'architecture/network-management',
-        'architecture/device-daemon',
+        'architecture/agent',
       ],
     },
     {

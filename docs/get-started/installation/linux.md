@@ -9,10 +9,10 @@ pagination_next: get-started/first-network
 
 This guide explains how to install drasyl on Linux. drasyl consists of two components:
 
-* **drasyl daemon**: background service
-* **drasyl UI**: desktop application to manage the daemon
+* **drasyl agent**: background service
+* **drasyl UI**: desktop application to manage the agent
 
-You can install either the daemon alone (headless setup) or both components.
+You can install either the agent alone (headless setup) or both components.
 
 :::info Supported Distributions
 We currently provide `.deb` packages for:
@@ -22,9 +22,9 @@ We currently provide `.deb` packages for:
 If you need to install drasyl on older platforms, you can either [build it yourself](https://github.com/drasyl/drasyl-rs/blob/master/drasyl-sdn/README.md) or contact us for assistance.
 :::
 
-## Installing the drasyl Daemon
+## Installing the drasyl Agent
 
-### Step 1: Download the Daemon Package
+### Step 1: Download the Agent Package
 
 Choose your system architecture:
 
@@ -67,7 +67,7 @@ sudo dpkg -i drasyl_0.1.0_arm64.deb
   </TabItem>
 </Tabs>
 
-After this, the daemon runs as a background service.
+After this, the agent runs as a background service.
 
 ### Step 3: Configure authentication
 
@@ -109,7 +109,7 @@ chmod 600 ~/.drasyl/auth.token
 * The UI icon will appear in your system tray.
 
 :::info First Startup Delay
-On first startup, the UI may take a few seconds to connect to the daemon while it completes the proof-of-work process.
+On first startup, the UI may take a few seconds to connect to the agent while it completes the proof-of-work process.
 :::
 
 Once connected, the public key of your device is displayed.

@@ -9,8 +9,8 @@ pagination_next: get-started/first-network
 
 This guide walks you through installing drasyl on macOS. drasyl consists of two main components:
 
-* **drasyl daemon**: runs as a background service
-* **drasyl UI**: menu bar application to manage the daemon
+* **drasyl agent**: runs as a background service
+* **drasyl UI**: menu bar application to manage the agent
 
 ## Installation Methods
 
@@ -21,7 +21,7 @@ We provide two installation methods:
 
 ### Method 1: macOS Package Installer (Recommended)
 
-The simplest way to install drasyl is via the provided `.pkg` installer, which sets up both the daemon and UI automatically.
+The simplest way to install drasyl is via the provided `.pkg` installer, which sets up both the agent and UI automatically.
 
 #### Step 1: Download the Installer
 
@@ -54,7 +54,7 @@ If macOS warns you that the file can't be verified, open **System Preferences > 
 * Open the `.pkg` file from your Downloads folder or browser.
 * macOS will ask you to confirm that you want to install the software. Click **"Allow"**.
 * Follow the steps in the installation wizard.
-* After completion, the daemon starts automatically as a background service.
+* After completion, the agent starts automatically as a background service.
 
 <div style={{ maxWidth: '550px', margin: '1rem auto', textAlign: 'center' }}>
   <img
@@ -80,7 +80,7 @@ If macOS warns you that the file can't be verified, open **System Preferences > 
 * If you don’t see it, check the overflow area of the menu bar.
 
 :::info First Startup Delay
-On first startup, the UI may take a few seconds to connect to the daemon while it completes the proof-of-work process to generate your device identity.
+On first startup, the UI may take a few seconds to connect to the agent while it completes the proof-of-work process to generate your device identity.
 :::
 
 Once connected, the drasyl UI displays the public key of your device.
@@ -111,7 +111,7 @@ Alternatively, run `drasyl status` in your terminal to display it.
 
 If you prefer managing software via [Homebrew](https://brew.sh/), you can install drasyl from the terminal.
 
-#### Step 1: Install the drasyl Daemon
+#### Step 1: Install the drasyl Agent
 
 ```bash
 brew install drasyl/tap/drasyl
@@ -128,12 +128,12 @@ To use drasyl you must copy it into your home directory:
   chmod 600 ~/.drasyl/auth.token
 ```
 
-Start the daemon:
+Start the agent:
 ```bash
 sudo brew services start drasyl/tap/drasyl
 ```
 
-This ensures that the drasyl daemon starts automatically with macOS.
+This ensures that the drasyl agent starts automatically with macOS.
 
 #### Step 2: Install and start the UI
 
@@ -146,7 +146,7 @@ brew install drasyl/tap/drasyl-ui
 * If you don’t see it, check the overflow area of the menu bar.
 
 :::info First Startup Delay
-On first startup, the UI may take a few seconds to connect to the daemon while it completes the proof-of-work process to generate your device identity.
+On first startup, the UI may take a few seconds to connect to the agent while it completes the proof-of-work process to generate your device identity.
 :::
 
 Once connected, the drasyl UI displays the public key of your device.

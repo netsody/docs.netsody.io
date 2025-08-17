@@ -127,7 +127,7 @@ You can operate multiple super peers to increase availability and reduce latency
 
 ## Configure drasyl to use your super peer(s)
 
-To use your own super peer(s), configure the `DRASYL_SUPER_PEERS` environment variable when starting the drasyl daemon:
+To use your own super peer(s), configure the `DRASYL_SUPER_PEERS` environment variable when starting the drasyl agent:
 
 ```bash
 DRASYL_NETWORK_ID=1234567890

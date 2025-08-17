@@ -10,12 +10,12 @@ pagination_next: get-started/first-network
 This guide explains how to run drasyl within Docker. You can either make the drasyl network available to the Docker host or to other containers.
 
 :::info Linux-only Support
-The drasyl daemon requires a TUN device to process network packets at the IP level. TUN device functionality within Docker is only reliably supported on Linux hosts.
+The drasyl agent requires a TUN device to process network packets at the IP level. TUN device functionality within Docker is only reliably supported on Linux hosts.
 :::
 
 ## Make drasyl Network Available to Docker Host
 
-In this approach, the drasyl daemon runs inside a Docker container that is attached to the host's network stack. By using the host's network namespace, the container can create and manage a TUN interface that appears directly on the Docker host. This allows the host system to access the drasyl network.
+In this approach, the drasyl agent runs inside a Docker container that is attached to the host's network stack. By using the host's network namespace, the container can create and manage a TUN interface that appears directly on the Docker host. This allows the host system to access the drasyl network.
 
 ### Step 1: Start the Docker container
 
@@ -81,7 +81,7 @@ volumes:
 
 ## Share drasyl Network to Other Docker Containers
 
-In this approach, the drasyl daemon runs inside a Docker container with its own dedicated network namespace. Other containers can join this namespace to access the drasyl network directly.
+In this approach, the drasyl agent runs inside a Docker container with its own dedicated network namespace. Other containers can join this namespace to access the drasyl network directly.
 
 ### Step 1: Start the Docker container
 

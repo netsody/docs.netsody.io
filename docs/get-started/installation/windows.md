@@ -7,11 +7,11 @@ pagination_next: get-started/first-network
 
 # Installing drasyl on Windows
 
-This guide explains how to install and run drasyl on Windows, including the background service (daemon) and the system tray UI.
+This guide explains how to install and run drasyl on Windows, including the background service (agent) and the system tray UI.
 
 ## Step-by-Step Installation
 
-We provide a Windows installer that sets up both the daemon and UI automatically.
+We provide a Windows installer that sets up both the agent and UI automatically.
 
 ### Step 1: Download the Installer
 
@@ -27,7 +27,7 @@ You might get warned by Microsoft Defender SmartScreen that it couldn't verify i
 * Open the file directly from your browser, or locate it in your Downloads folder and double-click the installer.
 * User Account Control might ask to allow the app to make changes to your device. Click **"Yes"**.
 * Follow the installation wizard to complete the installation.
-* After installation, the drasyl daemon runs automatically as a Windows service.
+* After installation, the drasyl agent runs automatically as a Windows service.
 
 <figure style={{ textAlign: 'center' }}>
   <img
@@ -52,7 +52,7 @@ You might get warned by Microsoft Defender SmartScreen that it couldn't verify i
 * The drasyl UI runs in the system tray (bottom-right corner). If it’s not immediately visible, click the arrow to show hidden icons.
 
 :::info First Startup Delay
-On first startup, the UI may take a few seconds to connect to the daemon, as the daemon completes the proof-of-work process to generate your device identity.
+On first startup, the UI may take a few seconds to connect to the agent, as the agent completes the proof-of-work process to generate your device identity.
 :::
 
 Once started, the drasyl UI will display the public key of your local device.
