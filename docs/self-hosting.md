@@ -66,8 +66,6 @@ chmod 700 /etc/drasyl-sp
 
 ### Step 5: Create service
 
-Each super peer must be assigned a `DRASYL_NETWORK_ID`, which identifies the P2P network it belongs to. All super peers intended to operate within the same drasyl P2P network must use the same `DRASYL_NETWORK_ID` value.
-
 ```bash
 cat > /etc/systemd/system/drasyl-sp.service <<EOF
 [Unit]
@@ -79,7 +77,6 @@ User=drasyl-sp
 Group=drasyl-sp
 Type=simple
 AmbientCapabilities=CAP_NET_BIND_SERVICE
-Environment=DRASYL_NETWORK_ID=1234567890
 Environment=DRASYL_IDENTITY_FILE=/etc/drasyl-sp/drasyl-sp.identity
 Environment=DRASYL_TCP4_LISTEN=
 Environment=DRASYL_TCP6_LISTEN=[::]:443
@@ -111,8 +108,8 @@ You should see logs like:
 ```
 Aug 16 10:10:05 sp drasyl-sp[1567]: Identity file '/etc/drasyl-sp/drasyl-sp.identity' not found. Generate new one...
 Aug 16 10:10:22 sp drasyl-sp[1567]: Super peer listening on:
-Aug 16 10:10:22 sp drasyl-sp[1567]:   udp://37.27.1.207:22527?publicKey=...&networkId=1234567890&tcpPort=443
-Aug 16 10:10:22 sp drasyl-sp[1567]:   udp://[2a01:4f9:c013:422e::1]:22527?publicKey=...&networkId=1234567890&tcpPort=443
+Aug 16 10:10:22 sp drasyl-sp[1567]:   udp://192.0.2.1:22527?publicKey=...&networkId=1234567890&tcpPort=443
+Aug 16 10:10:22 sp drasyl-sp[1567]:   udp://[2001:db8::1]:22527?publicKey=...&networkId=1234567890&tcpPort=443
 ```
 
 The URLs listed above must be configured in your drasyl nodes (see configuration section below). For production use, it's recommended to configure a domain name with A/AAAA records pointing to your server instead of using the raw IP addresses directly.
@@ -127,11 +124,11 @@ You can operate multiple super peers to increase availability and reduce latency
 
 ## Configure drasyl to use your super peer(s)
 
-To use your own super peer(s), configure the `DRASYL_SUPER_PEERS` environment variable when starting the drasyl agent:
+To use your own super peer(s), add a `super_peers` setting in the `config.toml` file of your drasyl agent:
 
-```bash
-DRASYL_NETWORK_ID=1234567890
-DRASYL_SUPER_PEERS="udp://<your-ip>:22527?publicKey=<your-public-key>&networkId=1234567890&tcpPort=443"
+```toml title="config.toml"
+super_peers = [
+    "udp://192.0.2.1:22527?publicKey=<your-public-key>&networkId=1234567890&tcpPort=443",
+    "udp://198.51.100.1:22527?publicKey=<your-public-key>&networkId=1234567890&tcpPort=443"
+]
 ```
-
-Multiple super peers can be provided by separating them with commas.
