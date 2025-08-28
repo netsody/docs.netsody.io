@@ -46,7 +46,7 @@ Click the following link to download the Intel installer:
 </Tabs>
 
 :::info macOS Security Warning
-If macOS warns you that the file can't be verified, open **System Preferences > Security & Privacy**, scroll down, and click **"Open Anyway"**.
+If macOS warns you that the file can't be verified, open **System Settings > Privacy & Security**, scroll down, and click **"Open Anyway"**.
 :::
 
 #### Step 2: Run the Installer
