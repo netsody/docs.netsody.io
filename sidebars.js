@@ -43,6 +43,7 @@ const sidebars = {
             'get-started/installation/macos',
             'get-started/installation/linux',
             'get-started/installation/docker',
+            'get-started/installation/ios',
           ],
         },
         'get-started/first-network',
