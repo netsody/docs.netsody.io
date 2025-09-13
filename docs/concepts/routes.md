@@ -56,7 +56,7 @@ Set the correct interface names (adjust to your system):
 
 ```sh
 PHY_IFACE=eth0
-DRASYL_IFACE=drasyl230whb89k
+DRASYL_IFACE=drasyl
 ```
 
 The name of the drasyl interface can be retrieved using the drasyl UI or the terminal by running `drasyl status`:
