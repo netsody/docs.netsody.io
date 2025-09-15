@@ -31,7 +31,6 @@ Custom routes defined for additional networks will be ignored. This is because A
 This is because Android always attempts to route private DNS traffic through the active VPN and does not allow us to add additional DNS servers nor DNS entries.
 Therefore, you need to ensure your private DNS provider is reachable through the drasyl network, otherwise it will be displayed as _“Couldn’t connect”_ in your settings app and classic DNS will be used.
 For best compatbility, we suggest setting Private DNS to _“Automatic”_.
-We suggest to change your setting to "Automatic".
 We are planning to support DNS-over-TLS servers within drasyl as upstream resolvers in the future. Let us know if you’re interested 🤙.
 
 ## Stay Updated
