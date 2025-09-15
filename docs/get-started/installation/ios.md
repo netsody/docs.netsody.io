@@ -28,7 +28,7 @@ drasyl for iOS and iPadOS is currently in internal testing. The app will soon al
   </figcaption>
 </figure>
 
-The mobile app will provide the same core functionality as the desktop agents. The app will be implemented as a VPN service that supports split tunneling. This means you can run the VPN continuously in the background while your regular network traffic remains unaffected, and you'll be simultaneously connected to the drasyl network.
+The mobile app will provide the same core functionality as the desktop agents. The app will be implemented as a VPN service that supports [split tunneling](https://en.wikipedia.org/wiki/Split_tunneling). This means you can run the VPN continuously in the background while your regular network traffic remains unaffected, and you'll be simultaneously connected to the drasyl network.
 
 ## Availability
 
@@ -49,5 +49,5 @@ To be notified about the availability of the iOS/iPadOS app, you can:
 
 - Follow the [drasyl blog](https://drasyl.org/blog)
 - Join our [Discord server](https://drasyl.org/discord)
-- Follow us on [Mastodon](https://twitter.com/drasyl_org)
-- Watch the [GitHub repository](https://mastodon.world/@drasyl)
+- Follow us on [Mastodon](https://mastodon.world/@drasyl)
+- Watch the [GitHub repository](https://github.com/drasyl/drasyl-rs)
