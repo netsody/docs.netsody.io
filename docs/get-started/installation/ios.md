@@ -38,6 +38,11 @@ The drasyl iOS/iPadOS app will be released in the following phases:
 2. **TestFlight** - Public beta via Apple TestFlight
 3. **App Store** - Full release on the Apple App Store
 
+## Platform Limitations
+
+- **Custom Routes**: Due to restrictions of the [Packet tunnel provider](https://developer.apple.com/documentation/networkextension/packet-tunnel-provider), [custom routes](../../concepts/routes.md) are only supported for the first enabled network. 
+Custom routes defined for additional networks will be ignored. This is because iOS/iPadOS does not allow specifying a gateway for custom routes, which causes the system to always use the first IP address of the network interface as the source address. If this address does not belong to the actual drasyl network associated with the route, packet delivery fails. This limitation only applies to custom routes. Direct communication with other drasyl nodes works as expected, regardless of the drasyl network they belong to. To use custom routes from different networks, ensure that only the currently needed network is enabled. Alternatively, installing the drasyl agent directly on the target device allows direct communication via the overlay IP, bypassing this limitation.
+
 ## Stay Updated
 
 To be notified about the availability of the iOS/iPadOS app, you can:
