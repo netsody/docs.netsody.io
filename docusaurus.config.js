@@ -56,7 +56,7 @@ const config = {
         },
         items: [
           {
-            href: 'https://github.com/drasyl/drasyl-rs',
+            href: 'https://github.com/netsody/netsody',
             position: 'right',
             className: 'header-github-link',
           },
@@ -78,7 +78,7 @@ const config = {
               },
               {
                 label: 'Network Editor',
-                href: 'https://editor.drasyl.org',
+                href: 'https://editor.netsody.io',
               },
             ],
           },
@@ -87,7 +87,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/drasyl/drasyl-rs/',
+                href: 'https://github.com/netsody/netsody/',
               },
               {
                 label: 'Docker',
@@ -104,7 +104,7 @@ const config = {
               },
               {
                 label: 'Mastodon',
-                href: 'https://mastodon.world/@drasyl',
+                href: 'https://mastodon.world/@netsody',
               },
             ],
           },
@@ -113,11 +113,11 @@ const config = {
             items: [
               {
                 label: 'Changelog',
-                href: 'https://github.com/drasyl/drasyl-rs/blob/master/CHANGELOG.md',
+                href: 'https://github.com/netsody/netsody/blob/master/CHANGELOG.md',
               },
               {
                 label: 'Contributing',
-                href: 'https://github.com/drasyl/drasyl-rs/blob/master/CONTRIBUTING.md',
+                href: 'https://github.com/netsody/netsody/blob/master/CONTRIBUTING.md',
               },
               {
                 label: 'Statuspage',

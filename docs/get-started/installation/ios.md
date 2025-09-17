@@ -48,5 +48,5 @@ To be notified about the availability of the iOS/iPadOS app, you can:
 
 - Follow the [Netsody Blog](https://netsody.io/blog)
 - Join our [Discord Server](https://netsody.io/discord)
-- Follow us on [Mastodon](https://mastodon.world/@drasyl)
-- Watch the [GitHub Repository](https://github.com/drasyl/drasyl-rs)
+- Follow us on [Mastodon](https://mastodon.world/@netsody)
+- Watch the [GitHub Repository](https://github.com/netsody/netsody)

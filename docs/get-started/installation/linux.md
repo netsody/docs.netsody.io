@@ -19,7 +19,7 @@ We currently provide `.deb` packages for:
 * **Ubuntu 22.04 (Jammy)** and newer.
 * **Debian 12 (Bookworm)** and newer.
 
-If you need to install Netsody on older platforms, you can either [build it yourself](https://github.com/drasyl/drasyl-rs/blob/master/drasyl-agent/README.md) or contact us for assistance.
+If you need to install Netsody on older platforms, you can either [build it yourself](https://github.com/netsody/netsody/blob/master/drasyl-agent/README.md) or contact us for assistance.
 :::
 
 ## Installing the Netsody Agent
