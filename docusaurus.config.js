@@ -104,7 +104,7 @@ const config = {
               },
               {
                 label: 'Mastodon',
-                href: 'https://mastodon.world/@netsody',
+                href: 'https://mastodon.world/@drasyl',
               },
             ],
           },
