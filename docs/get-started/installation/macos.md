@@ -1,16 +1,16 @@
 ---
 title: macOS
-description: Step-by-step guide for installing drasyl on macOS.
+description: Step-by-step guide for installing Netsody on macOS.
 pagination_prev: null
 pagination_next: get-started/first-network
 ---
 
-# Installing drasyl on macOS
+# Installing Netsody on macOS
 
-This guide walks you through installing drasyl on macOS. drasyl consists of two main components:
+This guide walks you through installing Netsody on macOS. Netsody consists of two main components:
 
-* **drasyl agent**: runs as a background service
-* **drasyl UI**: menu bar application to manage the agent
+* **Netsody agent**: runs as a background service
+* **Netsody UI**: menu bar application to manage the agent
 
 ## Installation Methods
 
@@ -21,7 +21,7 @@ We provide two installation methods:
 
 ### Method 1: macOS Package Installer (Recommended)
 
-The simplest way to install drasyl is via the provided `.pkg` installer, which sets up both the agent and UI automatically.
+The simplest way to install Netsody is via the provided `.pkg` installer, which sets up both the agent and UI automatically.
 
 #### Step 1: Download the Installer
 
@@ -34,13 +34,13 @@ import TabItem from '@theme/TabItem';
   <TabItem value="apple-silicon" label="Apple Silicon" default>
 
 Click the following link to download the Apple Silicon installer:
-📦 [drasyl_0.1.0_macos_arm64.pkg](https://download.drasyl.org/binaries/0.1.0/macos-arm64/drasyl_0.1.0_macos_arm64.pkg)
+📦 [netsody_0.1.0_macos_arm64.pkg](https://download.netsody.io/binaries/0.1.0/macos-arm64/netsody_0.1.0_macos_arm64.pkg)
 
   </TabItem>
   <TabItem value="intel" label="Intel">
 
 Click the following link to download the Intel installer:
-📦 [drasyl_0.1.0_macos_x86_64.pkg](https://download.drasyl.org/binaries/0.1.0/macos-amd64/drasyl_0.1.0_macos_x86_64.pkg)
+📦 [netsody_0.1.0_macos_x86_64.pkg](https://download.netsody.io/binaries/0.1.0/macos-amd64/netsody_0.1.0_macos_x86_64.pkg)
 
   </TabItem>
 </Tabs>
@@ -73,9 +73,9 @@ If macOS warns you that the file can't be verified, open **System Settings > Pri
   </div>
 </div>
 
-#### Step 3: Start the drasyl UI
+#### Step 3: Start the Netsody UI
 
-* Open Spotlight (`Cmd + Space`), search for **"drasyl UI"**, and launch it.
+* Open Spotlight (`Cmd + Space`), search for **"Netsody UI"**, and launch it.
 * The UI will appear as an icon in your **menu bar** (top-right corner).
 * If you don’t see it, check the overflow area of the menu bar.
 
@@ -83,12 +83,12 @@ If macOS warns you that the file can't be verified, open **System Settings > Pri
 On first startup, the UI may take a few seconds to connect to the agent while it completes the proof-of-work process to generate your device identity.
 :::
 
-Once connected, the drasyl UI displays the public key of your device.
+Once connected, the Netsody UI displays the public key of your device.
 
 <div style={{ maxWidth: '600px', margin: '1rem auto', textAlign: 'center' }}>
   <img
     src="/img/macos-menubar.png"
-    alt="macOS menu bar showing the drasyl UI application"
+    alt="macOS menu bar showing the Netsody UI application"
     style={{
       maxWidth: '100%',
       width: '100%',
@@ -98,50 +98,50 @@ Once connected, the drasyl UI displays the public key of your device.
     }}
   />
   <div style={{ textAlign: 'center', color: '#666' }}>
-    Figure 2: macOS menu bar showing the drasyl UI application
+    Figure 2: macOS menu bar showing the Netsody UI application
   </div>
 </div>
 
 :::tip Copy Public Key
-You can copy your public key by clicking on it in the drasyl UI.
-Alternatively, run `drasyl status` in your terminal to display it.
+You can copy your public key by clicking on it in the Netsody UI.
+Alternatively, run `netsody status` in your terminal to display it.
 :::
 
 ### Method 2: Homebrew Installation
 
-If you prefer managing software via [Homebrew](https://brew.sh/), you can install drasyl from the terminal.
+If you prefer managing software via [Homebrew](https://brew.sh/), you can install Netsody from the terminal.
 
-#### Step 1: Install the drasyl Agent
+#### Step 1: Install the Netsody Agent
 
 ```bash
-brew install drasyl/tap/drasyl
+brew install netsody/tap/netsody
 ```
 
 Copy the authentication token: 
 ```
 An API auth token has been created at:
-  /opt/homebrew/etc/drasyl/auth.token
+  /opt/homebrew/etc/netsody/auth.token
 
-To use drasyl you must copy it into your home directory:
-  mkdir -p ~/.drasyl
-  cp /opt/homebrew/etc/drasyl/auth.token ~/.drasyl/auth.token
-  chmod 600 ~/.drasyl/auth.token
+To use netsody you must copy it into your home directory:
+  mkdir -p ~/.netsody
+  cp /opt/homebrew/etc/netsody/auth.token ~/.netsody/auth.token
+  chmod 600 ~/.netsody/auth.token
 ```
 
 Start the agent:
 ```bash
-sudo brew services start drasyl/tap/drasyl
+sudo brew services start netsody/tap/netsody
 ```
 
-This ensures that the drasyl agent starts automatically with macOS.
+This ensures that the Netsody agent starts automatically with macOS.
 
 #### Step 2: Install and start the UI
 
 ```bash
-brew install drasyl/tap/drasyl-ui
+brew install netsody/tap/netsody-ui
 ```
 
-* Open Spotlight (`Cmd + Space`), search for **"drasyl UI"**, and launch it.
+* Open Spotlight (`Cmd + Space`), search for **"Netsody UI"**, and launch it.
 * The UI will appear as an icon in your **menu bar** (top-right corner).
 * If you don’t see it, check the overflow area of the menu bar.
 
@@ -149,12 +149,12 @@ brew install drasyl/tap/drasyl-ui
 On first startup, the UI may take a few seconds to connect to the agent while it completes the proof-of-work process to generate your device identity.
 :::
 
-Once connected, the drasyl UI displays the public key of your device.
+Once connected, the Netsody UI displays the public key of your device.
 
 <div style={{ maxWidth: '600px', margin: '1rem auto', textAlign: 'center' }}>
   <img
     src="/img/macos-menubar.png"
-    alt="macOS menu bar showing the drasyl UI application"
+    alt="macOS menu bar showing the Netsody UI application"
     style={{
       maxWidth: '100%',
       width: '100%',
@@ -164,16 +164,16 @@ Once connected, the drasyl UI displays the public key of your device.
     }}
   />
   <div style={{ textAlign: 'center', color: '#666' }}>
-    Figure 2: macOS menu bar showing the drasyl UI application
+    Figure 2: macOS menu bar showing the Netsody UI application
   </div>
 </div>
 
 :::tip Copy Public Key
-You can copy your public key by clicking on it in the drasyl UI.
-Alternatively, run `drasyl status` in your terminal to display it.
+You can copy your public key by clicking on it in the Netsody UI.
+Alternatively, run `netsody status` in your terminal to display it.
 :::
 
 ## Next Step
 
-* ✅ drasyl is now installed.
+* ✅ Netsody is now installed.
 * 👉 Proceed to [set up your first network](../first-network.mdx) to start connecting devices.

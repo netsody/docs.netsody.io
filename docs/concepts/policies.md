@@ -1,6 +1,6 @@
 # Policies
 
-Policies define which nodes in a drasyl network are allowed to communicate. These policies are enforced on both endpoints.
+Policies define which nodes in a Netsody network are allowed to communicate. These policies are enforced on both endpoints.
 
 ## Concept
 
@@ -13,7 +13,7 @@ The directional structure (`source_groups` → `destination_groups`) was chosen 
 We plan to support unidirectional policies, where only the defined direction will be allowed.
 :::
 
-drasyl follows a default-deny approach: Without a matching policy, no communication between nodes is possible, even if they are in the same group. All communication must be explicitly granted via policy configuration.
+Netsody follows a default-deny approach: Without a matching policy, no communication between nodes is possible, even if they are in the same group. All communication must be explicitly granted via policy configuration.
 
 ## Policy Attributes
 

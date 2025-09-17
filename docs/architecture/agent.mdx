@@ -1,11 +1,11 @@
 ---
-title: drasyl Agent
-description: The agent that brings your device into the drasyl network
+title: Netsody Agent
+description: The agent that brings your device into the Netsody network
 ---
 
-# drasyl Agent
+# Netsody Agent
 
-The **drasyl agent** is a persistent local service that ensures your device remains connected to all drasyl overlay networks it has been added to.
+The **Netsody agent** is a persistent local service that ensures your device remains connected to all Netsody overlay networks it has been added to.
 
 ## Responsibilities
 
@@ -18,16 +18,16 @@ On first startup, the agent generates a cryptographic key pair. This process inc
 Periodically retrieves and parses network configurations from the specified source (e.g., local file or HTTP endpoint). If the source is temporarily unavailable or the configuration is invalid, the agent continues operating using the last known valid configuration and retries the fetch operation periodically.
 
 - **Network Reconciliation**  
-Continuously compares the desired state defined in the configuration with the actual system state. When differences are detected, it applies the necessary changes to bring the system into compliance. The reconciler aims to maintain drasyl network connectivity at all times. However, in some cases (e.g., due to overlay IP or subnet changes), a brief interruption in drasyl network access may occur. If the reconciler fails to reach the desired state, it will continue retrying until successful.
+Continuously compares the desired state defined in the configuration with the actual system state. When differences are detected, it applies the necessary changes to bring the system into compliance. The reconciler aims to maintain Netsody network connectivity at all times. However, in some cases (e.g., due to overlay IP or subnet changes), a brief interruption in Netsody network access may occur. If the reconciler fails to reach the desired state, it will continue retrying until successful.
 
 - **Virtual Network Interface Provisioning**  
-Manages the creation and lifecycle of virtual network interfaces used to connect the system to drasyl overlay networks. These interfaces (implemented as [TUN devices](https://en.wikipedia.org/wiki/TUN/TAP)) expose regular IP connectivity to local applications, while all traffic is transparently routed through the agent and processed according to the overlay configuration.
+Manages the creation and lifecycle of virtual network interfaces used to connect the system to Netsody overlay networks. These interfaces (implemented as [TUN devices](https://en.wikipedia.org/wiki/TUN/TAP)) expose regular IP connectivity to local applications, while all traffic is transparently routed through the agent and processed according to the overlay configuration.
 
 - **Routing Coordination**  
-Installs system-level routing rules to direct specific traffic to physical IP subnets via the drasyl network. This allows access to remote physical networks that are otherwise unreachable, by having drasyl nodes act as gateways and share access to their local networks with other nodes in the overlay.
+Installs system-level routing rules to direct specific traffic to physical IP subnets via the Netsody network. This allows access to remote physical networks that are otherwise unreachable, by having Netsody nodes act as gateways and share access to their local networks with other nodes in the overlay.
 
 - **DNS Management**  
-Modifies the system's DNS settings to enable name-based communication with other overlay nodes (e.g., `<node>.drasyl.network`).
+Modifies the system's DNS settings to enable name-based communication with other overlay nodes (e.g., `<node>.netsody.me`).
 
 - **Access Enforcement**  
 All traffic passing through the virtual network interface is subject to strict access control.

@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: Understand what a drasyl network is and how it connects nodes, controls communication, and enables routing to external networks.
+description: Understand what a Netsody network is and how it connects nodes, controls communication, and enables routing to external networks.
 ---
 
 import Tabs from '@theme/Tabs';
@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 # Networks
 
-A **network** in drasyl is a logical unit that securely connects selected devices in a peer-to-peer mesh.
+A **network** in Netsody is a logical unit that securely connects selected devices in a peer-to-peer mesh.
 
 It defines:
 * Which devices (nodes) are part of the network.
@@ -16,7 +16,7 @@ It defines:
 * How traffic should be routed to external networks.
 
 All of this is captured in a single [TOML](https://toml.io/en/) configuration file.
-This configuration is easy to create and requires no networking expertise: it simply describes the desired state of the network, and drasyl takes care of the rest.
+This configuration is easy to create and requires no networking expertise: it simply describes the desired state of the network, and Netsody takes care of the rest.
 You can write the file manually using any text editor or use our [web-based network editor](https://editor.drasyl.org) to simplify the process.
 
 Each network is fully self-contained and isolated from others. Devices may join multiple networks at the same time.
@@ -41,18 +41,18 @@ network = "10.96.41.0/24"
   * `192.168.0.0/16`
 
 :::info Reserved IPs
-The last usable address **before the broadcast address** (e.g `10.96.41.254`) is reserved by drasyl and must not be assigned to a node.
-It may be used by drasyl services in the future.
+The last usable address **before the broadcast address** (e.g `10.96.41.254`) is reserved by Netsody and must not be assigned to a node.
+It may be used by Netsody services in the future.
 :::
 
 :::warning
-Modifying the subnet, even just the prefix length, causes drasyl to assign a new name to its virtual network interface on Windows and Linux systems.  
+Modifying the subnet, even just the prefix length, causes Netsody to assign a new name to its virtual network interface on Windows and Linux systems.  
 This may break manually created firewall or routing rules and require adjustments.
 :::
 
 ## Nodes
 
-To add devices to a drasyl network, you must define them as nodes in the configuration file.
+To add devices to a Netsody network, you must define them as nodes in the configuration file.
 
 **Each node entry specifies:**
 - `pk` – the public key that uniquely identifies the device.
@@ -72,7 +72,7 @@ groups   = [ "john", "notebooks" ]
 
 ## Policies
 
-Policies control which nodes in a drasyl network are allowed to communicate.
+Policies control which nodes in a Netsody network are allowed to communicate.
 Currently, all policies are evaluated bidirectionally: if one group is allowed to contact another, the reverse direction is allowed as well.
 
 **Each policy entry defines:**
@@ -89,7 +89,7 @@ destination_groups = [ "notebook" ]
 
 ## Routes
 
-Routes allow devices in a drasyl network to access external IP networks, for example, your home LAN, specific Internet hosts, or an organizational subnet.
+Routes allow devices in a Netsody network to access external IP networks, for example, your home LAN, specific Internet hosts, or an organizational subnet.
 
 **Each route entry specifies:**
 - `dest` – the destination subnet (in CIDR notation) that should be reachable.
@@ -130,7 +130,7 @@ destination_groups = [ "notebook" ]
 
 ## Multi-Homing
 
-Devices can be part of multiple drasyl networks at the same time. This is useful when different networks serve distinct administrative or functional purposes.
+Devices can be part of multiple Netsody networks at the same time. This is useful when different networks serve distinct administrative or functional purposes.
 
 Typical scenarios include:
 - A device is part of a **private network** for accessing personal devices (e.g., desktop, NAS).
@@ -144,7 +144,7 @@ When a device joins multiple networks, make sure the subnet ranges do not overla
 
 ## Configuration Distribution
 
-drasyl does not require a proprietary network controller. Instead, each device retrieves its network configuration from a defined HTTP URL or local file.
+Netsody does not require a proprietary network controller. Instead, each device retrieves its network configuration from a defined HTTP URL or local file.
 
 Configuration changes are detected without requiring a restart. If the configuration source becomes temporarily unavailable (e.g., an HTTP server is offline or a file is inaccessible) or invalid, the last known valid configuration is kept in memory and used until a new one can be retrieved.
 

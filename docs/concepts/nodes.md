@@ -1,12 +1,12 @@
 # Nodes
 
-Nodes define devices that are eligible to join a drasyl network.
+Nodes define devices that are eligible to join a Netsody network.
 
 ## Concept
 
-A drasyl node represents a physical or virtual device within a single network. A device may join multiple drasyl networks simultaneously.
+A Netsody node represents a physical or virtual device within a single network. A device may join multiple Netsody networks simultaneously.
 
-Nodes are the fundamental building blocks of a drasyl network, similar to hosts in traditional IP networks, but operate within drasyl's secure overlay. Each node entry specifies which device may join the network, how it is addressed, and how it is grouped.
+Nodes are the fundamental building blocks of a Netsody network, similar to hosts in traditional IP networks, but operate within Netsody's secure overlay. Each node entry specifies which device may join the network, how it is addressed, and how it is grouped.
 
 :::info Configuration Distribution
 Make sure to not only define the node in the configuration file, but also **distribute the configuration** to the device using one of the available [distribution methods](networks.md#configuration-distribution).
@@ -18,15 +18,15 @@ Each node entry includes the following fields:
 
 ### `pk`
 The cryptographic public key that uniquely identifies the device allowed to join the network.
-You can retrieve it from the drasyl UI or via the `drasyl status` command.
+You can retrieve it from the Netsody UI or via the `netsody status` command.
 
 ### `hostname`
 A hostname that can be used instead of the IP address to address the node.  
 It must be valid according to [RFC 1123](https://tools.ietf.org/html/rfc1123) and unique within the network.  
-Nodes can be reached using either the hostname or the fully qualified domain name (FQDN) `<hostname>.drasyl.network`.
+Nodes can be reached using either the hostname or the fully qualified domain name (FQDN) `<hostname>.netsody.me`.
 
 :::warning Duplicate hostnames across networks
-If a device is part of multiple drasyl networks with the same hostname, the name resolution order behavior is undefined.  
+If a device is part of multiple Netsody networks with the same hostname, the name resolution order behavior is undefined.  
 In such cases, use the IP address to avoid ambiguity.
 :::
 

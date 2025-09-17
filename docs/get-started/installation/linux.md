@@ -1,16 +1,16 @@
 ---
 title: Linux
-description: Step-by-step guide for installing drasyl on Linux.
+description: Step-by-step guide for installing Netsody on Linux.
 pagination_prev: null
 pagination_next: get-started/first-network
 ---
 
-# Installing drasyl on Linux
+# Installing Netsody on Linux
 
-This guide explains how to install drasyl on Linux. drasyl consists of two components:
+This guide explains how to install Netsody on Linux. Netsody consists of two components:
 
-* **drasyl agent**: background service
-* **drasyl UI**: desktop application to manage the agent
+* **Netsody agent**: background service
+* **Netsody UI**: desktop application to manage the agent
 
 You can install either the agent alone (headless setup) or both components.
 
@@ -19,10 +19,10 @@ We currently provide `.deb` packages for:
 * **Ubuntu 22.04 (Jammy)** and newer.
 * **Debian 12 (Bookworm)** and newer.
 
-If you need to install drasyl on older platforms, you can either [build it yourself](https://github.com/drasyl/drasyl-rs/blob/master/drasyl-sdn/README.md) or contact us for assistance.
+If you need to install Netsody on older platforms, you can either [build it yourself](https://github.com/drasyl/drasyl-rs/blob/master/drasyl-agent/README.md) or contact us for assistance.
 :::
 
-## Installing the drasyl Agent
+## Installing the Netsody Agent
 
 ### Step 1: Download the Agent Package
 
@@ -35,14 +35,14 @@ import TabItem from '@theme/TabItem';
   <TabItem value="amd64" label="x86_64" default>
 
 ```bash
-curl -LO https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl_0.1.0_amd64.deb
+curl -LO https://download.netsody.io/binaries/0.1.0/linux-amd64/netsody_0.1.0_amd64.deb
 ```
 
   </TabItem>
   <TabItem value="arm64" label="ARM64">
 
 ```bash
-curl -LO https://download.drasyl.org/binaries/0.1.0/linux-arm64/drasyl_0.1.0_arm64.deb
+curl -LO https://download.netsody.io/binaries/0.1.0/linux-arm64/netsody_0.1.0_arm64.deb
 ```
 
   </TabItem>
@@ -54,14 +54,14 @@ curl -LO https://download.drasyl.org/binaries/0.1.0/linux-arm64/drasyl_0.1.0_arm
   <TabItem value="amd64" label="x86_64" default>
 
 ```bash
-sudo dpkg -i drasyl_0.1.0_amd64.deb
+sudo dpkg -i netsody_0.1.0_amd64.deb
 ```
 
   </TabItem>
   <TabItem value="arm64" label="ARM64">
 
 ```bash
-sudo dpkg -i drasyl_0.1.0_arm64.deb
+sudo dpkg -i netsody_0.1.0_arm64.deb
 ```
 
   </TabItem>
@@ -74,19 +74,19 @@ After this, the agent runs as a background service.
 Copy the authentication token to the current user's directory:
    
 ```
-mkdir -p ~/.drasyl
-su -c "cat /etc/drasyl/auth.token" > ~/.drasyl/auth.token
-chmod 600 ~/.drasyl/auth.token
+mkdir -p ~/.netsody
+su -c "cat /etc/netsody/auth.token" > ~/.netsody/auth.token
+chmod 600 ~/.netsody/auth.token
 ```
 
-## Installing the drasyl UI (Desktop only)
+## Installing the Netsody UI (Desktop only)
 
 ### Step 1: Download the UI Package
 
 <Tabs groupId="architecture">
   <TabItem value="amd64" label="x86_64" default>
 
-📦 [drasyl-ui_0.1.0_amd64.deb](https://download.drasyl.org/binaries/0.1.0/linux-amd64/drasyl-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
+📦 [netsody-ui_0.1.0_amd64.deb](https://download.netsody.io/binaries/0.1.0/linux-amd64/netsody-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
 
   </TabItem>
 </Tabs>
@@ -97,15 +97,15 @@ chmod 600 ~/.drasyl/auth.token
   <TabItem value="amd64" label="x86_64" default>
 
    ```bash
-   sudo dpkg -i drasyl-ui_0.1.0_amd64.deb
+   sudo dpkg -i netsody-ui_0.1.0_amd64.deb
    ```
 
   </TabItem>
 </Tabs>
 
-### Step 3: Start the drasyl UI
+### Step 3: Start the Netsody UI
 
-* Open your application launcher, search for **"drasyl UI"**, and launch it.
+* Open your application launcher, search for **"Netsody UI"**, and launch it.
 * The UI icon will appear in your system tray.
 
 :::info First Startup Delay
@@ -117,7 +117,7 @@ Once connected, the public key of your device is displayed.
 <figure style={{ textAlign: 'center' }}>
   <img
     src="/img/linux-systray.png"
-    alt="Linux system tray showing the drasyl UI application"
+    alt="Linux system tray showing the Netsody UI application"
     style={{
       maxWidth: '600px',
       width: '100%',
@@ -126,16 +126,16 @@ Once connected, the public key of your device is displayed.
     }}
   />
   <figcaption style={{ textAlign: 'center', color: '#666' }}>
-    Figure 1: Linux system tray showing the drasyl UI application
+    Figure 1: Linux system tray showing the Netsody UI application
   </figcaption>
 </figure>
 
 :::tip Copy Public Key
-You can copy your public key by clicking on it in the drasyl UI.
-Alternatively, run `drasyl status` in your terminal to display it.
+You can copy your public key by clicking on it in the Netsody UI.
+Alternatively, run `netsody status` in your terminal to display it.
 :::
 
 ## Next Step
 
-* ✅ drasyl is now installed.
+* ✅ Netsody is now installed.
 * 👉 Proceed to [set up your first network](../first-network.mdx) to start connecting devices.

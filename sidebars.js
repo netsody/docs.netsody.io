@@ -25,7 +25,7 @@ const sidebars = {
       label: 'Get Started',
       link: {
         type: 'generated-index',
-        description: 'Install drasyl and connect your first devices.',
+        description: 'Install Netsody and connect your first devices.',
         slug: '/get-started',
       },
       items: [
@@ -35,7 +35,7 @@ const sidebars = {
           link: {
             type: 'generated-index',
             title: 'Installation',
-            description: 'Install drasyl on your platform of choice.',
+            description: 'Install Netsody on your platform of choice.',
             slug: '/get-started/installation',
           },
           items: [
@@ -55,7 +55,7 @@ const sidebars = {
       label: 'Concepts',
       link: {
         type: 'generated-index',
-        description: 'Learn how networks, nodes, policies, and routes work in drasyl.',
+        description: 'Learn how networks, nodes, policies, and routes work in Netsody.',
         slug: '/concepts',
       },
       items: [
@@ -67,10 +67,10 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'How drasyl Works',
+      label: 'How Netsody Works',
       link: {
         type: 'generated-index',
-        description: 'Understand the technical architecture and inner workings of drasyl.',
+        description: 'Understand the technical architecture and inner workings of Netsody.',
         slug: '/architecture',
       },
       items: [

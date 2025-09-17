@@ -5,14 +5,14 @@ description: From individual devices to full software-defined overlay networking
 
 # Network Management
 
-Building secure and flexible overlay networks with drasyl involves two key components:
+Building secure and flexible overlay networks with Netsody involves two key components:
 a peer-to-peer layer that allows devices to discover and connect to each other, and a network configuration that defines how those devices form a network.
 
 While the [peer-to-peer network](p2p-protocol.mdx) enables any two devices to eventually communicate, it does not specify which devices should participate in a given overlay network, how they exchange and verify each other’s public keys, what roles they take within the network, who is allowed to communicate with whom, or how traffic should be routed between them.
 All of this must be defined explicitly in a network configuration.
 
 
-If you’re new to drasyl, we recommend starting with the ["Your First Network" guide](../get-started/first-network.mdx) and the [Networks](../concepts/networks.md) concept page.
+If you’re new to Netsody, we recommend starting with the ["Your First Network" guide](../get-started/first-network.mdx) and the [Networks](../concepts/networks.md) concept page.
 
 <figure style={{ textAlign: 'center' }}>
     <img
@@ -30,14 +30,14 @@ If you’re new to drasyl, we recommend starting with the ["Your First Network" 
     </figcaption>
 </figure>
 
-Each drasyl network is defined by a configuration file. This file is created by an administrator and includes the IP subnet, the participating devices (identified via their public keys), their desired overlay IP addresses and hostnames, and optional access control and routing rules.
+Each Netsody network is defined by a configuration file. This file is created by an administrator and includes the IP subnet, the participating devices (identified via their public keys), their desired overlay IP addresses and hostnames, and optional access control and routing rules.
 Once created, the configuration is distributed to the devices using one of the [supported distribution mechanisms](../concepts/networks.md#configuration-distribution).
 
 With the peer-to-peer layer handling connectivity and the configuration defining structure and policies, each device has everything it needs to autonomously join and maintain the overlay network.
-Each device now knows which peers it should route traffic to and which communications are permitted based on the configured access policies. See the [drasyl agent](./agent.mdx) page for more details.
+Each device now knows which peers it should route traffic to and which communications are permitted based on the configured access policies. See the [Netsody agent](./agent.mdx) page for more details.
 
-The example above shows two physical networks: a home network and an office network. Within these networks, four nodes participate in the drasyl overlay: a personal notebook, a smart home server, an office workstation, and a file server.
+The example above shows two physical networks: a home network and an office network. Within these networks, four nodes participate in the Netsody overlay: a personal notebook, a smart home server, an office workstation, and a file server.
 Despite firewalls in both environments, the nodes can communicate securely as if they were part of the same local network.
 
-Notice that no drasyl agent is running on the file server. Nevertheless, it is reachable through the overlay network because the office workstation acts as a gateway, as defined by a route in the network configuration.
-Access policies further control which drasyl nodes are allowed to communicate and which are permitted to use the gateway to reach external systems like the file server.
+Notice that no Netsody agent is running on the file server. Nevertheless, it is reachable through the overlay network because the office workstation acts as a gateway, as defined by a route in the network configuration.
+Access policies further control which Netsody nodes are allowed to communicate and which are permitted to use the gateway to reach external systems like the file server.

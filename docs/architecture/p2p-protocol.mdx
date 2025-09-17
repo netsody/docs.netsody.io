@@ -5,13 +5,13 @@ description: The communication layer for secure device-to-device networking – 
 
 # The Peer-to-Peer Protocol
 
-At the core of drasyl lies a **custom-designed, lightweight peer-to-peer protocol** built to establish direct and secure connections between devices with minimal latency. Unlike conventional [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal) frameworks, it was developed from scratch to tightly integrate NAT traversal, cryptographic handshakes, and fallback mechanisms into a unified process.
+At the core of Netsody lies a **custom-designed, lightweight peer-to-peer protocol** built to establish direct and secure connections between devices with minimal latency. Unlike conventional [NAT traversal](https://en.wikipedia.org/wiki/NAT_traversal) frameworks, it was developed from scratch to tightly integrate NAT traversal, cryptographic handshakes, and fallback mechanisms into a unified process.
 
 The protocol combines multiple NAT traversal techniques, including hole punching and relay fallback, with a compact, latency-optimized cryptographic handshake. All communication is secured using [AEGIS](https://datatracker.ietf.org/doc/draft-irtf-cfrg-aegis-aead/), a high-performance authenticated encryption algorithm that ensures strong confidentiality and integrity, even on devices without hardware acceleration.
 
 Each peer is uniquely identified by a public key, which enables location-independent communication across NATs, firewalls, and heterogeneous networks. Since peer identities and key material are known in advance, the cryptographic handshake can be accelerated.
 
-This communication layer forms the foundation of drasyl’s dynamic overlay networks. It enables any two devices to connect using the best available physical path, securely, efficiently, and without manual configuration. The protocol is implemented independently from our SDN solution and is available as open-source software (FOSS), licensed under the [MIT License](https://github.com/drasyl/drasyl-rs/blob/master/LICENSE) on GitHub: https://github.com/drasyl-rs/drasyl-p2p
+This communication layer forms the foundation of Netsody’s dynamic overlay networks. It enables any two devices to connect using the best available physical path, securely, efficiently, and without manual configuration. The protocol is implemented independently from our SDN solution and is available as open-source software (FOSS), licensed under the [MIT License](https://github.com/drasyl/drasyl-rs/blob/master/LICENSE) on GitHub: https://github.com/drasyl-rs/drasyl-p2p
 
 ## Why a custom NAT traversal protocol?
 
@@ -30,7 +30,7 @@ We presented the details of these design principles in a [research paper](https:
 
 <figure style={{ textAlign: 'center' }}>
     <img
-        src="/img/drasyl-p2p.svg"
+        src="/img/netsody-p2p.svg"
         alt="Node peers and super peer interaction"
         style={{
             maxWidth: '700px',
@@ -44,7 +44,7 @@ We presented the details of these design principles in a [research paper](https:
     </figcaption>
 </figure>
 
-Devices that want to establish a connection with each other are referred to as **node peers**. To enable peer discovery and connection establishment, all node peers continuously publish their own connection information (1) to a well-known reachable **super peer**. This information includes possible IP endpoints through which a peer believes it can be reached. While the figure shows only a single super peer, drasyl in practice operates a globally distributed network of super peers to ensure high scalability, availability, and load balancing of this service.
+Devices that want to establish a connection with each other are referred to as **node peers**. To enable peer discovery and connection establishment, all node peers continuously publish their own connection information (1) to a well-known reachable **super peer**. This information includes possible IP endpoints through which a peer believes it can be reached. While the figure shows only a single super peer, Netsody in practice operates a globally distributed network of super peers to ensure high scalability, availability, and load balancing of this service.
 
 When a node peer A wants to connect to node peer B, it sends a connection request (2) to the super peer that appears closest from its perspective. This request can also be implicit: if a node peer immediately starts using the super peer as a relay, the relay detects that no direct communication exists yet and automatically distributes the connection information (3) to both peers.
 In either case, the super peer provides each node peer with the connection information of the other, including both the published IP endpoints and additional IP endpoints the super peer has observed.

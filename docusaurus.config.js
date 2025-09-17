@@ -6,8 +6,8 @@ const darkCodeTheme = require('prism-react-renderer').themes.dracula;
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'drasyl',
-  url: 'https://docs.drasyl.org',
+  title: 'Netsody',
+  url: 'https://docs.netsody.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -16,7 +16,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'drasyl', // Usually your GitHub org/user name.
-  projectName: 'drasyl', // Usually your repo name.
+  projectName: 'drasyl-rs', // Usually your repo name.
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want
@@ -33,7 +33,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/drasyl/docs.drasyl.org/blob/master',
+          editUrl: 'https://github.com/netsody/docs.netsody.io/blob/master',
           routeBasePath: "/",
           showLastUpdateTime: true,
         },
@@ -49,9 +49,9 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'drasyl',
+        title: 'Netsody',
         logo: {
-          alt: 'drasyl Logo',
+          alt: 'Netsody Logo',
           src: 'img/logo.svg',
         },
         items: [
@@ -66,15 +66,15 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'drasyl',
+            title: 'Netsody',
             items: [
               {
                 label: 'Website',
-                href: 'https://drasyl.org',
+                href: 'https://netsody.io',
               },
               {
                 label: 'Blog',
-                href: 'https://drasyl.org/blog',
+                href: 'https://netsody.io/blog',
               },
               {
                 label: 'Network Editor',
@@ -100,11 +100,11 @@ const config = {
             items: [
               {
                 label: 'Discord',
-                href: 'https://drasyl.org/discord',
+                href: 'https://netsody.io/discord',
               },
               {
                 label: 'Mastodon',
-                href: 'https://mastodon.world/@drasyl',
+                href: 'https://mastodon.world/@netsody',
               },
             ],
           },
@@ -121,7 +121,7 @@ const config = {
               },
               {
                 label: 'Statuspage',
-                href: 'https://status.drasyl.org/',
+                href: 'https://status.netsody.io/',
               },
             ],
           },
@@ -134,7 +134,7 @@ const config = {
         additionalLanguages: ['toml']
       },
       announcementBar: {
-        id: 'drasyl-sdn-documentation', // einzigartig
+        id: 'netsody-sdn-documentation',
         content:
           '📚 <strong>Moved documentation:</strong> This site now serves the documentation for our new SDN solution. The Java P2P library moved to <a href="https://docs.java.drasyl.org" style="color: #ffffff; text-decoration: underline; font-weight: bold;">docs.java.drasyl.org</a>',
         backgroundColor: '#2563eb',

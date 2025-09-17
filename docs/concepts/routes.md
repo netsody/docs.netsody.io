@@ -1,6 +1,6 @@
 # Routes
 
-Routes allow nodes in a drasyl network to reach external IP networks.
+Routes allow nodes in a Netsody network to reach external IP networks.
 
 ## Concept
 
@@ -18,19 +18,19 @@ Each route entry consists of the following attributes:
 ### `dest`
 The destination network (in CIDR notation) that should be reachable through this route.
 
-* Must be unique within a drasyl network.
+* Must be unique within a Netsody network.
 * Must be a network address (not a host address).
 * Overlapping routes are resolved by prefix length (longest match wins).
 
 :::warning Duplicate Routes
-Defining the same `dest` in multiple networks on the same device results in undefined behavior. Run `drasyl status` in the terminal to check if duplicate routes exist and which one is currently applied.
+Defining the same `dest` in multiple networks on the same device results in undefined behavior. Run `netsody status` in the terminal to check if duplicate routes exist and which one is currently applied.
 :::
 
 ### `gw`
 The public key (`pk`) of the node that will act as a gateway.  
 
 This device must:
-* Be part of the current drasyl network.
+* Be part of the current Netsody network.
 * Run a Linux system.
 * Have IP forwarding enabled and act as a NAT router.
 
@@ -56,17 +56,17 @@ Set the correct interface names (adjust to your system):
 
 ```sh
 PHY_IFACE=eth0
-DRASYL_IFACE=drasyl
+NETSODY_IFACE=netsody
 ```
 
-The name of the drasyl interface can be retrieved using the drasyl UI or the terminal by running `drasyl status`:
+The name of the Netsody interface can be retrieved using the Netsody UI or the terminal by running `netsody status`:
 
 Then add NAT and forwarding rules:
 
 ```sh
 sudo iptables -t nat -A POSTROUTING -o $PHY_IFACE -j MASQUERADE
-sudo iptables -A FORWARD -i $PHY_IFACE -o $DRASYL_IFACE -m state --state RELATED,ESTABLISHED -j ACCEPT
-sudo iptables -A FORWARD -i $DRASYL_IFACE -o $PHY_IFACE -j ACCEPT
+sudo iptables -A FORWARD -i $PHY_IFACE -o $NETSODY_IFACE -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -i $NETSODY_IFACE -o $PHY_IFACE -j ACCEPT
 ```
 
 Make the rules persistent:

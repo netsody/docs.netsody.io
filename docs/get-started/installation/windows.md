@@ -1,13 +1,13 @@
 ---
 title: Windows
-description: Step-by-step guide for installing drasyl on Windows.
+description: Step-by-step guide for installing Netsody on Windows.
 pagination_prev: null
 pagination_next: get-started/first-network
 ---
 
-# Installing drasyl on Windows
+# Installing Netsody on Windows
 
-This guide explains how to install and run drasyl on Windows, including the background service (agent) and the system tray UI.
+This guide explains how to install and run Netsody on Windows, including the background service (agent) and the system tray UI.
 
 ## Step-by-Step Installation
 
@@ -15,7 +15,7 @@ We provide a Windows installer that sets up both the agent and UI automatically.
 
 ### Step 1: Download the Installer
 
-* Click the following link to download the installer: 📦 [drasyl_0.1.0_windows.exe](https://download.drasyl.org/binaries/0.1.0/windows-amd64/drasyl_0.1.0_windows.exe)
+* Click the following link to download the installer: 📦 [netsody_0.1.0_windows.exe](https://download.netsody.io/binaries/0.1.0/windows-amd64/netsody_0.1.0_windows.exe)
 * The download should start automatically.
 
 :::info Windows Security Warning
@@ -27,7 +27,7 @@ You might get warned by Microsoft Defender SmartScreen that it couldn't verify i
 * Open the file directly from your browser, or locate it in your Downloads folder and double-click the installer.
 * User Account Control might ask to allow the app to make changes to your device. Click **"Yes"**.
 * Follow the installation wizard to complete the installation.
-* After installation, the drasyl agent runs automatically as a Windows service.
+* After installation, the Netsody agent runs automatically as a Windows service.
 
 <figure style={{ textAlign: 'center' }}>
   <img
@@ -46,21 +46,21 @@ You might get warned by Microsoft Defender SmartScreen that it couldn't verify i
   </figcaption>
 </figure>
 
-### Step 3: Start the drasyl UI
+### Step 3: Start the Netsody UI
 
-* Open the Start menu, search for **"drasyl UI"**, and click to launch it.
-* The drasyl UI runs in the system tray (bottom-right corner). If it’s not immediately visible, click the arrow to show hidden icons.
+* Open the Start menu, search for **"Netsody UI"**, and click to launch it.
+* The Netsody UI runs in the system tray (bottom-right corner). If it’s not immediately visible, click the arrow to show hidden icons.
 
 :::info First Startup Delay
 On first startup, the UI may take a few seconds to connect to the agent, as the agent completes the proof-of-work process to generate your device identity.
 :::
 
-Once started, the drasyl UI will display the public key of your local device.
+Once started, the Netsody UI will display the public key of your local device.
 
 <figure style={{ textAlign: 'center' }}>
   <img
     src="/img/windows-systray.png"
-    alt="drasyl system tray application showing device public key"
+    alt="Netsody system tray application showing device public key"
     style={{
       maxWidth: '600px',
       width: '100%',
@@ -69,16 +69,16 @@ Once started, the drasyl UI will display the public key of your local device.
     }}
   />
   <figcaption style={{ textAlign: 'center', color: '#666' }}>
-    Figure 2: drasyl system tray application showing device public key
+    Figure 2: Netsody system tray application showing device public key
   </figcaption>
 </figure>
 
 :::tip Copy Public Key
-You can copy your public key by clicking on it in the drasyl UI.
-Alternatively, run `"C:\Program Files\drasyl\drasyl.exe" status --token "C:\ProgramData\drasyl\auth.token"` in your command prompt to display it.
+You can copy your public key by clicking on it in the Netsody UI.
+Alternatively, run `"C:\Program Files\netsody\netsody.exe" status --token "C:\ProgramData\netsody\auth.token"` in your command prompt to display it.
 :::
 
 ## Next Step
 
-* ✅ drasyl is now installed.
+* ✅ Netsody is now installed.
 * 👉 Proceed to [set up your first network](../first-network.mdx) to start connecting devices.
