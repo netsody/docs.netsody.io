@@ -75,7 +75,7 @@ Once started, the Netsody UI will display the public key of your local device.
 
 :::tip Copy Public Key
 You can copy your public key by clicking on it in the Netsody UI.
-Alternatively, run `"C:\Program Files\netsody\netsody.exe" status --token "C:\ProgramData\netsody\auth.token"` in your command prompt to display it.
+Alternatively, run `"C:\Program Files\Netsody\netsody.exe" status --token "C:\ProgramData\Netsody\auth.token"` in your command prompt to display it.
 :::
 
 ## Next Step
