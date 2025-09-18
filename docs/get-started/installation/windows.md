@@ -15,7 +15,7 @@ We provide a Windows installer that sets up both the agent and UI automatically.
 
 ### Step 1: Download the Installer
 
-* Click the following link to download the installer: 📦 [netsody_0.1.0_windows.exe](https://download.netsody.io/binaries/0.1.0/windows-amd64/netsody_0.1.0_windows.exe)
+* Click the following link to download the installer: 📦 [Netsody_0.1.0_windows.exe](https://download.netsody.io/binaries/0.1.0/windows-amd64/Netsody_0.1.0_windows.exe)
 * The download should start automatically.
 
 :::info Windows Security Warning

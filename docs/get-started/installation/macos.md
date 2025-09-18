@@ -34,13 +34,13 @@ import TabItem from '@theme/TabItem';
   <TabItem value="apple-silicon" label="Apple Silicon" default>
 
 Click the following link to download the Apple Silicon installer:
-📦 [netsody_0.1.0_macos_arm64.pkg](https://download.netsody.io/binaries/0.1.0/macos-arm64/netsody_0.1.0_macos_arm64.pkg)
+📦 [netsody_0.1.0_macos_arm64.pkg](https://download.netsody.io/binaries/0.1.0/macos-arm64/Netsody_0.1.0_macos_arm64.pkg)
 
   </TabItem>
   <TabItem value="intel" label="Intel">
 
 Click the following link to download the Intel installer:
-📦 [netsody_0.1.0_macos_x86_64.pkg](https://download.netsody.io/binaries/0.1.0/macos-amd64/netsody_0.1.0_macos_x86_64.pkg)
+📦 [netsody_0.1.0_macos_x86_64.pkg](https://download.netsody.io/binaries/0.1.0/macos-amd64/Netsody_0.1.0_macos_x86_64.pkg)
 
   </TabItem>
 </Tabs>
