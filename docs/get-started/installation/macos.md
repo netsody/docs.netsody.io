@@ -173,6 +173,14 @@ You can copy your public key by clicking on it in the Netsody UI.
 Alternatively, run `netsody status` in your terminal to display it.
 :::
 
+## Auto-Start on Login
+
+To have Netsody UI automatically launch when your Mac starts, run the following command in your terminal:
+
+```bash
+osascript -e 'tell application "System Events" to make login item with properties {path:"/Applications/Netsody UI.app"}'
+```
+
 ## Next Step
 
 * ✅ Netsody is now installed.
