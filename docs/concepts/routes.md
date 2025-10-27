@@ -32,49 +32,6 @@ The public key (`pk`) of the node that will act as a gateway.
 This device must:
 * Be part of the current Netsody network.
 * Run a Linux system.
-* Have IP forwarding enabled and act as a NAT router.
-
-To prepare the gateway device, perform the following steps:
-
-#### Enable IP forwarding
-
-Edit `/etc/sysctl.conf` to uncomment:
-
-```sh
-net.ipv4.ip_forward=1
-```
-
-Apply the change immediately:
-
-```sh
-sudo sysctl -w net.ipv4.ip_forward=1
-```
-
-#### Configure iptables
-
-Set the correct interface names (adjust to your system):
-
-```sh
-PHY_IFACE=eth0
-NETSODY_IFACE=netsody
-```
-
-The name of the Netsody interface can be retrieved using the Netsody UI or the terminal by running `netsody status`:
-
-Then add NAT and forwarding rules:
-
-```sh
-sudo iptables -t nat -A POSTROUTING -o $PHY_IFACE -j MASQUERADE
-sudo iptables -A FORWARD -i $PHY_IFACE -o $NETSODY_IFACE -m state --state RELATED,ESTABLISHED -j ACCEPT
-sudo iptables -A FORWARD -i $NETSODY_IFACE -o $PHY_IFACE -j ACCEPT
-```
-
-Make the rules persistent:
-
-```sh
-sudo apt install iptables-persistent
-sudo bash -c "iptables-save > /etc/iptables/rules.v4"
-```
 
 ### `groups`
 A list of node groups allowed to use this route.
