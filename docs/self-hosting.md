@@ -7,7 +7,7 @@ pagination_next: null
 
 # Self-Hosting Netsody
 
-Netsody is released under a permissive open-source license, which explicitly grants you the rights to run, modify, and deploy the software on your own infrastructure. This enables full control over your Netsody deployment and makes it suitable for environments where using our public super peers is either unwanted or restricted by governance policies.
+Netsody can be deployed and self-hosted on your own infrastructure. This enables full control over your Netsody deployment and makes it suitable for environments where using our public super peers is either unwanted or restricted by governance policies.
 
 [Since Netsody works without a centralized network controller](../concepts/networks#configuration-distribution), the only infrastructure component you need to operate yourself is at least one super peer. Super peers handle the signaling process that allows SDN devices to establish direct peer-to-peer connections over the underlying [P2P network](../architecture/p2p-protocol).
 
@@ -36,20 +36,25 @@ Super peers primarily assist in peer discovery and connection setup. They are ra
 
 Follow these steps to set up a Netsody super peer server.
 
-### Step 1: Build netsody-sp
+### Step 1: Download netsody-sp
 
-First, build the `netsody-sp` binary from source:
+Download the `netsody-sp` binary for Linux x86_64:
 
 ```bash
-cargo build --package netsody-sp --release --features prometheus
+curl -LO https://download.netsody.io/binaries/0.1.0/linux-amd64/netsody-sp
+chmod +x netsody-sp
 ```
+
+:::info Platform Support
+The super peer binary is currently only available for Linux x86_64. If you need support for other platforms, please contact us.
+:::
 
 ### Step 2: Install the binary
 
-Copy the built binary to the system path:
+Copy the binary to the system path:
 
 ```bash
-cp target/release/netsody-sp /usr/local/sbin/
+sudo cp netsody-sp /usr/local/sbin/netsody-sp
 ```
 
 ### Step 3: Create system user

@@ -4,7 +4,7 @@ slug: /
 
 # Welcome to Netsody
 
-[Netsody](https://github.com/netsody/netsody) is a lightweight, software-defined overlay networking solution built on a [fast and secure peer-to-peer protocol](architecture/p2p-protocol.mdx).
+Netsody is a lightweight, software-defined overlay networking solution built on a [fast and secure peer-to-peer protocol](architecture/p2p-protocol.mdx).
 
 It enables you to seamlessly interconnect all your devices in your organization, team, or home, regardless of the network barriers commonly present between physical networks.
 Unlike traditional VPNs, Netsody builds direct peer-to-peer connections between all devices, creating a mesh overlay that efficiently utilizes the underlying physical network.
@@ -13,7 +13,7 @@ You retain full control over network membership and which devices are permitted 
 
 ## Why Netsody?
 
-Netsody is secure, easy to use, runs on many platforms, and open-source. It can operate entirely on your own infrastructure.
+Netsody is secure, easy to use, and runs on many platforms. It can operate entirely on your own infrastructure.
 
 ### Typical use cases
 
@@ -33,10 +33,5 @@ Netsody is secure, easy to use, runs on many platforms, and open-source. It can 
 
 Need help or want to report a bug? Reach out to us via the following channels:
 
-- [GitHub](https://github.com/netsody/netsody)
 - [Discord](https://netsody.io/discord)
 - [Blog](https://netsody.io/blog)
-
-## License
-
-Netsody is open-source software (FOSS), licensed under the [MIT License](https://github.com/netsody/netsody/blob/master/LICENSE).

@@ -54,13 +54,7 @@ const config = {
           alt: 'Netsody Logo',
           src: 'img/logo.svg',
         },
-        items: [
-          {
-            href: 'https://github.com/netsody/netsody',
-            position: 'right',
-            className: 'header-github-link',
-          },
-        ],
+        items: [],
       },
       footer: {
         style: 'dark',
@@ -86,10 +80,6 @@ const config = {
             title: 'Resources',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/netsody/netsody/',
-              },
-              {
                 label: 'Docker',
                 href: 'https://hub.docker.com/r/drasyl/drasyl',
               },
@@ -111,14 +101,6 @@ const config = {
           {
             title: 'More',
             items: [
-              {
-                label: 'Changelog',
-                href: 'https://github.com/netsody/netsody/blob/master/CHANGELOG.md',
-              },
-              {
-                label: 'Contributing',
-                href: 'https://github.com/netsody/netsody/blob/master/CONTRIBUTING.md',
-              },
               {
                 label: 'Statuspage',
                 href: 'https://status.netsody.io/',

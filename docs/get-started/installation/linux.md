@@ -22,7 +22,7 @@ We currently provide:
 * `.rpm` packages for:
   * **Fedora 41** and newer (agent only, x86_64 only).
 
-If you need to install Netsody on older platforms, you can either [build it yourself](https://github.com/netsody/netsody/blob/master/drasyl-agent/README.md) or contact us for assistance.
+If you need to install Netsody on other platforms, you can contact us for assistance.
 :::
 
 ## Installing the Netsody Agent
