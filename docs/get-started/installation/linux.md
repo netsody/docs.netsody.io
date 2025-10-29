@@ -15,21 +15,27 @@ This guide explains how to install Netsody on Linux. Netsody consists of two com
 You can install either the agent alone (headless setup) or both components.
 
 :::info Supported Distributions
-We currently provide `.deb` packages for:
-* **Ubuntu 22.04 (Jammy)** and newer.
-* **Debian 12 (Bookworm)** and newer.
+We currently provide:
+* `.deb` packages for:
+  * **Ubuntu 22.04 (Jammy)** and newer.
+  * **Debian 12 (Bookworm)** and newer.
+* `.rpm` packages for:
+  * **Fedora 41** and newer (agent only, x86_64 only).
 
 If you need to install Netsody on older platforms, you can either [build it yourself](https://github.com/netsody/netsody/blob/master/drasyl-agent/README.md) or contact us for assistance.
 :::
 
 ## Installing the Netsody Agent
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+<Tabs groupId="distribution">
+  <TabItem value="debian-ubuntu" label="Debian / Ubuntu" default>
+
 ### Step 1: Download the Agent Package
 
 Choose your system architecture:
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
 
 <Tabs groupId="architecture">
   <TabItem value="amd64" label="x86_64" default>
@@ -79,29 +85,60 @@ su -c "cat /etc/netsody/auth.token" > ~/.netsody/auth.token
 chmod 600 ~/.netsody/auth.token
 ```
 
-## Installing the Netsody UI (Desktop only)
-
-### Step 1: Download the UI Package
-
-<Tabs groupId="architecture">
-  <TabItem value="amd64" label="x86_64" default>
-
-📦 [netsody-ui_0.1.0_amd64.deb](https://download.netsody.io/binaries/0.1.0/linux-amd64/netsody-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
-
   </TabItem>
-</Tabs>
+  <TabItem value="fedora" label="Fedora">
+
+:::info Fedora Support
+Fedora support is available for **agent only** and **x86_64 architecture only**. The UI is currently not available for Fedora.
+:::
+
+### Step 1: Download the Agent Package
+
+```bash
+curl -LO https://download.netsody.io/binaries/0.1.0/linux-amd64/netsody-0.1.0-1.x86_64.rpm
+```
 
 ### Step 2: Install the Package
 
-<Tabs groupId="architecture">
-  <TabItem value="amd64" label="x86_64" default>
+```bash
+sudo dnf install netsody-0.1.0-1.x86_64.rpm
+```
 
-   ```bash
-   sudo dpkg -i netsody-ui_0.1.0_amd64.deb
-   ```
+Alternatively, you can use `rpm`:
+
+```bash
+sudo rpm -i netsody-0.1.0-1.x86_64.rpm
+```
+
+After this, the agent runs as a background service.
+
+### Step 3: Configure authentication
+
+Copy the authentication token to the current user's directory:
+   
+```
+mkdir -p ~/.netsody
+su -c "cat /etc/netsody/auth.token" > ~/.netsody/auth.token
+chmod 600 ~/.netsody/auth.token
+```
 
   </TabItem>
 </Tabs>
+
+## Installing the Netsody UI (Desktop only)
+
+<Tabs groupId="distribution-ui">
+  <TabItem value="debian-ubuntu" label="Debian / Ubuntu" default>
+
+### Step 1: Download the UI Package
+
+📦 [netsody-ui_0.1.0_amd64.deb](https://download.netsody.io/binaries/0.1.0/linux-amd64/netsody-ui_0.1.0_amd64.deb) (UI is currently only available for `x86_64`)
+
+### Step 2: Install the Package
+
+```bash
+sudo dpkg -i netsody-ui_0.1.0_amd64.deb
+```
 
 ### Step 3: Start the Netsody UI
 
@@ -134,6 +171,9 @@ Once connected, the public key of your device is displayed.
 You can copy your public key by clicking on it in the Netsody UI.
 Alternatively, run `netsody status` in your terminal to display it.
 :::
+
+  </TabItem>
+</Tabs>
 
 ## Next Step
 
