@@ -138,7 +138,7 @@ This ensures that the Netsody agent starts automatically with macOS.
 #### Step 2: Install and start the UI
 
 ```bash
-brew install netsody/tap/netsody-ui
+brew install --no-quarantine netsody/tap/netsody-ui
 ```
 
 * Open Spotlight (`Cmd + Space`), search for **"Netsody UI"**, and launch it.
