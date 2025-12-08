@@ -24,7 +24,7 @@ jobs:
         run: yarn build
 
       - name: Copy to Server
-        uses: burnett01/rsync-deployments@7.1.0
+        uses: burnett01/rsync-deployments@8.0.2
         with:
           switches: -avzrc --delete
           path: ./build/
