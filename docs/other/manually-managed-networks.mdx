@@ -1,0 +1,121 @@
+---
+title: Manually Managed Networks
+description: Documentation for Netsody networks that are not managed by the controller.
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Manually Managed Networks
+
+This page documents manually managed Netsody networks. These are networks that are not managed by the controller. Instead, each network is represented by a TOML file and distributed to agents through a local file path or HTTP(S) URL.
+
+Use manually managed networks only for existing deployments or for use cases where the controller cannot be used.
+
+When your use case allows it, we recommend switching to the [controller](../manage/controller.md). You can import an existing network configuration into the controller with **Import Network**, which simplifies migration from a manually managed TOML configuration. If you later want to return to a file-based workflow, export the network from the controller with the network's **Export** function and use the exported TOML file as the manually managed configuration.
+
+## Configuration file
+
+In manually managed mode, a Netsody network is captured in one TOML file:
+
+```toml title="my-first-network.toml"
+network = "10.96.41.0/24"
+name = "My first network"
+
+[[node]]
+hostname = "john-desktop"
+ip       = "10.96.41.45"
+pk       = "689a1b9f5efcb861ac67ce185ddb2396444326e12fe1df353731416f5a3a2706"
+groups   = [ "john", "desktops" ]
+
+[[node]]
+hostname = "john-notebook"
+ip       = "10.96.41.34"
+pk       = "43c4fda1ed1e810a30b141ae2c644465a8e06d15a2a7259e91aaa2112e1d58c7"
+groups   = [ "john", "notebooks" ]
+
+[[policy]]
+source_groups      = [ "desktops" ]
+destination_groups = [ "notebooks" ]
+
+[[resource]]
+dest   = "192.168.188.0/24"
+gw     = "689a1b9f5efcb861ac67ce185ddb2396444326e12fe1df353731416f5a3a2706"
+groups = [ "notebooks" ]
+
+[[resource]]
+dest   = "nas.example.internal"
+gw     = "689a1b9f5efcb861ac67ce185ddb2396444326e12fe1df353731416f5a3a2706"
+groups = [ "notebooks" ]
+
+[[policy]]
+source_groups      = [ "notebooks" ]
+destination_groups = [ "resource::192.168.188.0/24", "resource::nas.example.internal" ]
+```
+
+## Distribution
+
+Each device retrieves the network configuration from a configured source.
+
+### HTTP(S)
+
+Devices can fetch configuration files from any reachable HTTP(S) endpoint. Basic authentication is supported through embedded credentials:
+
+```text
+https://user:secret@config.example.com/my-first-network.toml
+```
+
+### File
+
+Configuration files can also be stored locally or mounted through a network share.
+
+<Tabs>
+  <TabItem value="windows" label="Windows" default>
+
+```text
+file:///C:/Users/Alice/my-first-network.toml
+```
+
+  </TabItem>
+  <TabItem value="macos" label="macOS">
+
+```text
+file:///Users/alice/my-first-network.toml
+```
+
+  </TabItem>
+  <TabItem value="linux" label="Linux">
+
+```text
+file:///home/alice/my-first-network.toml
+```
+
+  </TabItem>
+</Tabs>
+
+## Add a manually managed network
+
+In the Netsody UI, open **Settings** and select **Add manually managed network...**. Then enter the file or HTTP(S) URL of the network configuration.
+
+In Docker or headless setups, add the network source with:
+
+```bash
+netsody network add https://example.com/network.toml
+```
+
+Use `netsody status` to inspect the local state.
+
+## Behavior
+
+Configuration changes are detected without requiring a restart. If the configuration source becomes temporarily unavailable or invalid, the agent continues operating with the last known valid configuration and retries fetching periodically.
+
+Use `[[resource]]` for new manually managed resource entries. The agent still accepts legacy `[[route]]` entries for IPv4 destinations, but resource entries are the current format and also support exact domain and leading-wildcard domain destinations.
+
+## Migration guidance
+
+When moving from manually managed networks to the controller:
+
+- Import the existing network configuration with **Import Network** where available.
+- Review the imported network, nodes, groups, policies, and resources in the controller.
+- Add devices with their existing public keys where supported by your deployment.
+- Remove local file or HTTP network sources after the controller-managed network is active.

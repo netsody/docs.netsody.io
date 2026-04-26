@@ -4,30 +4,30 @@ slug: /
 
 # Welcome to Netsody
 
-Netsody is a lightweight, software-defined overlay networking solution built on a [fast and secure peer-to-peer protocol](architecture/p2p-protocol.mdx).
+Netsody is a Zero Trust Network Access platform for centrally managed, identity-aware access across users, devices, services, and private networks.
 
-It enables you to seamlessly interconnect all your devices in your organization, team, or home, regardless of the network barriers commonly present between physical networks.
-Unlike traditional VPNs, Netsody builds direct peer-to-peer connections between all devices, creating a mesh overlay that efficiently utilizes the underlying physical network.
-No proprietary, centralized network controller is required, as overlay configurations can be distributed using any standard HTTP server or fully decentralized with local copies on each device.
-You retain full control over network membership and which devices are permitted to communicate, following a zero-trust model with all traffic end-to-end encrypted and all devices authenticated.
+Use Netsody to connect employees, private devices, internal services, private networks, and remote environments without exposing them directly to the public internet. With the web-based controller, you can manage networks, users, nodes, groups, resources, DNS, and access policies.
+
+The Netsody agent runs on each device and establishes encrypted overlay connectivity. When possible, traffic uses direct paths between devices instead of central data-plane bottlenecks.
 
 ## Why Netsody?
 
-Netsody is secure, easy to use, and runs on many platforms. It can operate entirely on your own infrastructure.
+Modern IT spans users, devices, offices, cloud workloads, private services, and entire networks. Netsody brings that access into one centrally managed Zero Trust model with policy-driven access control, controller-based network management, and encrypted peer-to-peer connectivity where possible.
+
+Use Netsody when access should stay explicit, scoped, and reviewable across users, devices, groups, services, resources, and networks. For the broader product story, current use cases, and more background, see the [Netsody website](https://netsody.io/).
 
 ### Typical use cases
 
-- **Access your personal devices from anywhere**: securely reach your home desktop, NAS, or other devices without the hassle of setting up a VPN, configuring port forwarding, or maintaining dynamic DNS.
-- **Access restricted organizational resources from home**: gain controlled access to internal services without opening firewall ports or exposing systems to the public Internet.
-- **Create ad-hoc secure networks between peers**: instantly connect devices for collaboration in temporary setups like workshops, hackathons, or emergency response teams without altering existing infrastructure.
-- **Link distributed teams or sites**: work securely across locations as if everyone were connected to the same local network.
+- [**Business VPN**](https://netsody.io/use-cases/business-vpn/): connect employees, sites, cloud workloads, and internal services through one centrally managed private network.
+- [**Remote Access**](https://netsody.io/use-cases/remote-access/): reach private devices, home labs, NAS systems, and services without opening inbound ports.
 
 ## What’s in this documentation?
 
-- 🚀 [**Get Started**](get-started): Install Netsody and set up your first network.
-- 📖 [**Concepts**](concepts): Learn how networks, nodes, policies, and resources work in Netsody.
-- ⚙️ [**How Netsody Works**](architecture): Understand the technical architecture and inner workings of Netsody.
-- 🏠 [**Self-Hosting**](self-hosting): Run Netsody on your own infrastructure.
+- [**Get Started**](get-started): Create your first network and connect your first devices.
+- [**Manage**](manage): Manage networks, nodes, users, policies, and resources.
+- [**How Netsody Works**](architecture): Understand the controller, agent, and connectivity model.
+- [**Self-Hosting**](self-hosting): Understand the self-hosting documentation status and deployment ownership.
+- [**Other**](other): Use manually managed networks when required.
 
 ## Community & Support
 

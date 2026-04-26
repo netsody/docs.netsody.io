@@ -17,52 +17,28 @@ const sidebars = {
     {
       type: 'doc',
       id: 'index',
-      label: 'Welcome',
+      label: 'Introduction',
     },
-
     {
-      type: 'category',
+      type: 'doc',
+      id: 'get-started',
       label: 'Get Started',
-      link: {
-        type: 'generated-index',
-        description: 'Install Netsody and connect your first devices.',
-        slug: '/get-started',
-      },
-      items: [
-        {
-          type: 'category',
-          label: 'Installation',
-          link: {
-            type: 'generated-index',
-            title: 'Installation',
-            description: 'Install Netsody on your platform of choice.',
-            slug: '/get-started/installation',
-          },
-          items: [
-            'get-started/installation/windows',
-            'get-started/installation/macos',
-            'get-started/installation/linux',
-            'get-started/installation/docker',
-            'get-started/installation/ios',
-            'get-started/installation/android',
-          ],
-        },
-        'get-started/first-network',
-      ],
     },
     {
       type: 'category',
-      label: 'Concepts',
+      label: 'Manage',
       link: {
         type: 'generated-index',
-        description: 'Learn how networks, nodes, policies, and resources work in Netsody.',
-        slug: '/concepts',
+        description: 'Manage nodes, groups, policies, resources, users, and join keys in the Netsody controller.',
+        slug: '/manage',
       },
       items: [
-        'concepts/networks',
-        'concepts/nodes',
-        'concepts/policies',
-        'concepts/resources',
+        'manage/nodes',
+        'manage/groups',
+        'manage/policies',
+        'manage/resources',
+        'manage/users',
+        'manage/join-keys',
       ],
     },
     {
@@ -70,19 +46,49 @@ const sidebars = {
       label: 'How Netsody Works',
       link: {
         type: 'generated-index',
-        description: 'Understand the technical architecture and inner workings of Netsody.',
+        description: 'Understand the controller, agent, access enforcement, and connectivity model.',
         slug: '/architecture',
       },
       items: [
-        'architecture/p2p-protocol',
+        'architecture/connectivity',
         'architecture/network-management',
         'architecture/agent',
       ],
     },
     {
-      type: 'doc',
-      id: 'self-hosting',
+      type: 'category',
       label: 'Self-Hosting',
+      link: {
+        type: 'doc',
+        id: 'self-hosting',
+      },
+      items: [
+        'self-hosting/super-peer',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Help',
+      link: {
+        type: 'generated-index',
+        description: 'Troubleshooting and support information.',
+        slug: '/help',
+      },
+      items: [
+        'help/troubleshooting',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Other',
+      link: {
+        type: 'generated-index',
+        description: 'Additional documentation for non-controller-managed Netsody networks.',
+        slug: '/other',
+      },
+      items: [
+        'other/manually-managed-networks',
+      ],
     },
   ],
 };

@@ -1,0 +1,26 @@
+---
+title: Connectivity and Data Plane
+description: How Netsody establishes encrypted connectivity between devices.
+---
+
+# Connectivity and Data Plane
+
+Netsody separates control from data transport.
+
+The controller manages administrative state: users, devices, networks, groups, resources, and policies. The agent runs on each device and handles packet processing, local routing, access enforcement, and encrypted connectivity to peers.
+
+## Direct encrypted paths
+
+Netsody encrypts data traffic between devices. Data traffic does not need to pass through the web controller. Agents establish end-to-end secured QUIC connections between peers. When direct connectivity is not available, MASQUE over HTTP/3 is used for relaying so peers can still establish an end-to-end secured QUIC connection.
+
+Direct and relayed connectivity use different transport paths:
+
+- QUIC for end-to-end secured peer connectivity.
+- MASQUE over HTTP/3 for relaying end-to-end secured QUIC connections when direct connectivity is not available.
+- HTTP/2 over TLS as an encrypted relay fallback when UDP or QUIC is blocked.
+
+These transport paths keep connections usable when networks block VPN protocols such as WireGuard or force traffic through central gateways.
+
+## Relationship to policies
+
+Policies determine which peer connections are established. The agent uses the network state it receives from the controller to decide which peers are allowed to communicate. If no policy allows communication between two peers, the agents do not establish a peer connection.
