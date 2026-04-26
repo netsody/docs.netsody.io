@@ -115,14 +115,14 @@ const config = {
         darkTheme: darkCodeTheme,
         additionalLanguages: ['toml']
       },
-      announcementBar: {
-        id: 'netsody-sdn-documentation',
-        content:
-          '📚 <strong>Moved documentation:</strong> This site now serves the documentation for our new SDN solution. The Java P2P library moved to <a href="https://docs.java.drasyl.org" style="color: #ffffff; text-decoration: underline; font-weight: bold;">docs.java.drasyl.org</a>',
-        backgroundColor: '#2563eb',
-        textColor: '#ffffff',
-        isCloseable: false,
-      },
+      // announcementBar: {
+      //   id: 'netsody-sdn-documentation',
+      //   content:
+      //     '📚 <strong>Moved documentation:</strong> This site now serves the documentation for our new SDN solution. The Java P2P library moved to <a href="https://docs.java.drasyl.org" style="color: #ffffff; text-decoration: underline; font-weight: bold;">docs.java.drasyl.org</a>',
+      //   backgroundColor: '#2563eb',
+      //   textColor: '#ffffff',
+      //   isCloseable: false,
+      // },
     }),
         themes: [
             // ... Your other themes.
