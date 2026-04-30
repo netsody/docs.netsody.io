@@ -39,7 +39,7 @@ The address must:
 - Not be a reserved address (see [Reserved IPs](networks#basic-configuration)).
 
 ### `groups` (optional)
-A node may belong to one or more groups. Groups are used in [policies](policies.md) to control which nodes may communicate, and in [routes](routes.md) to define access to external networks. Group names are free-form strings.
+A node may belong to one or more groups. Groups are used in [policies](policies.md) to control which nodes may communicate and which [resources](resources.md) they may use. Group names are free-form strings.
 
 :::info Default Group
 Every node is implicitly part of the group `ALL`.

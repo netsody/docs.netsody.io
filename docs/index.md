@@ -25,7 +25,7 @@ Netsody is secure, easy to use, and runs on many platforms. It can operate entir
 ## What’s in this documentation?
 
 - 🚀 [**Get Started**](get-started): Install Netsody and set up your first network.
-- 📖 [**Concepts**](concepts): Learn how networks, nodes, policies, and routes work in Netsody.
+- 📖 [**Concepts**](concepts): Learn how networks, nodes, policies, and resources work in Netsody.
 - ⚙️ [**How Netsody Works**](architecture): Understand the technical architecture and inner workings of Netsody.
 - 🏠 [**Self-Hosting**](self-hosting): Run Netsody on your own infrastructure.
 

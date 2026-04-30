@@ -55,14 +55,14 @@ const sidebars = {
       label: 'Concepts',
       link: {
         type: 'generated-index',
-        description: 'Learn how networks, nodes, policies, and routes work in Netsody.',
+        description: 'Learn how networks, nodes, policies, and resources work in Netsody.',
         slug: '/concepts',
       },
       items: [
         'concepts/networks',
         'concepts/nodes',
         'concepts/policies',
-        'concepts/routes',
+        'concepts/resources',
       ],
     },
     {

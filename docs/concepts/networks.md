@@ -1,6 +1,6 @@
 ---
 title: Networks
-description: Understand what a Netsody network is and how it connects nodes, controls communication, and enables routing to external networks.
+description: Understand what a Netsody network is and how it connects devices, controls communication, and sharing of internal resources of physical networks.
 ---
 
 import Tabs from '@theme/Tabs';
@@ -13,7 +13,7 @@ A **network** in Netsody is a logical unit that securely connects selected devic
 It defines:
 * Which devices (nodes) are part of the network.
 * Which nodes can communicate.
-* How traffic should be routed to external networks.
+* Which resources can be reached through gateway nodes.
 
 All of this is captured in a single [TOML](https://toml.io/en/) configuration file.
 This configuration is easy to create and requires no networking expertise: it simply describes the desired state of the network, and Netsody takes care of the rest.
@@ -72,38 +72,44 @@ groups   = [ "john", "notebooks" ]
 
 ## Policies
 
-Policies control which nodes in a Netsody network are allowed to communicate.
+Policies control which nodes in a Netsody network are allowed to communicate and which resources they may use.
 Currently, all policies are evaluated bidirectionally: if one group is allowed to contact another, the reverse direction is allowed as well.
 
 **Each policy entry defines:**
-- `source_groups` – groups allowed to communicate with destination groups.
-- `destination_groups` – groups allowed to communicate with source groups.
+- `source_groups` – groups allowed to initiate communication.
+- `destination_groups` – node groups or resource groups that may be contacted or used.
 
 ```toml
 [[policy]]
 source_groups      = [ "desktops" ]
-destination_groups = [ "notebook" ]
+destination_groups = [ "notebooks" ]
 ```
 
 👉 Learn more in the [Policies](policies.md) section.
 
-## Routes
+## Resources
 
-Routes allow devices in a Netsody network to access external IP networks, for example, your home LAN, specific Internet hosts, or an organizational subnet.
+Resources allow devices in a Netsody network to access external IP networks, for example, your home LAN or an organizational subnet. A resource is a destination subnet in CIDR notation and is reached through a gateway node.
 
-**Each route entry specifies:**
+**Each resource entry specifies:**
 - `dest` – the destination subnet (in CIDR notation) that should be reachable.
 - `gw` – the public key of the node that will act as gateway and forward traffic.
-- `groups` – node groups permitted to use this route.
+- `groups` – resource groups used for policy matching.
 
 ```toml
-[[route]]
+[[resource]]
 dest   = "192.168.188.0/24"
 gw     = "689a1b9f5efcb861ac67ce185ddb2396444326e12fe1df353731416f5a3a2706" # john-desktop
-groups = [ "notebooks" ]
+groups = [ "office_resources" ]
+
+[[policy]]
+source_groups      = [ "notebooks" ]
+destination_groups = [ "office_resources" ]
 ```
 
-👉  Learn more in the [Routes](routes.md) section.
+The resource `groups` value labels the resource. Access requires a matching policy; sharing a group name between a node and a resource does not grant access.
+
+👉  Learn more in the [Resources](resources.md) section.
 
 ## Full Example
 
@@ -125,7 +131,7 @@ groups   = [ "john", "notebooks" ]
 
 [[policy]]
 source_groups      = [ "desktops" ]
-destination_groups = [ "notebook" ]
+destination_groups = [ "notebooks" ]
 ```
 
 ## Multi-Homing
