@@ -49,16 +49,78 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'netsody',
+        title: 'Documentation',
         logo: {
           alt: 'Netsody Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo-text.svg',
+          srcDark: 'img/logo-text-dark.svg',
         },
-        items: [],
+        items: [
+          {
+            label: 'Home',
+            href: 'https://netsody.io',
+            position: 'right',
+          },
+          {
+            type: 'dropdown',
+            label: 'Use Cases',
+            position: 'right',
+            items: [
+              {
+                label: 'Business VPN',
+                href: 'https://netsody.io/use-cases/business-vpn/',
+              },
+              {
+                label: 'Remote Access',
+                href: 'https://netsody.io/use-cases/remote-access/',
+              },
+            ],
+          },
+          {
+            label: 'Documentation',
+            to: '/',
+            position: 'right',
+          },
+          {
+            label: 'Blog',
+            href: 'https://netsody.io/blog',
+            position: 'right',
+          },
+          {
+            label: 'About',
+            href: 'https://netsody.io/about/',
+            position: 'right',
+          },
+          {
+            label: 'Sign In',
+            href: 'https://my.netsody.io/',
+            position: 'right',
+          },
+          {
+            label: 'Get Started',
+            href: 'mailto:hello@netsody.io?subject=Netsody%20Website%20Inquiry',
+            position: 'right',
+            className: 'navbar__link--cta',
+          },
+        ],
       },
       footer: {
         style: 'dark',
         links: [
+          {
+            title: null,
+            className: 'footer__col--brand',
+            items: [
+              {
+                html: `
+                  <a class="footer-brand" href="https://netsody.io" aria-label="Netsody home">
+                    <img class="footer-brand__logo" src="/img/netsody-footer.svg" alt="Netsody" />
+                  </a>
+                  <p class="footer-brand__text">Netsody is a Zero Trust Network Access platform for centrally managed, identity-aware access across users, devices, services, and private networks.</p>
+                `,
+              },
+            ],
+          },
           {
             title: 'Product',
             items: [
