@@ -1,0 +1,9 @@
+[submodule "homebrew-tap"]
+	path = homebrew-tap
+	url = git@github.com:netsody/homebrew-tap.git
+[submodule "netsody"]
+	path = netsody
+	url = git@github.com:netsody/netsody.git
+[submodule "netsody.io"]
+	path = netsody.io
+	url = git@github.com:netsody/netsody.io.git

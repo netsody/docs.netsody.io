@@ -1,0 +1,129 @@
+---
+title: Get Started
+description: Create your first Netsody network and connect your first devices.
+pagination_prev: null
+---
+
+# Get Started
+
+Sign in to the Netsody controller at [my.netsody.io](https://my.netsody.io/).
+
+If you do not have a Netsody account yet, [contact us](mailto:info@netsody.io).
+
+After signing in, the controller guides you through setting up your first network.
+
+<figure>
+  <img
+    src="/img/first-network-wizard.png"
+    alt="Netsody controller wizard for starting the first network setup"
+    style={{ maxWidth: '900px', width: '100%', borderRadius: '8px' }}
+  />
+  <figcaption>Netsody starts the first network setup with an installation step.</figcaption>
+</figure>
+
+## Step 1: Install Netsody
+
+Use the installation step in the controller to install Netsody on the first device you want to connect. The controller shows the setup instructions for the selected platform.
+
+## Step 2: Pair the device with your account
+
+After installation, sign in on the device with your Netsody account. This pairs the device with your account.
+
+In the Netsody UI, use the **Log in...** action.
+
+<figure>
+  <img
+    src="/img/device-login-menu.png"
+    alt="Netsody UI menu showing the Log in action"
+    style={{ maxWidth: '360px', width: '100%', borderRadius: '8px' }}
+  />
+  <figcaption>The local Netsody UI offers a login action for pairing the device.</figcaption>
+</figure>
+
+On systems without the UI, use the CLI:
+
+```bash
+netsody login
+```
+
+## Step 3: Add the device to your network
+
+After pairing, the controller offers to add the new device to your network. Complete the device setup by clicking **Add Device to Network**.
+
+<figure>
+  <img
+    src="/img/add-paired-device-to-network.png"
+    alt="Netsody controller dialog for adding a paired device to a network"
+    style={{ maxWidth: '900px', width: '100%', borderRadius: '8px' }}
+  />
+  <figcaption>The controller can add a newly paired device to your network.</figcaption>
+</figure>
+
+At this point, your Netsody network has been created and your first device has been added.
+
+<figure>
+  <img
+    src="/img/first-network-dashboard.png"
+    alt="Netsody network dashboard showing one online device"
+    style={{ maxWidth: '900px', width: '100%', borderRadius: '8px' }}
+  />
+  <figcaption>The network dashboard shows the new network and the added device.</figcaption>
+</figure>
+
+## Step 4: Add more devices
+
+To add another device, open the **Nodes** area of your network and select **Create Node**.
+
+<figure>
+  <img
+    src="/img/nodes-create-node.png"
+    alt="Netsody Nodes page showing the Create Node button and the first node"
+    style={{ maxWidth: '900px', width: '100%', borderRadius: '8px' }}
+  />
+  <figcaption>The Nodes area lists the devices in the network and provides the Create Node action.</figcaption>
+</figure>
+
+In the create dialog, select **Setup new device**. Choose the platform for the additional device, install Netsody there, and sign in with your Netsody account as described above.
+
+<figure>
+  <img
+    src="/img/create-node-setup-device.png"
+    alt="Netsody create node dialog with platform-specific setup instructions"
+    style={{ maxWidth: '900px', width: '100%', borderRadius: '8px' }}
+  />
+  <figcaption>The setup dialog provides platform-specific installation and login instructions.</figcaption>
+</figure>
+
+Repeat this for each device you want to add to the network.
+
+## Step 5: Verify connectivity
+
+After a device is added to the network, the agent creates a local Netsody network interface and receives its Netsody address.
+
+Once at least two devices are added to the same network, use the Netsody IP addresses and hostnames shown in the **Nodes** area to reach one device from another.
+
+For example, the screenshots above show `heiko-macbook2.netsody.me` with the Netsody IP address `10.14.65.102`. From your second device, ping that hostname:
+
+```bash
+second-device:~$ ping heiko-macbook2.netsody.me
+PING heiko-macbook2.netsody.me (10.14.65.102): 56 data bytes
+64 bytes from 10.14.65.102: icmp_seq=0 ttl=64 time=1.2 ms
+64 bytes from 10.14.65.102: icmp_seq=1 ttl=64 time=1.1 ms
+64 bytes from 10.14.65.102: icmp_seq=2 ttl=64 time=1.3 ms
+64 bytes from 10.14.65.102: icmp_seq=3 ttl=64 time=1.1 ms
+^C
+--- heiko-macbook2.netsody.me ping statistics ---
+4 packets transmitted, 4 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 1.1/1.2/1.3/0.1 ms
+```
+
+If connectivity does not work, check:
+
+- Both devices are paired with the expected Netsody account.
+- Both devices were added to the same network.
+- The devices use non-overlapping local and Netsody subnets.
+- A policy allows communication between the devices.
+
+Your first Netsody network is now running.
+
+Continue with [Manage](manage/controller.md) to learn how to manage networks, nodes, users, policies, and resources.
