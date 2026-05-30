@@ -190,7 +190,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ['toml']
+        additionalLanguages: ['toml', 'properties', 'yaml']
       },
     }),
         themes: [

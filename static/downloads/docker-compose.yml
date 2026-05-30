@@ -1,0 +1,257 @@
+x-common-env: &common-env
+  - ./.env
+
+networks:
+  netsody-controller:
+  netsody-sp:
+  netsody-idp:
+
+services:
+  traefik:
+    image: traefik:v3
+    restart: unless-stopped
+    command:
+      - "--log.level=${TRAEFIK_LOG_LEVEL:-INFO}"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.netsody-sp-udp.address=:443/udp"
+      - "--certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_ACME_EMAIL:-admin@example.com}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+    ports:
+      - "${TRAEFIK_HTTP_PORT:-80}:80/tcp"
+      - "${TRAEFIK_HTTPS_PORT:-443}:443/tcp"
+      - "${NETSODY_SP_UDP_PORT:-443}:443/udp"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_letsencrypt:/letsencrypt
+    networks:
+      netsody-controller:
+        aliases:
+          - ${POCKET_ID_DOMAIN:-id.example.com}
+      netsody-sp:
+      netsody-idp:
+
+  pocket-id:
+    image: ghcr.io/pocket-id/pocket-id:v2
+    restart: unless-stopped
+    profiles:
+      - pocket-id
+    environment:
+      APP_URL: https://${POCKET_ID_DOMAIN:-id.example.com}
+      ENCRYPTION_KEY: ${POCKET_ID_ENCRYPTION_KEY:-}
+      TRUST_PROXY: "${POCKET_ID_TRUST_PROXY:-true}"
+      PUID: "${POCKET_ID_PUID:-1000}"
+      PGID: "${POCKET_ID_PGID:-1000}"
+      MAXMIND_LICENSE_KEY: ${POCKET_ID_MAXMIND_LICENSE_KEY:-}
+    expose:
+      - "1411"
+    volumes:
+      - pocket_id_data:/app/data
+    healthcheck:
+      test: ["CMD", "/app/pocket-id", "healthcheck"]
+      interval: 1m30s
+      timeout: 5s
+      retries: 2
+      start_period: 10s
+    networks:
+      - netsody-idp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pocket-id.rule=Host(`${POCKET_ID_DOMAIN:-id.example.com}`)"
+      - "traefik.http.routers.pocket-id.entrypoints=websecure"
+      - "traefik.http.routers.pocket-id.tls=true"
+      - "traefik.http.routers.pocket-id.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.pocket-id.service=pocket-id"
+      - "traefik.http.routers.pocket-id.middlewares=pocket-id-cors"
+      - "traefik.http.routers.pocket-id-web.rule=Host(`${POCKET_ID_DOMAIN:-id.example.com}`)"
+      - "traefik.http.routers.pocket-id-web.entrypoints=web"
+      - "traefik.http.routers.pocket-id-web.middlewares=pocket-id-redirect"
+      - "traefik.http.routers.pocket-id-web.service=pocket-id"
+      - "traefik.http.middlewares.pocket-id-cors.headers.accesscontrolallowmethods=GET,POST,OPTIONS"
+      - "traefik.http.middlewares.pocket-id-cors.headers.accesscontrolallowheaders=Authorization,Content-Type,X-Requested-With"
+      - "traefik.http.middlewares.pocket-id-cors.headers.accesscontrolalloworiginlist=https://${NETSODY_CONTROLLER_DOMAIN:-controller.example.com}"
+      - "traefik.http.middlewares.pocket-id-cors.headers.addvaryheader=true"
+      - "traefik.http.middlewares.pocket-id-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.pocket-id-redirect.redirectscheme.permanent=true"
+      - "traefik.http.services.pocket-id.loadbalancer.server.port=1411"
+
+  netsody-controller-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-service-db}
+      POSTGRES_USER: ${POSTGRES_USER:-service}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-service-pwd}
+    ports:
+      - "127.0.0.1:${NETSODY_CONTROLLER_DB_PORT:-5433}:5432"
+    volumes:
+      - netsody_controller_db_data:/var/lib/postgresql/data
+    networks:
+      - netsody-controller
+
+  netsody-controller-minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID:-minio}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY:-minio123}
+    command: server --console-address ":40091" /data
+    ports:
+      - "127.0.0.1:${NETSODY_CONTROLLER_MINIO_PORT:-9000}:9000"
+      - "127.0.0.1:${NETSODY_CONTROLLER_MINIO_CONSOLE_PORT:-40091}:40091"
+    volumes:
+      - netsody_controller_minio_data:/data
+    networks:
+      - netsody-controller
+
+  netsody-controller:
+    image: git.informatik.uni-hamburg.de:4567/sane-public/netsody/controller:latest
+    restart: unless-stopped
+    env_file: *common-env
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-service}:${POSTGRES_PASSWORD:-service-pwd}@netsody-controller-db:5432/${POSTGRES_DB:-service-db}
+      SWAGGER_BASE_URL: https://${NETSODY_CONTROLLER_DOMAIN:-controller.example.com}
+      S3_ENDPOINT: http://netsody-controller-minio:9000
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minio}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minio123}
+      S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-true}
+    expose:
+      - "8080"
+    volumes:
+      - netsody_controller_service_data:/app/data
+    depends_on:
+      - netsody-controller-db
+      - netsody-controller-minio
+    networks:
+      - netsody-controller
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.netsody-controller.rule=Host(`${NETSODY_CONTROLLER_DOMAIN:-controller.example.com}`) && (PathPrefix(`/api`) || PathPrefix(`/api-doc`) || PathPrefix(`/swagger-ui`))"
+      - "traefik.http.routers.netsody-controller.entrypoints=websecure"
+      - "traefik.http.routers.netsody-controller.tls=true"
+      - "traefik.http.routers.netsody-controller.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.netsody-controller.service=netsody-controller"
+      - "traefik.http.routers.netsody-controller.priority=100"
+      - "traefik.http.routers.netsody-controller-web.rule=Host(`${NETSODY_CONTROLLER_DOMAIN:-controller.example.com}`)"
+      - "traefik.http.routers.netsody-controller-web.entrypoints=web"
+      - "traefik.http.routers.netsody-controller-web.middlewares=netsody-controller-redirect"
+      - "traefik.http.routers.netsody-controller-web.service=netsody-controller"
+      - "traefik.http.middlewares.netsody-controller-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.netsody-controller-redirect.redirectscheme.permanent=true"
+      - "traefik.http.services.netsody-controller.loadbalancer.server.port=8080"
+
+  netsody-dashboard:
+    image: netsody/dashboard:latest
+    restart: unless-stopped
+    environment:
+      NETSODY_DASHBOARD_API_BASE_URL: ${NETSODY_DASHBOARD_API_BASE_URL:-https://controller.example.com/api}
+      NETSODY_DASHBOARD_OIDC_AUTHORITY: ${NETSODY_DASHBOARD_OIDC_AUTHORITY:-https://id.example.com}
+      NETSODY_DASHBOARD_OIDC_CLIENT_ID: ${NETSODY_DASHBOARD_OIDC_CLIENT_ID:-replace-with-pocket-id-controller-client-id}
+      NETSODY_DASHBOARD_OIDC_SCOPE: ${NETSODY_DASHBOARD_OIDC_SCOPE:-openid profile email}
+      NETSODY_DASHBOARD_DEVICE_AUTHORIZATION_URL: ${NETSODY_DASHBOARD_DEVICE_AUTHORIZATION_URL:-https://id.example.com/device}
+    expose:
+      - "80"
+    depends_on:
+      - netsody-controller
+    networks:
+      - netsody-controller
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.netsody-dashboard.rule=Host(`${NETSODY_CONTROLLER_DOMAIN:-controller.example.com}`)"
+      - "traefik.http.routers.netsody-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.netsody-dashboard.tls=true"
+      - "traefik.http.routers.netsody-dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.netsody-dashboard.service=netsody-dashboard"
+      - "traefik.http.routers.netsody-dashboard.priority=10"
+      - "traefik.http.services.netsody-dashboard.loadbalancer.server.port=80"
+
+  netsody-sp-certbot:
+    image: certbot/certbot:latest
+    restart: unless-stopped
+    env_file: *common-env
+    entrypoint:
+      - /bin/sh
+    command:
+      - -ec
+      - |
+        trap 'exit 0' INT TERM
+
+        while :; do
+          if certbot certonly --standalone --http-01-port 80 \
+            --non-interactive --agree-tos \
+            --email "$${TRAEFIK_ACME_EMAIL:-admin@example.com}" \
+            --cert-name "$${NETSODY_SP_DOMAIN:-sp.example.com}" \
+            -d "$${NETSODY_SP_DOMAIN:-sp.example.com}" \
+            --keep-until-expiring; then
+            delay="$${CERTBOT_RENEW_INTERVAL_SECONDS:-43200}"
+          else
+            delay="$${CERTBOT_RETRY_INTERVAL_SECONDS:-300}"
+          fi
+
+          sleep "$${delay}" &
+          wait "$$!"
+        done
+    expose:
+      - "80"
+    volumes:
+      - netsody_sp_letsencrypt:/etc/letsencrypt
+      - netsody_sp_certbot_lib:/var/lib/letsencrypt
+      - netsody_sp_certbot_log:/var/log/letsencrypt
+    depends_on:
+      - traefik
+    networks:
+      - netsody-sp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.netsody-sp-acme.rule=Host(`${NETSODY_SP_DOMAIN:-sp.example.com}`)"
+      - "traefik.http.routers.netsody-sp-acme.entrypoints=web"
+      - "traefik.http.routers.netsody-sp-acme.priority=1000"
+      - "traefik.http.routers.netsody-sp-acme.service=netsody-sp-acme"
+      - "traefik.http.services.netsody-sp-acme.loadbalancer.server.port=80"
+
+  netsody-sp:
+    image: netsody/sp:latest
+    restart: unless-stopped
+    environment:
+      NETSODY_PROMETHEUS_LISTEN: "${NETSODY_PROMETHEUS_LISTEN:-[::]:9898}"
+      NETSODY_SP_DOMAIN: "${NETSODY_SP_DOMAIN:-sp.example.com}"
+      NETSODY_SP_ALT_SVC_PORT: "${NETSODY_SP_ALT_SVC_PORT:-443}"
+    command:
+      - "--cert"
+      - "/etc/letsencrypt/live/${NETSODY_SP_DOMAIN:-sp.example.com}/fullchain.pem"
+      - "--key"
+      - "/etc/letsencrypt/live/${NETSODY_SP_DOMAIN:-sp.example.com}/privkey.pem"
+      - "--alt-svc-port"
+      - "${NETSODY_SP_ALT_SVC_PORT:-443}"
+    expose:
+      - "8443/tcp"
+      - "8443/udp"
+    ports:
+      - "${NETSODY_SP_PROMETHEUS_PORT:-9898}:9898"
+    volumes:
+      - netsody_sp_letsencrypt:/etc/letsencrypt:ro
+    networks:
+      - netsody-sp
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.netsody-sp.rule=HostSNI(`${NETSODY_SP_DOMAIN:-sp.example.com}`)"
+      - "traefik.tcp.routers.netsody-sp.entrypoints=websecure"
+      - "traefik.tcp.routers.netsody-sp.tls.passthrough=true"
+      - "traefik.tcp.routers.netsody-sp.service=netsody-sp"
+      - "traefik.tcp.services.netsody-sp.loadbalancer.server.port=8443"
+      - "traefik.udp.routers.netsody-sp.entrypoints=netsody-sp-udp"
+      - "traefik.udp.routers.netsody-sp.service=netsody-sp-udp"
+      - "traefik.udp.services.netsody-sp-udp.loadbalancer.server.port=8443"
+
+volumes:
+  traefik_letsencrypt:
+  netsody_sp_letsencrypt:
+  netsody_sp_certbot_lib:
+  netsody_sp_certbot_log:
+  netsody_controller_db_data:
+  netsody_controller_service_data:
+  netsody_controller_minio_data:
+  pocket_id_data:

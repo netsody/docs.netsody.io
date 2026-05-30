@@ -56,15 +56,9 @@ const sidebars = {
       ],
     },
     {
-      type: 'category',
+      type: 'doc',
+      id: 'self-hosting',
       label: 'Self-Hosting',
-      link: {
-        type: 'doc',
-        id: 'self-hosting',
-      },
-      items: [
-        'self-hosting/super-peer',
-      ],
     },
     {
       type: 'category',

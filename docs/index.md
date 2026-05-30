@@ -26,7 +26,7 @@ Use Netsody when access should stay explicit, scoped, and reviewable across user
 - [**Get Started**](get-started): Create your first network and connect your first devices.
 - [**Manage**](manage): Manage networks, nodes, users, policies, and resources.
 - [**How Netsody Works**](architecture): Understand the controller, agent, and connectivity model.
-- [**Self-Hosting**](self-hosting): Understand the self-hosting documentation status and deployment ownership.
+- [**Self-Hosting**](self-hosting): Run the Netsody controller, dashboard, Super Peer, and supporting services on your own infrastructure.
 - [**Other**](other): Use manually managed networks when required.
 
 ## Community & Support
