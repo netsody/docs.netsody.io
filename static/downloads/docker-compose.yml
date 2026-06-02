@@ -217,6 +217,7 @@ services:
     restart: unless-stopped
     environment:
       NETSODY_PROMETHEUS_LISTEN: "${NETSODY_PROMETHEUS_LISTEN:-[::]:9898}"
+      PROMETHEUS_TOKEN: "${NETSODY_SP_PROMETHEUS_TOKEN:-}"
       NETSODY_SP_DOMAIN: "${NETSODY_SP_DOMAIN:-sp.example.com}"
       NETSODY_SP_ALT_SVC_PORT: "${NETSODY_SP_ALT_SVC_PORT:-443}"
     command:
@@ -226,11 +227,16 @@ services:
       - "/etc/letsencrypt/live/${NETSODY_SP_DOMAIN:-sp.example.com}/privkey.pem"
       - "--alt-svc-port"
       - "${NETSODY_SP_ALT_SVC_PORT:-443}"
+      - "--proxy-public-addresses"
+      - "${NETSODY_SP_PROXY_PUBLIC_ADDRESSES:?set NETSODY_SP_PROXY_PUBLIC_ADDRESSES to this host public IP address}"
+      - "--proxy-ports"
+      - "${NETSODY_SP_PROXY_PORT_RANGE:-49152-49407}"
     expose:
       - "8443/tcp"
       - "8443/udp"
     ports:
-      - "${NETSODY_SP_PROMETHEUS_PORT:-9898}:9898"
+      - "${NETSODY_SP_PROXY_PORT_RANGE:-49152-49407}:${NETSODY_SP_PROXY_PORT_RANGE:-49152-49407}/udp"
+      - "127.0.0.1:${NETSODY_SP_PROMETHEUS_PORT:-9898}:9898"
     volumes:
       - netsody_sp_letsencrypt:/etc/letsencrypt:ro
     networks:

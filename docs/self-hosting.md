@@ -52,10 +52,12 @@ Traefik terminates TLS for the controller domain and the optional Pocket ID doma
   - `NETSODY_CONTROLLER_DOMAIN` points to this host.
   - `NETSODY_SP_DOMAIN` points to this host.
   - `POCKET_ID_DOMAIN` points to this host if you enable the Pocket ID profile.
+- Public IP address or addresses for `NETSODY_SP_PROXY_PUBLIC_ADDRESSES`; use addresses that agents can reach on this host.
 - Public inbound firewall rules:
   - TCP 80 for the ACME HTTP-01 challenge that `netsody-sp-certbot` uses to provide a certificate for the Super Peer.
   - TCP 443 for the controller, the optional identity provider, and the Super Peer in HTTP/2 fallback mode.
   - UDP 443 for the Super Peer in HTTP/3 mode.
+  - UDP `NETSODY_SP_PROXY_PORT_RANGE` for Super Peer MASQUE relay fallback.
 
 ## Create the environment file
 
@@ -66,7 +68,7 @@ touch .env
 openssl rand -base64 32
 ```
 
-Use the `openssl` output for `POCKET_ID_ENCRYPTION_KEY` if you use the included Pocket ID profile. Replace the example domains, OIDC client IDs, passwords, and secrets before using the stack with real users.
+Use the `openssl` output for `POCKET_ID_ENCRYPTION_KEY` if you use the included Pocket ID profile. Replace the example domains, public IP address, OIDC client IDs, passwords, and secrets before using the stack with real users.
 
 ```properties title=".env"
 # Controller service
@@ -142,13 +144,20 @@ NETSODY_CONTROLLER_MINIO_CONSOLE_PORT=40091
 # Super Peer
 NETSODY_SP_UDP_PORT=443
 NETSODY_SP_ALT_SVC_PORT=443
+NETSODY_SP_PROXY_PUBLIC_ADDRESSES=203.0.113.10
+NETSODY_SP_PROXY_PORT_RANGE=49152-49407
 NETSODY_SP_PROMETHEUS_PORT=9898
+NETSODY_SP_PROMETHEUS_TOKEN=
 NETSODY_PROMETHEUS_LISTEN=[::]:9898
 CERTBOT_RETRY_INTERVAL_SECONDS=300
 CERTBOT_RENEW_INTERVAL_SECONDS=43200
 ```
 
 The controller uses OIDC discovery and expected audiences. It validates access tokens with the provider JWKS and refreshes user profile data from the provider userinfo endpoint. If you use another OIDC provider instead of Pocket ID, keep the same Netsody environment variables and replace the provider URLs and client IDs.
+
+Set `NETSODY_SP_PROXY_PUBLIC_ADDRESSES` to one or more comma-separated public IP addresses for this host, for example `203.0.113.10` or `203.0.113.10,2001:db8::10`. Agents use these addresses with `NETSODY_SP_PROXY_PORT_RANGE` for MASQUE relay fallback, so the same UDP range must be open in the host firewall.
+
+The stack publishes the Super Peer Prometheus listener only on `127.0.0.1:NETSODY_SP_PROMETHEUS_PORT`. Set `NETSODY_SP_PROMETHEUS_TOKEN` if you expose that listener through another path.
 
 Pocket ID does not provide the Authentik invitation API used by the optional controller invitation automation. Leave `AUTHENTIK_BASE_URL`, `AUTHENTIK_TOKEN`, and `AUTHENTIK_INVITATION_FLOW_ID` empty unless you intentionally integrate Authentik for invitations. With Pocket ID, an admin must create users in Pocket ID first. Each user must then sign in to the Netsody controller once before they can be added to an existing Netsody network.
 
@@ -247,6 +256,7 @@ The Super Peer should accept TCP and UDP traffic on:
 
 ```text
 <NETSODY_SP_DOMAIN>:443
+<NETSODY_SP_PROXY_PUBLIC_ADDRESSES>:<NETSODY_SP_PROXY_PORT_RANGE>/udp
 ```
 
 ## Configure agents
@@ -307,3 +317,5 @@ If `netsody-sp` keeps restarting, check whether these files exist in the `netsod
 ```
 
 If they do not exist, solve the Certbot or DNS issue first. The Super Peer will start once the files are present.
+
+If direct peer paths work but relay fallback does not, check that `NETSODY_SP_PROXY_PUBLIC_ADDRESSES` contains the host's reachable public IP address or addresses and that UDP `NETSODY_SP_PROXY_PORT_RANGE` is published by Docker and open in the host firewall.
