@@ -108,7 +108,7 @@ services:
       - netsody-controller
 
   netsody-controller:
-    image: git.informatik.uni-hamburg.de:4567/sane-public/netsody/controller:latest
+    image: registry.netsody.io/controller:latest
     restart: unless-stopped
     env_file: *common-env
     environment:
