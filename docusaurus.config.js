@@ -26,6 +26,18 @@ const config = {
     locales: ['en'],
   },
 
+  plugins: [
+    [
+      'docusaurus-plugin-llms',
+      {
+        docsDir: 'docs',
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: true,
+        generateMarkdownFiles: true,
+      },
+    ],
+  ],
+
   presets: [
     [
       'classic',
