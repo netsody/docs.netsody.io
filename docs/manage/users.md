@@ -24,8 +24,8 @@ Users have one of these roles:
 | Transfer ownership | ✅ | ❌ | ❌ | ❌ |
 | Remove Owner | ❌ | ❌ | ❌ | ❌ |
 | Edit nodes, resources, and policies | ✅ | ✅ | ✅ | ❌ |
-| Manage members and tokens | ✅ | ✅ | ❌ | ❌ |
-| Access member list | ✅ | ✅ | ❌ | ❌ |
+| Manage users | ✅ | ✅ | ❌ | ❌ |
+| Access user list | ✅ | ✅ | ❌ | ❌ |
 | Read-only network access | ✅ | ✅ | ✅ | ✅ |
 
 Only one user can be Owner. Admin, Editor, and Member can be assigned to multiple users.

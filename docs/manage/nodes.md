@@ -33,7 +33,7 @@ Every node is implicitly part of the `ALL` group.
 
 ## Add a node
 
-In the web interface, a user can decide which of their devices may be added to a network where they are a member.
+In the web interface, a user can decide which of their devices may be added to a network they belong to.
 
 Users can also install Netsody on new devices, pair those devices with their Netsody account, and then add them to networks where they have the required role.
 
