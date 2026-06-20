@@ -9,7 +9,7 @@ pagination_next: null
 
 Use this guide to run Netsody on your own infrastructure with Docker Compose. The deployment includes the web-based controller, super peer, and an optional OpenID Connect identity provider.
 
-This guide is for operators who want to own the full Netsody control plane and relay infrastructure. Netsody agents still run on the devices that join your networks.
+This guide is for operators who want to own the full Netsody control plane and relay infrastructure. Netsody agents still run on the devices that join your networks. For the concepts behind these components, see [Network Management](architecture/network-management.mdx) and [Super Peers](architecture/super-peers.mdx).
 
 ## Download the Docker Compose file
 

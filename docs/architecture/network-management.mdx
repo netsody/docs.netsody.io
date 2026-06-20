@@ -12,6 +12,25 @@ While the [connectivity layer](connectivity.mdx) establishes encrypted paths bet
 That administrative state belongs in the Netsody controller.
 
 
+## Control plane and data plane
+
+Netsody splits responsibilities into two planes:
+
+- **Control plane (configuration).** The controller decides *who* may join a network and *which* devices may talk to each other. It holds and distributes the desired network state — membership, overlay addresses and hostnames, groups, policies, and resources — and monitors whether each device applied it. The controller (through the dashboard) also assigns each device its overlay IP address and hostname.
+- **Data plane (connectivity).** Devices carry the actual traffic directly between each other over end-to-end encrypted connections, assisted by [super peers](super-peers.mdx) for discovery and relay. The controller is never in the data path — not even for relayed connections.
+
+Each [agent](agent.mdx) pulls only the state relevant to its device, enforces the policies locally, and performs the end-to-end encryption itself.
+
+## A central controller is optional
+
+A centralized controller is not required to run a Netsody overlay. The network configuration is just a document, and a device can obtain it from:
+
+- the managed Netsody controller (or a self-hosted one),
+- any standard HTTP(S) server, or
+- a local file copied to each device.
+
+The managed Netsody service is the easiest way to get there: you don't have to run or maintain any of this infrastructure yourself. It stores the configuration, assigns addresses and hostnames, serves each device the part that applies to it, and operates a global fleet of [super peers](super-peers.mdx) — all monitored and managed for you, so you can simply create a network and get started. The controller-free options exist for cases where you want full control over the distribution; see [Manually Managed Networks](../other/manually-managed-networks.mdx) for the file- or HTTP-distributed workflow.
+
 If you are new to Netsody, start with [Get Started](../get-started) and the [Networks](../manage/networks.md) page.
 
 Each Netsody network is managed by the controller. It includes the IP subnet, participating devices, hostnames, groups, access control policies, and optional resources.

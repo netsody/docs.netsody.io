@@ -1,0 +1,45 @@
+---
+title: Super Peers
+description: How super peers help Netsody devices discover each other, connect directly, and relay traffic as a fallback.
+---
+
+# Super Peers
+
+Netsody devices connect to each other directly whenever possible. **Super peers** are publicly reachable helper nodes that make those direct connections possible and step in as a fallback when they are not. They are part of the [data plane](connectivity.mdx) that Netsody uses for connectivity.
+
+A super peer is never a mandatory hop: traffic prefers a direct path and only travels through a super peer when no direct path can be established.
+
+## What a super peer does
+
+A super peer serves three functions:
+
+- **Discovery** — it acts as a rendezvous point so devices can locate one another by their public-key identity, without every device needing a fixed, publicly reachable address.
+- **Direct-connection establishment** — it helps two devices traverse NATs and firewalls so they can open a direct, end-to-end encrypted connection to each other.
+- **Relay fallback** — when a direct connection cannot be established (for example behind a strict firewall), the super peer forwards traffic between the two devices so they can still communicate.
+
+Direct connectivity is always preferred; relaying through a super peer is the fallback. See [Connectivity and Data Plane](connectivity.mdx) for the transports involved (QUIC for direct connections, MASQUE over HTTP/3 for relaying, and HTTP/2 over TLS as a relay fallback when UDP or QUIC is blocked).
+
+## What a super peer can see
+
+All traffic between Netsody devices is end-to-end encrypted and authenticated between the two peers. A super peer that relays a connection forwards the encrypted stream only — it cannot read the payload. Devices authenticate each other by their cryptographic identity (their public key), and access is enforced locally by the [agent](agent.mdx) following Zero Trust principles, not by the super peer. A super peer carries traffic; it is not a policy authority and is not trusted with the contents.
+
+The [controller](network-management.mdx) is likewise never in the data path — not even for relayed connections.
+
+## Operations and self-hosting
+
+Netsody operates public super peers in Europe, North America, and the Asia-Pacific region, so devices in all of these regions have a nearby rendezvous point and relay available without any setup.
+
+You can also run your own super peer — for example to keep relay traffic on your own infrastructure. The [Self-Hosting](../self-hosting.md) guide describes running the Netsody super peer (`netsody-sp`) alongside the controller.
+
+Super peers and the controller are independent: because a super peer is purely part of the [data plane](connectivity.mdx) and is never trusted with the configuration, a self-hosted super peer combines freely with the Netsody-provided controller. You do not have to self-host the controller to use your own super peers. This is useful when you want to:
+
+- place a super peer closer to your own nodes for lower latency, or
+- keep all signaling (discovery) and relayed traffic on super peers you operate,
+
+while still managing your networks through the hosted controller and dashboard. Point your agents at your own super peer (`netsody login --super-peer …`, repeatable for several) regardless of which controller they use.
+
+You can mix the Netsody-provided super peers with your own, or run entirely your own — whichever you prefer. Each device performs signaling over all super peers available to it, and when a connection has to be relayed, the super peer with the lowest latency to the respective peer is chosen automatically.
+
+## The super_peers metric
+
+Each node reports its super-peer connectivity as the `super_peers` metric: which super peers the node is currently connected to and the measured round-trip time (and whether the connection uses IPv4 or IPv6). This metric indicates whether a device has healthy rendezvous and relay connectivity.

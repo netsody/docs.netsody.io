@@ -27,7 +27,7 @@ Each node has:
 - A Netsody IP address inside the network subnet.
 - Optional groups used by policies and resources.
 
-Nodes can be reached by their Netsody IP address or by their fully qualified hostname, such as `<hostname>.netsody.me`.
+Nodes can be reached by their Netsody IP address or by their fully qualified hostname, such as `<hostname>.netsody.me`. The controller distributes this node state as part of the [control plane](../architecture/network-management.mdx).
 
 Every node is implicitly part of the `ALL` group.
 

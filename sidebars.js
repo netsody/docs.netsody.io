@@ -51,6 +51,7 @@ const sidebars = {
       },
       items: [
         'architecture/connectivity',
+        'architecture/super-peers',
         'architecture/network-management',
         'architecture/agent',
       ],
@@ -83,6 +84,11 @@ const sidebars = {
       items: [
         'other/manually-managed-networks',
       ],
+    },
+    {
+      type: 'doc',
+      id: 'glossary',
+      label: 'Glossary',
     },
   ],
 };
