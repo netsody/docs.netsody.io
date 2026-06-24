@@ -29,7 +29,8 @@
   },
   "resolutions": {
     "serialize-javascript": "^7.0.5",
-    "@docusaurus/plugin-content-docs": "3.10.1"
+    "@docusaurus/plugin-content-docs": "3.10.1",
+    "uuid": "^11.1.1"
   },
   "browserslist": {
     "production": [
