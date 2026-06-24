@@ -39,7 +39,7 @@ Each resource defines:
 
 - The destination that should be reachable.
 - The gateway node that forwards traffic.
-- The destination groups used by policies.
+- The groups attached to the resource. These both distribute the route to nodes in those groups and make the resource addressable as a policy destination under each group name.
 
 Resources require explicit policies. A node does not gain access only because it shares a group with a resource.
 

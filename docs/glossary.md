@@ -13,6 +13,10 @@ The **control plane** is the authority that holds and distributes a network's de
 
 The web user interface of the [controller](#controller--control-plane). Administrators use the dashboard to create networks, add and configure devices, manage groups, policies, and resources, and to invite users. The dashboard assigns each device its overlay IP address and hostname and writes the resulting configuration to the controller. See [Network Management](architecture/network-management.mdx).
 
+## Group
+
+A label attached to nodes and/or resources to express access intent. Used as the source or destination of a [policy](manage/policies.md), a group expands to the union of all nodes and all resources tagged with it. Group membership alone never grants access — a policy must explicitly allow the communication. A group with no member nodes can still be meaningful, because it may tag resources. See [Groups](manage/groups.md).
+
 ## Netsody agent / Data plane
 
 The **data plane** carries the actual traffic between devices. Devices connect directly over end-to-end encrypted connections whenever possible, assisted by [super peers](#super-peer) when no direct path is available. The **Netsody agent** is the component that implements this: it runs on each device, pulls the part of the network configuration relevant to that device from the [controller](#controller--control-plane), reconciles the local system with that desired state, and reports status back. It performs the end-to-end encryption and enforces access policies locally (Zero Trust), establishing direct or super-peer-relayed connections to its permitted peers. See [Netsody Agent](architecture/agent.mdx) and [Connectivity and Data Plane](architecture/connectivity.mdx).

@@ -32,6 +32,8 @@ This lets you write policies at the level that matches the intended access: a gr
 
 Existing Netsody policies are evaluated bidirectionally for node-to-node access: if one node group is allowed to contact another node group, the reverse direction is allowed as well.
 
+A group used as a destination resolves to the union of the nodes and the resources tagged with it, so a resource can be reached either by targeting it directly or by targeting any group it belongs to.
+
 Resource access requires an explicit policy. The special `ALL` group applies to nodes, but it does not implicitly grant access to resources.
 
 ## Rules and conditions
