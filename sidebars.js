@@ -57,6 +57,18 @@ const sidebars = {
       ],
     },
     {
+      type: 'category',
+      label: 'Guides',
+      link: {
+        type: 'generated-index',
+        description: 'Task-based guides for running specific workloads and services over Netsody.',
+        slug: '/guides',
+      },
+      items: [
+        'guides/kubernetes',
+      ],
+    },
+    {
       type: 'doc',
       id: 'self-hosting',
       label: 'Self-Hosting',
