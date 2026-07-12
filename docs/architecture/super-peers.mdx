@@ -39,7 +39,3 @@ Super peers and the controller are independent: because a super peer is purely p
 while still managing your networks through the hosted controller and dashboard. Point your agents at your own super peer (`netsody login --super-peer …`, repeatable for several) regardless of which controller they use.
 
 You can mix the Netsody-provided super peers with your own, or run entirely your own — whichever you prefer. Each device performs signaling over all super peers available to it, and when a connection has to be relayed, the super peer with the lowest latency to the respective peer is chosen automatically.
-
-## The super_peers metric
-
-Each node reports its super-peer connectivity as the `super_peers` metric: which super peers the node is currently connected to and the measured round-trip time (and whether the connection uses IPv4 or IPv6). This metric indicates whether a device has healthy rendezvous and relay connectivity.
