@@ -279,7 +279,7 @@ Repeat `--super-peer` to configure more than one Super Peer. The command stores 
 
 The controller can show a country flag and city for each node, derived from the public IP address the controller already observes when a node reports its status. This is optional and disabled by default.
 
-Netsody resolves the location locally with a MaxMind GeoLite2-City database, so node IP addresses are never sent to a third party. The controller only reads the database file; it never downloads or redistributes it. Each operator obtains the data directly from MaxMind under their own license.
+Netsody resolves the location locally with a MaxMind GeoLite2-City database, so node IP addresses are never sent to a third party.
 
 ### Get a MaxMind license key
 
