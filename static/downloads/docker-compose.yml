@@ -118,10 +118,12 @@ services:
       S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID:-minio}
       S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY:-minio123}
       S3_FORCE_PATH_STYLE: ${S3_FORCE_PATH_STYLE:-true}
+      GEOIP_DB_PATH: ${GEOIP_DB_PATH:-}
     expose:
       - "8080"
     volumes:
       - netsody_controller_service_data:/app/data
+      - netsody_controller_geoip:/geoip:ro
     depends_on:
       - netsody-controller-db
       - netsody-controller-minio
@@ -142,6 +144,21 @@ services:
       - "traefik.http.middlewares.netsody-controller-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.netsody-controller-redirect.redirectscheme.permanent=true"
       - "traefik.http.services.netsody-controller.loadbalancer.server.port=8080"
+
+  netsody-controller-geoip:
+    image: ghcr.io/maxmind/geoipupdate:v7
+    restart: unless-stopped
+    profiles:
+      - geoip
+    environment:
+      GEOIPUPDATE_ACCOUNT_ID: ${GEOIPUPDATE_ACCOUNT_ID:-}
+      GEOIPUPDATE_LICENSE_KEY: ${GEOIPUPDATE_LICENSE_KEY:-}
+      GEOIPUPDATE_EDITION_IDS: GeoLite2-City
+      GEOIPUPDATE_FREQUENCY: "72"
+    volumes:
+      - netsody_controller_geoip:/usr/share/GeoIP
+    networks:
+      - netsody-controller
 
   netsody-dashboard:
     image: netsody/dashboard:latest
@@ -259,5 +276,6 @@ volumes:
   netsody_sp_certbot_log:
   netsody_controller_db_data:
   netsody_controller_service_data:
+  netsody_controller_geoip:
   netsody_controller_minio_data:
   pocket_id_data:

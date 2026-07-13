@@ -141,6 +141,12 @@ S3_FORCE_PATH_STYLE=true
 NETSODY_CONTROLLER_MINIO_PORT=9000
 NETSODY_CONTROLLER_MINIO_CONSOLE_PORT=40091
 
+# Optional node geolocation. To enable, set the MaxMind credentials and
+# GEOIP_DB_PATH=/geoip/GeoLite2-City.mmdb, then start with `--profile geoip`.
+GEOIP_DB_PATH=
+GEOIPUPDATE_ACCOUNT_ID=
+GEOIPUPDATE_LICENSE_KEY=
+
 # Super Peer
 NETSODY_SP_UDP_PORT=443
 NETSODY_SP_ALT_SVC_PORT=443
@@ -290,59 +296,22 @@ Create a free MaxMind account and generate a license key:
 
 Note your MaxMind account ID and license key.
 
-### Add the geoipupdate sidecar
+### Enable geolocation
 
-The `geoipupdate` sidecar keeps `GeoLite2-City.mmdb` current in a shared volume that the controller reads. MaxMind publishes database updates twice per week.
+The stack includes an optional `geoipupdate` sidecar, behind the `geoip` Compose profile, that keeps `GeoLite2-City.mmdb` current in a shared volume the controller reads. MaxMind publishes database updates twice per week.
 
-Add your MaxMind credentials to `.env`:
+Set your MaxMind credentials and the database path in `.env`:
 
 ```dotenv
+GEOIP_DB_PATH=/geoip/GeoLite2-City.mmdb
 GEOIPUPDATE_ACCOUNT_ID=<maxmind-account-id>
 GEOIPUPDATE_LICENSE_KEY=<maxmind-license-key>
 ```
 
-Add the sidecar service to `docker-compose.yml`:
-
-```yaml
-  netsody-controller-geoip:
-    image: ghcr.io/maxmind/geoipupdate:v7
-    restart: unless-stopped
-    environment:
-      GEOIPUPDATE_ACCOUNT_ID: ${GEOIPUPDATE_ACCOUNT_ID}
-      GEOIPUPDATE_LICENSE_KEY: ${GEOIPUPDATE_LICENSE_KEY}
-      GEOIPUPDATE_EDITION_IDS: GeoLite2-City
-      GEOIPUPDATE_FREQUENCY: "72"
-    volumes:
-      - netsody_controller_geoip:/usr/share/GeoIP
-    networks:
-      - netsody-controller
-```
-
-Add these keys to the existing `netsody-controller` service so it can read the database file:
-
-```yaml
-  netsody-controller:
-    environment:
-      GEOIP_DB_PATH: /geoip/GeoLite2-City.mmdb
-    volumes:
-      - netsody_controller_geoip:/geoip:ro
-```
-
-Add the named volume next to the other volumes at the bottom of `docker-compose.yml`:
-
-```yaml
-volumes:
-  netsody_controller_geoip:
-```
-
-`GEOIPUPDATE_FREQUENCY` is in hours; `72` refreshes every three days. The `:ro` mount keeps the controller's access to the database read-only.
-
-### Apply and verify
-
-Recreate the stack so the new service and volume are created:
+Start the stack with the `geoip` profile added to the profiles you already use:
 
 ```bash
-docker compose --profile pocket-id up -d
+docker compose --profile pocket-id --profile geoip up -d
 ```
 
 The controller loads the database once at startup. On the very first run the controller can start before `geoipupdate` has finished the initial download; if so, restart the controller once the database file exists:
@@ -352,7 +321,7 @@ docker compose logs netsody-controller-geoip
 docker compose restart netsody-controller
 ```
 
-The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If the database is missing or `GEOIP_DB_PATH` is unset, geolocation is simply disabled and the rest of the node status keeps working.
+The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If `GEOIP_DB_PATH` is empty or the database is missing, geolocation is simply disabled and the rest of the node status keeps working.
 
 When you show the location in a user-facing surface, include the MaxMind attribution, for example: `This product includes GeoLite2 data created by MaxMind, available from https://www.maxmind.com`.
 
