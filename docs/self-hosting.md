@@ -277,7 +277,7 @@ Repeat `--super-peer` to configure more than one Super Peer. The command stores 
 
 ## Node geolocation (optional)
 
-The controller can show a country flag and city for each node, derived from the public IP address the controller already observes when a node reports metrics. This is optional and disabled by default.
+The controller can show a country flag and city for each node, derived from the public IP address the controller already observes when a node reports its status. This is optional and disabled by default.
 
 Netsody resolves the location locally with a MaxMind GeoLite2-City database, so node IP addresses are never sent to a third party. The controller only reads the database file; it never downloads or redistributes it. Each operator obtains the data directly from MaxMind under their own license.
 
@@ -352,13 +352,13 @@ docker compose logs netsody-controller-geoip
 docker compose restart netsody-controller
 ```
 
-The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If the database is missing or `GEOIP_DB_PATH` is unset, geolocation is simply disabled and all other node metrics keep working.
+The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If the database is missing or `GEOIP_DB_PATH` is unset, geolocation is simply disabled and the rest of the node status keeps working.
 
 When you show the location in a user-facing surface, include the MaxMind attribution, for example: `This product includes GeoLite2 data created by MaxMind, available from https://www.maxmind.com`.
 
 ### Privacy
 
-Node location is a separate item in the metrics privacy model. Users control it with the `location` visibility toggle, independently of their exact IP address (`ip_addresses`), so a user can share a coarse location without exposing the observed public IP.
+Node location is a separate item in the status privacy model. Users control it with the `location` visibility toggle, independently of their exact IP address (`ip_addresses`), so a user can share a coarse location without exposing the observed public IP.
 
 ## Operations
 
