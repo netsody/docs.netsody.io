@@ -288,7 +288,7 @@ Create a free MaxMind account and generate a license key:
 - Sign up at `https://www.maxmind.com/en/geolite2/signup`.
 - In your MaxMind account, create a license key under `Manage License Keys`.
 
-Note your MaxMind account ID and license key. Using GeoLite2 requires accepting the MaxMind GeoLite2 End User License Agreement.
+Note your MaxMind account ID and license key.
 
 ### Add the geoipupdate sidecar
 
