@@ -141,6 +141,12 @@ S3_FORCE_PATH_STYLE=true
 NETSODY_CONTROLLER_MINIO_PORT=9000
 NETSODY_CONTROLLER_MINIO_CONSOLE_PORT=40091
 
+# Optional node geolocation. To enable, set the MaxMind credentials and
+# GEOIP_DB_PATH=/geoip/GeoLite2-City.mmdb, then start with `--profile geoip`.
+GEOIP_DB_PATH=
+GEOIPUPDATE_ACCOUNT_ID=
+GEOIPUPDATE_LICENSE_KEY=
+
 # Super Peer
 NETSODY_SP_UDP_PORT=443
 NETSODY_SP_ALT_SVC_PORT=443
@@ -274,6 +280,54 @@ netsody login \
 ```
 
 Repeat `--super-peer` to configure more than one Super Peer. The command stores the controller, OIDC, and Super Peer settings in the local agent config before starting the browser login flow. The controller, Super Peer list, and OIDC settings can be changed independently; `--auth-url` and `--auth-client-id` must always be supplied together.
+
+## Node geolocation (optional)
+
+The controller can show the country and city for each node, derived from the public IP address the controller already observes when a node reports its status. This is optional and disabled by default.
+
+Netsody resolves the location locally with a MaxMind GeoLite2-City database, so node IP addresses are never sent to a third party.
+
+### Get a MaxMind license key
+
+Create a free MaxMind account and generate a license key:
+
+- Sign up at `https://www.maxmind.com/en/geolite2/signup`.
+- In your MaxMind account, create a license key under `Manage License Keys`.
+
+Note your MaxMind account ID and license key.
+
+### Enable geolocation
+
+The stack includes an optional `geoipupdate` sidecar, behind the `geoip` Compose profile, that keeps `GeoLite2-City.mmdb` current in a shared volume the controller reads. MaxMind publishes database updates twice per week.
+
+Set your MaxMind credentials and the database path in `.env`:
+
+```dotenv
+GEOIP_DB_PATH=/geoip/GeoLite2-City.mmdb
+GEOIPUPDATE_ACCOUNT_ID=<maxmind-account-id>
+GEOIPUPDATE_LICENSE_KEY=<maxmind-license-key>
+```
+
+Start the stack with the `geoip` profile added to the profiles you already use:
+
+```bash
+docker compose --profile pocket-id --profile geoip up -d
+```
+
+The controller loads the database once at startup. On the very first run the controller can start before `geoipupdate` has finished the initial download; if so, restart the controller once the database file exists:
+
+```bash
+docker compose logs netsody-controller-geoip
+docker compose restart netsody-controller
+```
+
+The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If `GEOIP_DB_PATH` is empty or the database is missing, geolocation is simply disabled and the rest of the node status keeps working.
+
+When you show the location in a user-facing surface, include the MaxMind attribution, for example: `This product includes GeoLite2 data created by MaxMind, available from https://www.maxmind.com`.
+
+### Privacy
+
+Node location is a separate item in the status privacy model. Users control it with the `location` visibility toggle, independently of their exact IP address (`ip_addresses`), so a user can share a coarse location without exposing the observed public IP.
 
 ## Operations
 
