@@ -48,6 +48,8 @@ Conditions add context to a policy. They make the policy apply only when the nod
 
 When a policy has multiple conditions, all of them must match before the policy allows traffic.
 
+Conditions are evaluated by the agent on the node that initiates the connection, based on information that node reports about itself. They adapt behavior to the node's current environment and are not a security boundary. The security boundary is the policy itself, which the destination enforces independently. Do not use conditions to keep a compromised node away from a destination.
+
 ## Review checklist
 
 - Does the policy name explain the intent?
