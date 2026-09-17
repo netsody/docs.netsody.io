@@ -35,20 +35,20 @@ netsody service run --config /path/to/config.toml
 
 The Netsody Docker image uses `/netsody` as its working directory, so a foreground container without `--config` reads `/netsody/config.toml`. Mount a config file or directory there, or pass `--config` to select another location inside the container.
 
-## First start
-
 When the config file is missing or empty, the agent generates a new identity (a cryptographic key pair) and writes a fresh config file containing it. The public key of this identity serves as the node's identity within the network. The secret key stays on the device; when the agent creates a new config file on Linux and macOS, it restricts the file permissions to the owner only (`0600`).
 
 The identity is managed by the agent. Do not set it by hand and do not copy it between devices.
 
-## mtu
+## Options
+
+### mtu
 
 - Type: integer
 - Default: `1280`
 
 The MTU, in bytes, of the device's virtual Netsody network interface.
 
-## super_peers
+### super_peers
 
 - Type: array of HTTPS URLs
 - Default: the built-in list of Netsody-operated [super peers](../architecture/super-peers.mdx)
@@ -63,75 +63,75 @@ Setting `super_peers` replaces the built-in default list entirely. The defaults 
 - `https://sp-ap-south-1.netsody.io`
 :::
 
-## update_check
+### update_check
 
 - Type: boolean
 - Default: `true`
 
 Whether the agent periodically checks if a newer agent version is available.
 
-## auto_connect
+### auto_connect
 
 - Type: boolean
 - Default: `true`
 
 Whether the agent connects to all configured networks when it starts. With `false`, connect on demand later, for example with `netsody connect` or from the Netsody UI.
 
-## [dns]
+### [dns]
 
-### disabled
+#### disabled
 
 - Type: boolean
 - Default: `false`
 
 When `true`, the agent does not manage the system's DNS settings for Netsody hostnames. Other nodes are then reachable by their Netsody IP address, but not by names such as `<node>.netsody.me`.
 
-## [controller]
+### [controller]
 
 Connection settings for the controller. These values are normally written by the login flow (`netsody login`, or **Log in** in the Netsody UI) and do not need to be edited by hand. To point agents at your own controller, see [Self-Hosting](../self-hosting.md).
 
-### url
+#### url
 
 - Type: string (URL)
 - Default: `https://api.netsody.io/api`
 
 Base URL of the controller API.
 
-### auth_url
+#### auth_url
 
 - Type: string (URL)
 - Default: `https://login.netsody.io/application/o/netsody-agent/`
 
 Issuer URL of the OpenID Connect authorization server used for device login.
 
-### auth_client_id
+#### auth_client_id
 
 - Type: string
 - Default: the built-in client ID of the Netsody agent
 
 The OAuth2 client ID that the agent presents to the authorization server.
 
-### display_login_email
+#### display_login_email
 
 - Type: string
 - Default: none
 
 The email address of the paired account, written into the config during login. It is used locally to show which account the device is paired with.
 
-### shared_secret
+#### shared_secret
 
 - Type: string
 - Default: none
 
 The credential the agent uses to authenticate node requests to the controller, written into the config during login. Keep it secret. In `netsody status` output it is masked unless `--include-secrets` is passed.
 
-## [[network]]
+### [[network]]
 
 One `[[network]]` entry per Netsody network the device participates in.
 
 Network entries are normally added and managed through the CLI (`netsody network add ...`), the Netsody UI, or the controller, not by editing the config file by hand. Entries whose `config_url` uses the `controller://` scheme are managed by the controller and must not be edited by hand.
 
-### config_url
+#### config_url
 
 - Type: string (URL)
 - Required
@@ -141,14 +141,14 @@ Where the agent retrieves the network's configuration from:
 - A `file:///` or HTTP(S) URL of a [manually managed network](../other/manually-managed-networks.mdx) TOML file.
 - `controller://<network-id>` for a controller-managed network, added through the login and join flow.
 
-### disabled
+#### disabled
 
 - Type: boolean
 - Default: `false`
 
 Keep the entry without participating in the network. The device leaves the network until it is enabled again, without losing its membership in the network.
 
-### name
+#### name
 
 - Type: string
 - Default: none
