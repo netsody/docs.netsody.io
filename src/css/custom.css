@@ -680,6 +680,9 @@ pre,
 }
 
 table {
+  display: table;
+  width: auto;
+  max-width: 100%;
   overflow: hidden;
   border: 1px solid var(--ns-border);
   border-radius: var(--ns-radius-md);
