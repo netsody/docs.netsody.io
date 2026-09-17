@@ -41,16 +41,14 @@ When the config file is missing or empty, the agent generates a new identity (a 
 
 The identity is managed by the agent. Do not set it by hand and do not copy it between devices.
 
-## Options
-
-### mtu
+## mtu
 
 - Type: integer
 - Default: `1280`
 
 The MTU, in bytes, of the device's virtual Netsody network interface.
 
-### super_peers
+## super_peers
 
 - Type: array of HTTPS URLs
 - Default: the built-in list of Netsody-operated [super peers](../architecture/super-peers.mdx)
@@ -65,14 +63,14 @@ Setting `super_peers` replaces the built-in default list entirely. The defaults 
 - `https://sp-ap-south-1.netsody.io`
 :::
 
-### update_check
+## update_check
 
 - Type: boolean
 - Default: `true`
 
 Whether the agent periodically checks if a newer agent version is available.
 
-### auto_connect
+## auto_connect
 
 - Type: boolean
 - Default: `true`
@@ -126,18 +124,6 @@ The email address of the paired account, written into the config during login. I
 - Default: none
 
 The credential the agent uses to authenticate node requests to the controller, written into the config during login. Keep it secret. In `netsody status` output it is masked unless `--include-secrets` is passed.
-
-## [prometheus]
-
-:::note
-The `[prometheus]` section is only available in agent builds with the `prometheus` Cargo feature enabled. It is not part of the default build.
-:::
-
-When configured, the agent pushes its metrics every five seconds to the Prometheus Pushgateway at `url`, using HTTP basic authentication with the given credentials. All three fields are required within the section:
-
-- `url` (string): URL of the Prometheus Pushgateway.
-- `user` (string): user for HTTP basic authentication.
-- `pass` (string): password for HTTP basic authentication.
 
 ## [[network]]
 
