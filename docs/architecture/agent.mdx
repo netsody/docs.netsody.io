@@ -36,3 +36,7 @@ This prevents overlay IP spoofing and ensures that only authorized identities ca
 Access control follows **Zero Trust principles**: every packet is verified individually, and no communication is allowed without explicit authorization.
 
 - **Connectivity**: Coordinates the setup and maintenance of encrypted connectivity between peers. Direct paths are used when possible, with fallback transports used when restrictive networks prevent direct communication.
+
+## Configuration
+
+The agent reads its local configuration from a `config.toml` file: its identity, the networks it participates in, and local behavior options. See [Agent Configuration (config.toml)](../reference/agent-configuration.mdx) for the full reference.

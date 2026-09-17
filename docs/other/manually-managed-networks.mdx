@@ -103,6 +103,8 @@ In Docker or headless setups, add the network source with:
 netsody network add https://example.com/network.toml
 ```
 
+Both the UI and the CLI store the added network as a `[[network]]` entry in the agent's configuration file. See [Agent Configuration (config.toml)](../reference/agent-configuration.mdx) for details.
+
 Use `netsody status` to inspect the local state.
 
 ## Behavior

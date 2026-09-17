@@ -69,6 +69,18 @@ const sidebars = {
       ],
     },
     {
+      type: 'category',
+      label: 'Reference',
+      link: {
+        type: 'generated-index',
+        description: 'Reference material for the Netsody agent and its configuration.',
+        slug: '/reference',
+      },
+      items: [
+        'reference/agent-configuration',
+      ],
+    },
+    {
       type: 'doc',
       id: 'self-hosting',
       label: 'Self-Hosting',
