@@ -1,11 +1,11 @@
 ---
 title: Kubernetes
-description: Connect Kubernetes nodes over a Netsody mesh to run a single, highly distributed cluster.
+description: Connect Kubernetes nodes over a Netsody mesh to run a cluster across machines that do not share a private network.
 ---
 
 # Kubernetes
 
-This guide shows how to run a single Kubernetes cluster across nodes that do not share a private network, by connecting them over a Netsody mesh. The result is a highly distributed cluster whose nodes reach each other through Netsody even when they sit in different clouds, regions, or behind NAT and firewalls.
+This guide shows how to run a single Kubernetes cluster across nodes that do not share a private network, by connecting them over a Netsody mesh. The nodes reach each other through Netsody even when they sit in different clouds, regions, or behind NAT and firewalls.
 
 Netsody gives each node a stable overlay IP address and a direct encrypted path to every other node, so the Kubernetes control plane and pods can communicate. Kubernetes runs on top with a routed pod network, so pod traffic is not encapsulated a second time. The examples use [k3s](https://k3s.io), a lightweight Kubernetes distribution.
 
@@ -90,7 +90,7 @@ server    10.42.0.0/24
 
 ## Step 2: Publish each node's pod subnet
 
-At this point you have a three-node cluster, one k3s server and two k3s agents, that reach each other over the Netsody mesh. The nodes can talk, but pods on one node cannot yet reach pods on another. In this step you make each node's pod subnet reachable from the other nodes.
+At this point you have a three-node cluster (one k3s server, two k3s agents) whose nodes reach each other over the Netsody mesh. The nodes can talk, but pods on one node cannot yet reach pods on another. In this step you make each node's pod subnet reachable from the other nodes.
 
 In the Netsody controller, open your network and go to **Resources**. Add one [resource](../manage/resources.md) per node with these fields:
 

@@ -11,19 +11,19 @@ The controller manages administrative state: users, devices, networks, groups, r
 
 ## Direct encrypted paths
 
-Netsody encrypts data traffic between devices. Data traffic does not need to pass through the web controller. Agents establish end-to-end secured QUIC connections between peers. When direct connectivity is not available, MASQUE over HTTP/3 is used for relaying so peers can still establish an end-to-end secured QUIC connection.
+Netsody encrypts data traffic between devices. Data traffic does not pass through the web controller. Agents establish end-to-end secured QUIC connections between peers.
 
 Direct and relayed connectivity use different transport paths:
 
 - QUIC for end-to-end secured peer connectivity.
-- MASQUE over HTTP/3 for relaying end-to-end secured QUIC connections when direct connectivity is not available.
+- MASQUE over HTTP/3 to relay the end-to-end secured QUIC connection when no direct path is available.
 - HTTP/2 over TLS as an encrypted relay fallback when UDP or QUIC is blocked.
 
-These transport paths keep connections usable when networks block VPN protocols such as WireGuard or force traffic through central gateways.
+These transports keep Netsody connections working in networks that block VPN protocols such as WireGuard or force traffic through central gateways.
 
 ## Super peers
 
-The discovery and relay paths above run through **super peers** — publicly reachable helper nodes that let devices find each other by their public-key identity, traverse NATs and firewalls to establish a direct connection, and relay the end-to-end encrypted connection when no direct path is available. Relaying through a super peer is only a fallback; direct connectivity is always preferred. A super peer forwards encrypted traffic only and cannot read it. See [Super Peers](super-peers.mdx).
+The discovery and relay paths above run through **super peers**: publicly reachable helper nodes that let devices find each other by their public-key identity, traverse NATs and firewalls to establish a direct connection, and relay the end-to-end encrypted connection when no direct path is available. A super peer forwards encrypted traffic only and cannot read it. See [Super Peers](super-peers.mdx).
 
 ## Relationship to policies
 

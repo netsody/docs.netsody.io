@@ -1,6 +1,6 @@
 ---
 title: Self-Hosting
-description: Run the Netsody controller, dashboard, Super Peer, and supporting services on your own infrastructure.
+description: Run the Netsody controller, dashboard, super peer, and supporting services on your own infrastructure.
 pagination_prev: null
 pagination_next: null
 ---
@@ -29,20 +29,20 @@ Place the file in a dedicated directory. The examples below assume the Docker Co
 
 The Docker Compose stack starts these services:
 
-- `traefik`: public edge proxy for HTTP, HTTPS, and Super Peer traffic.
+- `traefik`: public edge proxy for HTTP, HTTPS, and super peer traffic.
 - `netsody-dashboard`: browser frontend for the controller API.
 - `netsody-controller`: controller API.
 - `netsody-controller-db`: PostgreSQL database for the controller.
 - `netsody-controller-minio`: local S3-compatible object storage.
-- `netsody-sp`: Super Peer for relay and peer discovery.
-- `netsody-sp-certbot`: obtains and renews the Super Peer certificate.
+- `netsody-sp`: super peer for relay and peer discovery.
+- `netsody-sp-certbot`: obtains and renews the super peer certificate.
 - `pocket-id`: optional Pocket ID service, enabled only with `--profile pocket-id`.
 
-The controller services use the `netsody-controller` Docker network. The Super Peer and Certbot use the `netsody-sp` Docker network. The Super Peer is not attached to the controller network.
+The controller services use the `netsody-controller` Docker network. The super peer and Certbot use the `netsody-sp` Docker network. The super peer is not attached to the controller network.
 
 Pocket ID is isolated on its own `netsody-idp` Docker network. The controller talks to it only through OIDC URLs, so you can use another OIDC provider without changing the controller services. When the included Pocket ID profile is used, the Pocket ID public domain resolves to Traefik inside the controller Docker network so OIDC discovery uses the same HTTPS URL internally and externally.
 
-Traefik terminates TLS for the controller domain and the optional Pocket ID domain. The dashboard is served from the controller domain root. Controller API, OpenAPI, and Swagger UI paths are routed to `netsody-controller`. For the Super Peer domain, Traefik passes TCP 443 through to `netsody-sp` for HTTP/2 fallback mode, forwards UDP 443 to `netsody-sp` for HTTP/3 mode, and forwards TCP 80 to `netsody-sp-certbot` for the ACME HTTP-01 challenge that Certbot uses to provide the Super Peer certificate.
+Traefik terminates TLS for the controller domain and the optional Pocket ID domain. The dashboard is served from the controller domain root. Controller API, OpenAPI, and Swagger UI paths are routed to `netsody-controller`. For the super peer domain, Traefik passes TCP 443 through to `netsody-sp` for HTTP/2 fallback mode, forwards UDP 443 to `netsody-sp` for HTTP/3 mode, and forwards TCP 80 to `netsody-sp-certbot` for the ACME HTTP-01 challenge that Certbot uses to provide the super peer certificate.
 
 ## Requirements
 
@@ -54,10 +54,10 @@ Traefik terminates TLS for the controller domain and the optional Pocket ID doma
   - `POCKET_ID_DOMAIN` points to this host if you enable the Pocket ID profile.
 - Public IP address or addresses for `NETSODY_SP_PROXY_PUBLIC_ADDRESSES`; use addresses that agents can reach on this host.
 - Public inbound firewall rules:
-  - TCP 80 for the ACME HTTP-01 challenge that `netsody-sp-certbot` uses to provide a certificate for the Super Peer.
-  - TCP 443 for the controller, the optional identity provider, and the Super Peer in HTTP/2 fallback mode.
-  - UDP 443 for the Super Peer in HTTP/3 mode.
-  - UDP `NETSODY_SP_PROXY_PORT_RANGE` for Super Peer MASQUE relay fallback.
+  - TCP 80 for the ACME HTTP-01 challenge that `netsody-sp-certbot` uses to provide a certificate for the super peer.
+  - TCP 443 for the controller, the optional identity provider, and the super peer in HTTP/2 fallback mode.
+  - UDP 443 for the super peer in HTTP/3 mode.
+  - UDP `NETSODY_SP_PROXY_PORT_RANGE` for super peer MASQUE relay fallback.
 
 ## Create the environment file
 
@@ -163,7 +163,7 @@ The controller uses OIDC discovery and expected audiences. It validates access t
 
 Set `NETSODY_SP_PROXY_PUBLIC_ADDRESSES` to one or more comma-separated public IP addresses for this host, for example `203.0.113.10` or `203.0.113.10,2001:db8::10`. Agents use these addresses with `NETSODY_SP_PROXY_PORT_RANGE` for MASQUE relay fallback, so the same UDP range must be open in the host firewall.
 
-The stack publishes the Super Peer Prometheus listener only on `127.0.0.1:NETSODY_SP_PROMETHEUS_PORT`. Set `NETSODY_SP_PROMETHEUS_TOKEN` if you expose that listener through another path.
+The stack publishes the super peer Prometheus listener only on `127.0.0.1:NETSODY_SP_PROMETHEUS_PORT`. Set `NETSODY_SP_PROMETHEUS_TOKEN` if you expose that listener through another path.
 
 Pocket ID does not provide the Authentik invitation API used by the optional controller invitation automation. Leave `AUTHENTIK_BASE_URL`, `AUTHENTIK_TOKEN`, and `AUTHENTIK_INVITATION_FLOW_ID` empty unless you intentionally integrate Authentik for invitations. With Pocket ID, an admin must create users in Pocket ID first. Each user must then sign in to the Netsody controller once before they can be added to an existing Netsody network.
 
@@ -238,7 +238,7 @@ Watch certificate and startup logs:
 docker compose logs -f traefik pocket-id netsody-sp-certbot netsody-sp netsody-controller netsody-dashboard
 ```
 
-On first startup, `netsody-sp` can restart until Certbot has written the certificate files into the shared `netsody_sp_letsencrypt` volume. This is expected. Once the files exist, the next restart should start the Super Peer normally.
+On first startup, `netsody-sp` can restart until Certbot has written the certificate files into the shared `netsody_sp_letsencrypt` volume. This is expected. Once the files exist, the next restart should start the super peer normally.
 
 Check service state:
 
@@ -258,7 +258,7 @@ The controller Swagger UI should remain reachable at:
 https://<NETSODY_CONTROLLER_DOMAIN>/swagger-ui/
 ```
 
-The Super Peer should accept TCP and UDP traffic on:
+The super peer should accept TCP and UDP traffic on:
 
 ```text
 <NETSODY_SP_DOMAIN>:443
@@ -267,9 +267,9 @@ The Super Peer should accept TCP and UDP traffic on:
 
 ## Configure agents
 
-The dashboard shows the exact `netsody login` command for your configured controller, OIDC provider, agent client ID, and Super Peers.
+The dashboard shows the exact `netsody login` command for your configured controller, OIDC provider, agent client ID, and super peers.
 
-For completeness, configure each agent that should log in through this self-hosted controller with the same agent OIDC client:
+To configure an agent by hand, run the same login command:
 
 ```bash
 netsody login \
@@ -279,7 +279,7 @@ netsody login \
   --super-peer https://<NETSODY_SP_DOMAIN>/
 ```
 
-Repeat `--super-peer` to configure more than one Super Peer. The command stores the controller, OIDC, and Super Peer settings in the local agent config before starting the browser login flow. The controller, Super Peer list, and OIDC settings can be changed independently; `--auth-url` and `--auth-client-id` must always be supplied together.
+Repeat `--super-peer` to configure more than one super peer. The command stores the controller, OIDC, and super peer settings in the local agent config before starting the browser login flow. The controller, super peer list, and OIDC settings can be changed independently; `--auth-url` and `--auth-client-id` must always be supplied together.
 
 ## Node geolocation (optional)
 
@@ -321,7 +321,7 @@ docker compose logs netsody-controller-geoip
 docker compose restart netsody-controller
 ```
 
-The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If `GEOIP_DB_PATH` is empty or the database is missing, geolocation is simply disabled and the rest of the node status keeps working.
+The controller logs `GeoIP database loaded from /geoip/GeoLite2-City.mmdb` when geolocation is active. If `GEOIP_DB_PATH` is empty or the database is missing, geolocation stays disabled and the rest of the node status is unaffected.
 
 When you show the location in a user-facing surface, include the MaxMind attribution, for example: `This product includes GeoLite2 data created by MaxMind, available from https://www.maxmind.com`.
 
@@ -359,9 +359,9 @@ For backups, preserve the Docker Compose-managed controller database, object sto
 
 ## Troubleshooting
 
-If controller certificates fail, check `NETSODY_CONTROLLER_DOMAIN`, DNS, TCP 443, and the Traefik logs. Traefik uses the ACME TLS-ALPN challenge for the controller so it does not intercept the Super Peer HTTP-01 challenge path.
+If controller certificates fail, check `NETSODY_CONTROLLER_DOMAIN`, DNS, TCP 443, and the Traefik logs. Traefik uses the ACME TLS-ALPN challenge for the controller so it does not intercept the super peer HTTP-01 challenge path.
 
-If Super Peer certificates fail, check `NETSODY_SP_DOMAIN`, DNS, TCP 80, and the `netsody-sp-certbot` logs. HTTP requests for the Super Peer domain are routed to Certbot, not to the Super Peer.
+If super peer certificates fail, check `NETSODY_SP_DOMAIN`, DNS, TCP 80, and the `netsody-sp-certbot` logs. HTTP requests for the super peer domain are routed to Certbot, not to the super peer.
 
 If `netsody-sp` keeps restarting, check whether these files exist in the `netsody_sp_letsencrypt` volume:
 
@@ -370,6 +370,6 @@ If `netsody-sp` keeps restarting, check whether these files exist in the `netsod
 /etc/letsencrypt/live/<NETSODY_SP_DOMAIN>/privkey.pem
 ```
 
-If they do not exist, solve the Certbot or DNS issue first. The Super Peer will start once the files are present.
+If they do not exist, solve the Certbot or DNS issue first. The super peer will start once the files are present.
 
 If direct peer paths work but relay fallback does not, check that `NETSODY_SP_PROXY_PUBLIC_ADDRESSES` contains the host's reachable public IP address or addresses and that UDP `NETSODY_SP_PROXY_PORT_RANGE` is published by Docker and open in the host firewall.
