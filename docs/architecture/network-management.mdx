@@ -5,8 +5,7 @@ description: Centrally managed access for users, devices, services, and private 
 
 # Network Management
 
-Building centrally managed private access with Netsody involves two key components:
-a controller that manages, distributes, and monitors the desired network state, and agents that apply that state on each device.
+Centrally managed private access with Netsody involves two components: a controller that manages, distributes, and monitors the desired network state, and agents that apply that state on each device.
 
 While the [connectivity layer](connectivity.mdx) establishes encrypted paths between devices, it does not decide which devices should participate in a network, who owns them, which groups they belong to, who may communicate with whom, or how traffic should reach private resources and services.
 That administrative state belongs in the Netsody controller.
@@ -16,20 +15,20 @@ That administrative state belongs in the Netsody controller.
 
 Netsody splits responsibilities into two planes:
 
-- **Control plane (configuration).** The controller decides *who* may join a network and *which* devices may talk to each other. It holds and distributes the desired network state — membership, overlay addresses and hostnames, groups, policies, and resources — and monitors whether each device applied it. The controller (through the dashboard) also assigns each device its overlay IP address and hostname.
-- **Data plane (connectivity).** Devices carry the actual traffic directly between each other over end-to-end encrypted connections, assisted by [super peers](super-peers.mdx) for discovery and relay. The controller is never in the data path — not even for relayed connections.
+- **Control plane (configuration).** The controller decides *who* may join a network and *which* devices may talk to each other. It holds and distributes the desired network state (membership, overlay addresses and hostnames, groups, policies, and resources) and monitors whether each device applied it. The controller (through the dashboard) also assigns each device its overlay IP address and hostname.
+- **Data plane (connectivity).** Devices carry the actual traffic directly between each other over end-to-end encrypted connections, assisted by [super peers](super-peers.mdx) for discovery and relay. The controller is never in the data path, not even for relayed connections.
 
 Each [agent](agent.mdx) pulls only the state relevant to its device, enforces the policies locally, and performs the end-to-end encryption itself.
 
 ## A central controller is optional
 
-A centralized controller is not required to run a Netsody overlay. The network configuration is just a document, and a device can obtain it from:
+A centralized controller is not required to run a Netsody overlay. The network configuration is a document, and a device can obtain it from:
 
 - the managed Netsody controller (or a self-hosted one),
 - any standard HTTP(S) server, or
 - a local file copied to each device.
 
-The managed Netsody service is the easiest way to get there: you don't have to run or maintain any of this infrastructure yourself. It stores the configuration, assigns addresses and hostnames, serves each device the part that applies to it, and operates a global fleet of [super peers](super-peers.mdx) — all monitored and managed for you, so you can simply create a network and get started. The controller-free options exist for cases where you want full control over the distribution; see [Manually Managed Networks](../other/manually-managed-networks.mdx) for the file- or HTTP-distributed workflow.
+The managed Netsody service runs this infrastructure for you: it stores the configuration, assigns addresses and hostnames, serves each device the part that applies to it, and operates public [super peers](super-peers.mdx). The controller-free options exist for cases where you want full control over the distribution; see [Manually Managed Networks](../other/manually-managed-networks.mdx) for the file- or HTTP-distributed workflow.
 
 If you are new to Netsody, start with [Get Started](../get-started) and the [Networks](../manage/networks.md) page.
 
@@ -38,10 +37,10 @@ The controller checks which known nodes may participate in which networks and di
 Agents reconcile the local system with that desired state and report status back to the controller, so network administrators can see configuration compliance: whether the expected state was applied and remains in place.
 
 With the controller handling network state and the agent handling local enforcement, each device has enough information to join and maintain the overlay network.
-Each device knows which peers it can reach, which traffic is permitted, and which resources it may use. See the [Netsody agent](./agent.mdx) page for more details.
+Each device knows which peers it can reach, which traffic is permitted, and which resources it may use. See [Netsody agent](./agent.mdx) for details.
 
-The example above shows two physical networks: a home network and an office network. Within these networks, four nodes participate in the Netsody overlay: a personal notebook, a smart home server, an office workstation, and a file server.
+As an example, consider two physical networks: a home network and an office network. Within these networks, four nodes participate in the Netsody overlay: a personal notebook, a smart home server, an office workstation, and a file server.
 Despite firewalls in both environments, the nodes can communicate securely as if they were part of the same local network.
 
-Notice that no Netsody agent is running on the file server. Nevertheless, it is reachable through the overlay network because the office workstation acts as a gateway, as defined by a controller-managed resource.
+No Netsody agent runs on the file server. It is still reachable through the overlay network because the office workstation acts as a gateway, as defined by a controller-managed resource.
 Access policies further control which Netsody nodes are allowed to communicate and which are permitted to use the gateway to reach external systems like the file server.

@@ -12,9 +12,9 @@ The Netsody agent runs on each device and establishes encrypted overlay connecti
 
 ## Why Netsody?
 
-Modern IT spans users, devices, offices, cloud workloads, private services, and entire networks. Netsody brings that access into one centrally managed Zero Trust model with policy-driven access control, controller-based network management, and encrypted peer-to-peer connectivity where possible.
+Modern IT spans users, devices, offices, cloud workloads, private services, and entire networks. Netsody combines three things in one platform: policy-driven access control, centralized network management, and encrypted peer-to-peer connectivity. Access stays explicit, scoped, and aligned with Zero Trust principles.
 
-Use Netsody when access should stay explicit, scoped, and reviewable across users, devices, groups, services, resources, and networks. For the broader product story, current use cases, and more background, see the [Netsody website](https://netsody.io/).
+For use cases and product background, see the [Netsody website](https://netsody.io/).
 
 ### Typical use cases
 
@@ -26,7 +26,7 @@ Use Netsody when access should stay explicit, scoped, and reviewable across user
 - [**Get Started**](get-started): Create your first network and connect your first devices.
 - [**Manage**](manage): Manage networks, nodes, users, policies, and resources.
 - [**How Netsody Works**](architecture): Understand the controller, agent, and connectivity model.
-- [**Self-Hosting**](self-hosting): Run the Netsody controller, dashboard, Super Peer, and supporting services on your own infrastructure.
+- [**Self-Hosting**](self-hosting): Run the Netsody controller, dashboard, super peer, and supporting services on your own infrastructure.
 - [**Other**](other): Use manually managed networks when required.
 
 ## Community & Support

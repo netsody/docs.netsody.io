@@ -7,7 +7,7 @@ description: Definitions of key Netsody terms.
 
 ## Controller / Control plane
 
-The **control plane** is the authority that holds and distributes a network's desired configuration — membership, overlay addresses and hostnames, groups, policies, and resources — and monitors whether each device applied it. The **controller** is the component that implements this: it stores the configuration and, through the dashboard, assigns each device its overlay address and hostname. A central controller is **optional** — the same configuration can instead be served from any HTTP(S) server or copied to each device as a local file. The controller is never in the data path. See [Network Management](architecture/network-management.mdx) and [Manually Managed Networks](other/manually-managed-networks.mdx).
+The **control plane** is the authority that holds and distributes a network's desired configuration (membership, overlay addresses and hostnames, groups, policies, and resources) and monitors whether each device applied it. The **controller** is the component that implements this: it stores the configuration and, through the dashboard, assigns each device its overlay address and hostname. A central controller is **optional**: the same configuration can instead be served from any HTTP(S) server or copied to each device as a local file. The controller is never in the data path. See [Network Management](architecture/network-management.mdx) and [Manually Managed Networks](other/manually-managed-networks.mdx).
 
 ## Dashboard
 
@@ -15,7 +15,7 @@ The web user interface of the [controller](#controller--control-plane). Administ
 
 ## Group
 
-A label attached to nodes and/or resources to express access intent. Used as the source or destination of a [policy](manage/policies.md), a group expands to the union of all nodes and all resources tagged with it. Group membership alone never grants access — a policy must explicitly allow the communication. A group with no member nodes can still be meaningful, because it may tag resources. See [Groups](manage/groups.md).
+A label attached to nodes and/or resources to express access intent. Used as the source or destination of a [policy](manage/policies.md), a group expands to the union of all nodes and all resources tagged with it. Group membership alone never grants access: a policy must explicitly allow the communication. A group with no member nodes can still be in use, because it may tag resources. See [Groups](manage/groups.md).
 
 ## Netsody agent / Data plane
 
@@ -23,14 +23,14 @@ The **data plane** carries the actual traffic between devices. Devices connect d
 
 ## QUIC
 
-QUIC is a modern, secure, and high-performance transport protocol that most people use unknowingly every day. When browsing the web, modern clients and servers often use HTTP/3, the latest version of HTTP, which runs on QUIC. Mature and encrypted by design, QUIC is a strong foundation for establishing secure tunnels between devices, with Netsody authenticating peers during connection establishment. Netsody builds its whole data plane on it:
+QUIC is the encrypted transport protocol behind HTTP/3, the current version of HTTP used by browsers and web servers. Netsody builds its entire data plane on QUIC and authenticates peers during connection establishment:
 
-- direct device-to-device connections use QUIC;
-- NATs and firewalls are traversed using the QUIC NAT traversal extension;
--     when a direct connection is not possible, traffic is relayed using MASQUE, which is built on HTTP/3 and QUIC.
+- Direct device-to-device connections use QUIC.
+- NATs and firewalls are traversed using the QUIC NAT traversal extension.
+- When a direct connection is not possible, traffic is relayed using MASQUE, which is built on HTTP/3 and QUIC.
 
-As a result, Netsody data-plane traffic runs efficiently over QUIC, either directly or via HTTP/3/MASQUE. Because this resembles ordinary HTTP/3 web traffic, Netsody keeps working even in restrictive networks where many VPN protocols are blocked; an HTTP/2-over-TLS path serves as a fallback when UDP or QUIC itself is blocked. See [Connectivity and Data Plane](architecture/connectivity.mdx).
+Because Netsody traffic resembles ordinary HTTP/3 web traffic, it also works in restrictive networks where many VPN protocols are blocked. An HTTP/2-over-TLS path serves as a fallback when UDP or QUIC itself is blocked. See [Connectivity and Data Plane](architecture/connectivity.mdx).
 
 ## Super peer
 
-A publicly reachable helper node that lets Netsody devices discover each other, traverse NATs and firewalls to establish a direct connection, and — as a fallback when no direct path exists — relays the end-to-end encrypted connection between them. A super peer forwards only ciphertext and is not a policy authority. Netsody operates public super peers, and you can self-host your own. See [Super Peers](architecture/super-peers.mdx).
+A publicly reachable helper node that lets Netsody devices discover each other, traverse NATs and firewalls to establish a direct connection, and, as a fallback when no direct path exists, relay the end-to-end encrypted connection between them. A super peer forwards only ciphertext and is not a policy authority. Netsody operates public super peers, and you can self-host your own. See [Super Peers](architecture/super-peers.mdx).

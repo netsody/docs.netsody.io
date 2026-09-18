@@ -12,8 +12,6 @@ The controller is the central place for user-oriented administration. Use users 
   <figcaption>The Users view lists users, their roles, and their default groups. New nodes added by a user automatically receive that user's default groups, keeping resource access consistent across the user's devices.</figcaption>
 </figure>
 
-The current documentation does not assume a specific identity provider or user lifecycle integration. Document only the user model that is available in your deployment.
-
 ## Roles
 
 Users have one of these roles:
@@ -39,6 +37,6 @@ Only one user can be Owner. Admin, Editor, and Member can be assigned to multipl
 
 ## Related pages
 
-Users help administrators reason about ownership. Actual traffic permissions are still expressed through Netsody networks, groups, and policies.
+Users describe who owns access. Traffic permissions are expressed through Netsody networks, groups, and policies.
 
 See [Groups](./groups.md) and [Policies](./policies.md) for the access model.
