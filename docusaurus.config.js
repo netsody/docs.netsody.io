@@ -192,16 +192,16 @@ const config = {
                 href: 'mailto:hello@netsody.io',
               },
               {
-                label: 'Discord',
-                href: 'https://netsody.io/discord',
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/company/netsody',
               },
               {
                 label: 'Mastodon',
                 href: 'https://mastodon.world/@netsody',
               },
               {
-                label: 'LinkedIn',
-                href: 'https://www.linkedin.com/company/netsody',
+                label: 'Discord',
+                href: 'https://netsody.io/discord',
               },
             ],
           },
