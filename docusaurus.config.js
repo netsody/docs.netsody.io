@@ -199,6 +199,10 @@ const config = {
                 label: 'Mastodon',
                 href: 'https://mastodon.world/@netsody',
               },
+              {
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/company/netsody',
+              },
             ],
           },
         ],
