@@ -29,11 +29,13 @@
   },
   "resolutions": {
     "serialize-javascript": "^7.0.5",
-    "@docusaurus/plugin-content-docs": "3.10.1",
+    "@docusaurus/plugin-content-docs": "3.10.2",
     "uuid": "^11.1.1",
     "qs": "^6.16.0",
     "tinypool": "^2.2.0",
-    "postcss-selector-parser": "^7.1.6"
+    "postcss-selector-parser": "^7.1.6",
+    "launch-editor": "^2.14.2",
+    "follow-redirects": "^1.16.1"
   },
   "browserslist": {
     "production": [
