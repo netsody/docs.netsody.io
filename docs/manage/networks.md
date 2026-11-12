@@ -38,6 +38,14 @@ Overlapping subnets can make resources ambiguous and can prevent traffic from re
 
 The last usable address before the broadcast address is reserved by Netsody and must not be assigned to a node.
 
+## Hostnames and DNS
+
+By default, member hostnames are published under `netsody.me`, for example `<hostname>.netsody.me`. Set the network's `domain` to publish them under another domain instead.
+
+The network's `[dns]` section controls DNS integration. Set `enabled = false` to switch it off for every member, or list group names in `disabled_groups` to switch it off only for those groups. An agent can override either choice locally with its own `[dns] disabled` setting. Status output continues to show configured hostnames when DNS integration is off.
+
+For the TOML format, see [Manually Managed Networks](../other/manually-managed-networks.mdx#hostnames-and-dns).
+
 ## Multiple networks
 
 Devices can be part of multiple Netsody networks at the same time. This is useful when different networks serve different administrative purposes, for example a private home network and an organizational network.

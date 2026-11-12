@@ -21,6 +21,12 @@ In manually managed mode, a Netsody network is captured in one TOML file:
 ```toml title="my-first-network.toml"
 network = "10.96.41.0/24"
 name = "My first network"
+domain = "lab.example"
+super_peers = ["https://sp.example.com"]
+
+[dns]
+enabled = true
+disabled_groups = ["servers"]
 
 [[node]]
 hostname = "john-desktop"
@@ -97,10 +103,10 @@ file:///home/alice/my-first-network.toml
 
 In the Netsody UI, open **Settings** and select **Add manually managed network...**. Then enter the file or HTTP(S) URL of the network configuration.
 
-In Docker or headless setups, add the network source with:
+On a headless Linux or macOS host, add the network source with:
 
 ```bash
-netsody network add https://example.com/network.toml
+sudo netsody network add https://example.com/network.toml
 ```
 
 Both the UI and the CLI store the added network as a `[[network]]` entry in the agent's configuration file. See [Agent Configuration (config.toml)](../reference/agent-configuration.mdx) for details.
@@ -109,9 +115,75 @@ Use `netsody status` to inspect the local state.
 
 ## Behavior
 
-Configuration changes are detected without requiring a restart. If the configuration source becomes temporarily unavailable or invalid, the agent continues operating with the last known valid configuration and retries fetching periodically.
+Configuration changes are detected without requiring a restart. If the configuration source becomes temporarily unavailable or invalid, the agent continues operating with the last known valid configuration and retries fetching periodically. The saved configuration is also used after an agent restart when the source is unavailable. The CLI and Netsody UI identify networks running from saved configuration until a fresh configuration arrives.
 
 Use `[[resource]]` for new manually managed resource entries. The agent still accepts legacy `[[route]]` entries for IPv4 destinations, but resource entries are the current format and also support exact domain and leading-wildcard domain destinations.
+
+## Super Peers
+
+Set `super_peers` to the HTTPS URLs this network uses for [Super Peers](../architecture/super-peers.mdx), as in the example above. A network without this setting uses the built-in Netsody-operated defaults. The agent-level `super_peers` setting has been removed: each device uses the union of the Super Peers configured for its enabled networks.
+
+## Hostnames and DNS
+
+The optional `domain` publishes node hostnames under that domain instead of `netsody.me`. In the example above, `john-desktop` resolves as `john-desktop.lab.example`.
+
+The optional `[dns]` section controls DNS integration independently from local agent overrides:
+
+- `enabled = false` turns DNS integration off for every member. Omitting it or setting it to `true` leaves integration on.
+- `disabled_groups` turns DNS integration off only for members of the listed groups. An empty list excludes nobody.
+- The agent's local `[dns] disabled` setting overrides the network setting in either direction. Omit the local key to follow the network configuration.
+
+Configured hostnames remain visible in status output when DNS integration is off.
+
+## Gateway pools and exit nodes
+
+A route can name a pool of interchangeable gateways with `[[route.gateway]]`. The singular `gw` remains required as the fallback used before a pool selection settles. For example, an exit-node route and its policy can use this form:
+
+```toml
+[[route]]
+dest = "0.0.0.0/0"
+gw = "689a1b9f5efcb861ac67ce185ddb2396444326e12fe1df353731416f5a3a2706"
+groups = ["internet"]
+
+[[route.gateway]]
+pk = "689a1b9f5efcb861ac67ce185ddb2396444326e12fe1df353731416f5a3a2706"
+
+[[route.gateway]]
+pk = "43c4fda1ed1e810a30b141ae2c644465a8e06d15a2a7259e91aaa2112e1d58c7"
+
+[[policy]]
+source_groups = ["desktops"]
+destination_groups = ["internet"]
+```
+
+Each client selects an eligible live gateway by connection class and round-trip time. Hold-down prevents rapid switching, and the client moves to another pool member when the active connection dies.
+
+On Linux, `sudo netsody exit-node` lists the default-route gateways this device may use, including connection type and latency. Select one by overlay IP or short or fully qualified hostname, then restore ordinary routing when finished:
+
+```bash
+sudo netsody exit-node select 10.96.41.45
+sudo netsody exit-node unselect
+```
+
+The selection does not survive an agent restart. While it is active, IPv4 traffic uses the selected gateway, IPv6 is captured or blocked, and DNS queries stay inside Netsody. Activation is refused when the agent cannot keep its own traffic pinned outside the tunnel.
+
+## Direct-connection exclusions
+
+Use `[[p2p.exclusion]]` for physical destinations that must never receive direct peer traffic. Traffic can still use Super Peers. This replaces the removed agent-level `ignored_physical_routes` setting.
+
+```toml
+[p2p]
+
+[[p2p.exclusion]]
+destinations = ["192.168.188.0/24", "2001:db8:10::/64"]
+groups = ["desktops"]
+local_ips = ["134.100.0.0/16"]
+comment = "Exclude these destinations while on the campus LAN"
+```
+
+`destinations` accepts IPv4 and IPv6 CIDRs. `groups` limits the entry to members of those groups; omit it to apply the entry to every member. `local_ips` optionally limits it to devices whose own local interface addresses fall within those ranges. Omit `local_ips` to apply the entry everywhere. Changes take effect at runtime, and `netsody status -v` shows the effective exclusions.
+
+An old `ignored_physical_routes` key still loads with a warning explaining that it is ignored and is dropped the next time the agent writes its local configuration.
 
 ## Migration guidance
 
