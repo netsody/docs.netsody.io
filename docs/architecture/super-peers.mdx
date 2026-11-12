@@ -36,6 +36,8 @@ A super peer belongs to the [data plane](connectivity.mdx) only and never handle
 - placing a super peer closer to your own nodes for lower latency, or
 - keeping all discovery signaling and relayed traffic on super peers you operate,
 
-while still managing your networks through the hosted controller and dashboard. Point your agents at your own super peer with `netsody login --super-peer …`; repeat the flag to configure several.
+while still managing your networks through the hosted controller and dashboard.
 
-You can mix the Netsody-operated super peers with your own, or run only your own. Each device signals through all super peers available to it, and when a connection has to be relayed, the agent selects one of the available super peers automatically.
+Super Peers are configured per network with `super_peers = ["https://sp.example"]`. A network without this setting uses the built-in Netsody-operated defaults. A self-hosted controller sets the list it serves through `NETSODY_SUPER_PEERS`, as described in [Self-Hosting](../self-hosting.md#configure-agents). The agent-level `super_peers` setting and `netsody login --super-peer` option have been removed.
+
+You can mix the Netsody-operated super peers with your own, or run only your own. Each device connects to the union of the Super Peers configured for its enabled networks. Changes in the controller take effect without an agent restart. When a connection has to be relayed, the agent selects one of the available super peers automatically.

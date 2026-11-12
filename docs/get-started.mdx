@@ -40,11 +40,13 @@ In the Netsody UI, use the **Log in...** action.
   <figcaption>The local Netsody UI offers a login action for pairing the device.</figcaption>
 </figure>
 
-On systems without the UI, use the CLI:
+On systems without the UI, use the CLI with the privileges required for device enrollment:
 
 ```bash
-netsody login
+sudo netsody login
 ```
+
+On Windows, run `netsody login` from an elevated prompt instead.
 
 ## Step 3: Add the device to your network
 

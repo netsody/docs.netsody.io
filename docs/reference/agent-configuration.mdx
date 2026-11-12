@@ -39,6 +39,26 @@ When the config file is missing or empty, the agent generates a new identity (a 
 
 The identity is managed by the agent. Do not set it by hand and do not copy it between devices.
 
+## Local control connection
+
+The CLI and Netsody UI control the agent through local IPC, not a loopback TCP listener or bearer token. The default endpoint is `/run/netsody/agent.sock` on Linux, `/var/run/netsody/agent.sock` on macOS, and the `\\.\pipe\netsody` named pipe on Windows. The operating system verifies the caller's identity.
+
+Use the daemon's `NETSODY_API_SOCKET` environment variable to select another listener endpoint. Pass the global `--daemon-socket <PATH>` option to a CLI command that must connect to that non-default endpoint.
+
+Status-style reads remain available to local users. Privileged operations, including login, network membership changes, exit-node selection, updates, and support bundles, require root on Linux and macOS or an elevated caller on Windows. For example, run `sudo netsody login` on Linux or macOS.
+
+## Updates
+
+On a controller-managed device, the controller supplies update offers and the catalog of installable builds. Preview the offered update with:
+
+```bash
+sudo netsody update --check
+```
+
+Install it with `sudo netsody update`. Use `--version <VERSION>` to select another build from the controller's catalog, and `--reinstall` to install the selected version even when it is already running. The Netsody UI offers the same controller-managed installation flow.
+
+Linux self-installation requires a package-managed installation running under systemd. Windows requires a Netsody service installation. Homebrew installations, controller-less devices, and installations that do not support self-installation are upgraded using their original manual or package-manager flow. Agents no longer poll the public download host for update offers.
+
 ## Options
 
 ### mtu
@@ -48,27 +68,13 @@ The identity is managed by the agent. Do not set it by hand and do not copy it b
 
 The MTU, in bytes, of the device's virtual Netsody network interface.
 
-### super_peers
+### Removed local settings
 
-- Type: array of HTTPS URLs
-- Default: the built-in list of Netsody-operated [super peers](../architecture/super-peers.mdx)
+The agent no longer accepts these settings for new configuration:
 
-The super peers this agent uses for peer discovery, direct-connection establishment, and relay fallback.
-
-:::warning
-Setting `super_peers` replaces the built-in default list entirely. The defaults are not merged in. To keep using a default super peer next to your own, list it explicitly. The built-in entries are:
-
-- `https://sp-eu-central-1.netsody.io`
-- `https://sp-na-east-1.netsody.io`
-- `https://sp-ap-south-1.netsody.io`
-:::
-
-### update_check
-
-- Type: boolean
-- Default: `true`
-
-Whether the agent periodically checks if a newer agent version is available.
+- `super_peers`: Super Peers come from each network's configuration. See [Super Peers](../architecture/super-peers.mdx).
+- `update_check`: Update offers and artifacts come from the controller as described in [Updates](#updates).
+- `ignored_physical_routes`: Define `[[p2p.exclusion]]` entries in the [network configuration](../other/manually-managed-networks.mdx#direct-connection-exclusions) instead. An old key loads with a warning that it is ignored and is dropped the next time the agent writes its configuration.
 
 ### auto_connect
 
@@ -82,9 +88,11 @@ Whether the agent connects to all configured networks when it starts. With `fals
 #### disabled
 
 - Type: boolean
-- Default: `false`
+- Default: unset, so each network's DNS configuration applies
 
-When `true`, the agent does not manage the system's DNS settings for Netsody hostnames. Other nodes are then reachable by their Netsody IP address, but not by names such as `<node>.netsody.me`.
+This local setting overrides the network's DNS integration switch in both directions. When `true`, the agent does not manage the system's DNS settings or resolve Netsody hostnames for any network. Other nodes remain reachable by their Netsody IP addresses. When `false`, local DNS integration stays enabled even if the network configuration disables it.
+
+Omit `disabled` to follow each network's own `enabled` and `disabled_groups` settings. Configured hostnames remain visible in status output even when DNS integration is off.
 
 ### [controller]
 
@@ -141,6 +149,8 @@ Where the agent retrieves the network's configuration from:
 - A `file:///` or HTTP(S) URL of a [manually managed network](../other/manually-managed-networks.mdx) TOML file.
 - `controller://<network-id>` for a controller-managed network, added through the login and join flow.
 
+The agent saves the last known network configuration and can start from it when the controller or HTTP(S) source is unavailable. The CLI and Netsody UI identify networks using that saved configuration until a fresh configuration arrives.
+
 #### disabled
 
 - Type: boolean
@@ -163,20 +173,9 @@ An optional display name for the network.
 sk = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa1111111111111111111111111111111111111111111111111111111111111111"
 
 mtu = 1280
-update_check = true
 auto_connect = true
 
-# Setting super_peers replaces the built-in default list, so the defaults
-# are repeated here explicitly next to an additional self-hosted super peer.
-super_peers = [
-  "https://sp-eu-central-1.netsody.io",
-  "https://sp-na-east-1.netsody.io",
-  "https://sp-ap-south-1.netsody.io",
-  "https://sp.example.com",
-]
-
-[dns]
-disabled = false
+# Omit [dns] to follow each network's DNS configuration.
 
 [controller]
 url = "https://api.netsody.io/api"
