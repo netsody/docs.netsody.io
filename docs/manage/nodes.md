@@ -27,7 +27,7 @@ Each node has:
 - A Netsody IP address inside the network subnet.
 - Optional groups used by policies and resources.
 
-Nodes can be reached by their Netsody IP address or by their fully qualified hostname, such as `<hostname>.netsody.me`. The controller distributes this node state as part of the [control plane](../architecture/network-management.mdx).
+Nodes can be reached by their Netsody IP address or by their fully qualified hostname, such as `<hostname>.netsody.me`. A network with its own `domain` uses that suffix instead. The controller distributes this node state as part of the [control plane](../architecture/network-management.mdx).
 
 Every node is implicitly part of the `ALL` group.
 
@@ -36,6 +36,12 @@ Every node is implicitly part of the `ALL` group.
 In the web interface, a user can decide which of their devices may be added to a network they belong to.
 
 Users can also install Netsody on new devices, pair those devices with their Netsody account, and then add them to networks where they have the required role.
+
+## Updates
+
+Managed devices receive update offers and a catalog of installable builds from the controller. On a device, preview or install the offered build with `sudo netsody update --check` and `sudo netsody update`. Use an elevated prompt on Windows.
+
+`netsody update --version <VERSION>` selects another version in the catalog, and `--reinstall` reinstalls the selected version. Linux requires a package-managed installation under systemd, and Windows requires a Netsody service installation. Devices without a controller and installations that do not support self-installation must be upgraded manually.
 
 ## Operational guidance
 

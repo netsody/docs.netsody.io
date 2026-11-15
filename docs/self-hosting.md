@@ -66,9 +66,10 @@ Create a `.env` file next to `docker-compose.yml`:
 ```bash
 touch .env
 openssl rand -base64 32
+openssl rand -hex 32
 ```
 
-Use the `openssl` output for `POCKET_ID_ENCRYPTION_KEY` if you use the included Pocket ID profile. Replace the example domains, public IP address, OIDC client IDs, passwords, and secrets before using the stack with real users.
+Use the Base64 output for `POCKET_ID_ENCRYPTION_KEY` if you use the included Pocket ID profile, and the hexadecimal output for the required `NETSODY_SP_PROMETHEUS_TOKEN`. Replace the example domains, public IP address, OIDC client IDs, passwords, and secrets before using the stack with real users.
 
 ```properties title=".env"
 # Controller service
@@ -110,6 +111,9 @@ TRAEFIK_LOG_LEVEL=INFO
 TRAEFIK_ACME_EMAIL=admin@example.com
 NETSODY_CONTROLLER_DOMAIN=controller.example.com
 NETSODY_SP_DOMAIN=sp.example.com
+# Leave empty to use this stack's own Super Peer in every network configuration.
+# To override it, use comma-separated HTTPS URLs without paths or credentials.
+NETSODY_SUPER_PEERS=
 
 # Dashboard frontend
 NETSODY_DASHBOARD_API_BASE_URL=https://controller.example.com/api
@@ -152,18 +156,31 @@ NETSODY_SP_UDP_PORT=443
 NETSODY_SP_ALT_SVC_PORT=443
 NETSODY_SP_PROXY_PUBLIC_ADDRESSES=203.0.113.10
 NETSODY_SP_PROXY_PORT_RANGE=49152-49407
+# The default exclude-vulnerable baseline refuses loopback, link-local,
+# multicast, private, and reserved relay targets. Allow required private
+# peer ranges explicitly instead of opening the baseline.
+NETSODY_SP_TARGET_BASELINE=
+NETSODY_SP_ALLOWED_TARGETS=
+NETSODY_SP_DENIED_TARGETS=
 NETSODY_SP_PROMETHEUS_PORT=9898
-NETSODY_SP_PROMETHEUS_TOKEN=
-NETSODY_PROMETHEUS_LISTEN=[::]:9898
-CERTBOT_RETRY_INTERVAL_SECONDS=300
-CERTBOT_RENEW_INTERVAL_SECONDS=43200
+NETSODY_SP_PROMETHEUS_TOKEN=replace-with-openssl-rand-hex-32-output
+NETSODY_SP_CERTBOT_RETRY_INTERVAL_SECONDS=300
+NETSODY_SP_CERTBOT_RENEW_INTERVAL_SECONDS=43200
 ```
 
 The controller uses OIDC discovery and expected audiences. It validates access tokens with the provider JWKS and refreshes user profile data from the provider userinfo endpoint. If you use another OIDC provider instead of Pocket ID, keep the same Netsody environment variables and replace the provider URLs and client IDs.
 
 Set `NETSODY_SP_PROXY_PUBLIC_ADDRESSES` to one or more comma-separated public IP addresses for this host, for example `203.0.113.10` or `203.0.113.10,2001:db8::10`. Agents use these addresses with `NETSODY_SP_PROXY_PORT_RANGE` for MASQUE relay fallback, so the same UDP range must be open in the host firewall.
 
-The stack publishes the super peer Prometheus listener only on `127.0.0.1:NETSODY_SP_PROMETHEUS_PORT`. Set `NETSODY_SP_PROMETHEUS_TOKEN` if you expose that listener through another path.
+### Super Peer targets and metrics
+
+By default, `NETSODY_SP_TARGET_BASELINE=exclude-vulnerable` refuses relay targets in loopback, link-local, multicast, private, and reserved ranges. When Netsody peers must be relayed to on private networks, name their ranges in `NETSODY_SP_ALLOWED_TARGETS`, for example `NETSODY_SP_ALLOWED_TARGETS=10.0.0.0/8`. Use `NETSODY_SP_TARGET_BASELINE=open` only when you deliberately want the old behavior of relaying to any requested target.
+
+The allow and deny lists are comma-separated networks, addresses, or endpoints. An allow entry opens a range the baseline refuses, and a deny entry closes one it permits. On a deployment with multiple Super Peers, list the addresses of the other Super Peers in `NETSODY_SP_DENIED_TARGETS` to prevent relay chaining.
+
+The controller writes the Super Peer list into every network configuration it serves. This Compose stack defaults `NETSODY_SUPER_PEERS` to `https://<NETSODY_SP_DOMAIN>`. Set the variable to a comma-separated or whitespace-separated list of plain HTTPS URLs to use another list, for example `https://sp1.example.com,https://sp2.example.com`. Configure it before upgrading agents, which have no local Super Peer setting to fall back on.
+
+The stack publishes the super peer Prometheus listener only on `127.0.0.1:NETSODY_SP_PROMETHEUS_PORT`. The listener binds a non-loopback address inside the container, so `NETSODY_SP_PROMETHEUS_TOKEN` is required and `netsody-sp` refuses to start without it. Scrapes authorize with `Authorization: Bearer <token>`. Because the listener uses plain HTTP, place a TLS-terminating proxy in front of it before scraping across a network.
 
 Pocket ID does not provide the Authentik invitation API used by the optional controller invitation automation. Leave `AUTHENTIK_BASE_URL`, `AUTHENTIK_TOKEN`, and `AUTHENTIK_INVITATION_FLOW_ID` empty unless you intentionally integrate Authentik for invitations. With Pocket ID, an admin must create users in Pocket ID first. Each user must then sign in to the Netsody controller once before they can be added to an existing Netsody network.
 
@@ -267,19 +284,20 @@ The super peer should accept TCP and UDP traffic on:
 
 ## Configure agents
 
-The dashboard shows the exact `netsody login` command for your configured controller, OIDC provider, agent client ID, and super peers.
+The dashboard shows the exact `netsody login` command for your configured controller, OIDC provider, and agent client ID.
 
-To configure an agent by hand, run the same login command:
+To configure an agent by hand, run the same login command with root privileges on Linux or macOS:
 
 ```bash
-netsody login \
+sudo netsody login \
   --controller https://<NETSODY_CONTROLLER_DOMAIN>/api \
   --auth-url https://id.example.com \
-  --auth-client-id <agent-client-id> \
-  --super-peer https://<NETSODY_SP_DOMAIN>/
+  --auth-client-id <agent-client-id>
 ```
 
-Repeat `--super-peer` to configure more than one super peer. The command stores the controller, OIDC, and super peer settings in the local agent config before starting the browser login flow. The controller, super peer list, and OIDC settings can be changed independently; `--auth-url` and `--auth-client-id` must always be supplied together.
+On Windows, run `netsody login` with the same arguments from an elevated prompt. The command stores the controller and OIDC settings in the local agent configuration before starting the browser login flow. The controller and OIDC settings can be changed independently; `--auth-url` and `--auth-client-id` must always be supplied together.
+
+Super Peers are not configured on the agent. They come from each network's configuration, which this deployment controls through `NETSODY_SUPER_PEERS`. The removed `--super-peer` login option and local `super_peers` setting are not accepted.
 
 ## Node geolocation (optional)
 

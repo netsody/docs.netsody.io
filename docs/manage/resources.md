@@ -45,7 +45,9 @@ Resources require explicit policies. A node does not gain access only because it
 
 ## Implementation details
 
-The agent includes a gateway component for IPv4 resources. On Linux, IP forwarding on gateway nodes is implemented in the kernel with iptables. On other platforms, the agent uses a userspace implementation for IPv4 TCP, UDP, and ICMP forwarding.
+The agent includes a gateway component for IPv4 resources. On Linux, it probes for native nftables support for access filtering, NAT, and forwarding. It falls back to iptables and then to a userspace implementation where necessary. Other platforms use the userspace implementation for IPv4 TCP, UDP, and ICMP forwarding.
+
+For routes with interchangeable gateways, a manually managed network can define a pool with `[[route.gateway]]`. Each client selects an eligible live gateway using its connection class and round-trip time, and moves to another pool member when the active connection dies. See [Gateway pools and exit nodes](../other/manually-managed-networks.mdx#gateway-pools-and-exit-nodes).
 
 Before creating a resource, verify that the gateway can reach the destination locally.
 
