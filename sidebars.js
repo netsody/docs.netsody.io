@@ -29,7 +29,7 @@ const sidebars = {
       label: 'Manage',
       link: {
         type: 'generated-index',
-        description: 'Manage nodes, groups, policies, resources, service exposures, users, and join keys in the Netsody controller.',
+        description: 'Manage nodes, groups, policies, resources, users, and join keys in the Netsody controller.',
         slug: '/manage',
       },
       items: [
@@ -37,7 +37,6 @@ const sidebars = {
         'manage/groups',
         'manage/policies',
         'manage/resources',
-        'manage/service-exposures',
         'manage/users',
         'manage/join-keys',
       ],

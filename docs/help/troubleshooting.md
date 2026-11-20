@@ -60,7 +60,7 @@ The default capture lasts one minute. Use `--duration <DURATION>` to change it, 
 sudo netsody bundle upload
 ```
 
-Quote the returned bundle ID when contacting support. Uploads go only to the built-in Netsody support service; there is no option to supply another upload URL. See the [support-bundle upload limits](../manage/service-exposures.md#support-bundle-upload-service) when deploying that service.
+Quote the returned bundle ID when contacting support. Uploads go only to the built-in Netsdy support service; there is no option to supply another upload URL.
 
 ## Support
 

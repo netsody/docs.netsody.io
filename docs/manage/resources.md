@@ -7,8 +7,6 @@ description: Manage access to private resources, services, and remote networks.
 
 Resources allow Netsody nodes to reach private systems through a gateway node. Use them when the target system cannot run the Netsody agent itself, or when you need access to a subnet, address, or private service behind a Netsody node.
 
-To publish an HTTP, TLS, or TCP service to clients outside Netsody, use a [service exposure](service-exposures.md) instead.
-
 <figure>
   <img src="/img/resources-list.jpeg" alt="Netsody controller Resources page showing destinations, gateways, groups, and resource types" />
   <figcaption>The Resources view lists each destination, the gateway node that forwards traffic, the groups used for access policies, and the resource type.</figcaption>
